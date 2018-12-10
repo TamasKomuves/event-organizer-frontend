@@ -1,0 +1,13 @@
+<div class="notification border shadow" style="padding: 2%; margin-left: 25%; margin-right: 25%; margin-bottom: 3%;">
+  <div class="small font-weight-bold" style="text-align: right;"> {{ sentDate }} </div>
+  <div class="form-control-static">
+    {{ text }}
+  </div>
+  <div id="result" class="large">
+    {{ result }}
+  </div>
+  <div *ngIf="isShowButtons()">
+    <button type="button" class="btn btn-outline-success" (click)="acceptInvitation()">Accept</button>
+    <button type="button" class="btn btn-outline-danger" (click)="declineInvitation()">Decline</button>
+  </div>
+</div>

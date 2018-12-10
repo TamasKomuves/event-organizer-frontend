@@ -1,0 +1,44 @@
+<h1 style="margin-bottom: 3%;"> {{ name }} </h1>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-3">
+      <div class="participant-div shadow p-3 mb-5 bg-white rounded border border-dark">
+        <strong>Participants</strong>
+        <ul *ngFor="let participant of participants" style="margin-top: 3%;">
+          <li> {{ participant.firstName }} {{ participant.lastName }} </li>
+        </ul>
+         <br> <br>
+         <input type="text" class="form-control" [(ngModel)]="invitedUserEmail" placeholder="User's email">
+        <button type="button" class="btn btn-outline-dark btn-sm" (click)="inviteUser()">Add new participant</button> <br> <br>
+        <!-- <button type="button" class="btn btn-outline-dark btn-sm">View requests</button> -->
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+      <div style="margin-bottom: 12%;">
+        <div class="md-form">
+          <textarea type="text" [(ngModel)]="newPost" class="md-textarea form-control" rows="3" placeholder="Write a post..."></textarea>
+        </div>
+        <button type="button" class="btn btn-dark btn-sm" (click)="sendPost()">Send</button>
+        <!-- <button type="button" class="btn btn-dark btn-sm">Create poll</button> -->
+      </div>
+      <div *ngFor="let post of posts">
+        <app-post-block [postId]="post.id"></app-post-block>
+      </div>
+    </div>
+
+    <div class="col-sm-3">
+      <div class="info-div">
+        <div class="shadow p-3 mb-5 bg-white rounded border border-dark">
+          <p class=""><strong>Event info:</strong></p>
+          <p><strong>Name:</strong> {{ name }}</p>
+          <p><strong>Type:</strong> {{ type }}</p>
+          <p><strong>Date:</strong> {{ date }}</p>
+          <p><strong>Description:</strong> {{ description }}</p>
+          <!-- <button type="button" class="btn btn-outline-dark btn-sm">Modify</button>
+          <button type="button" class="btn btn-danger btn-sm">Delete event</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+<h1 style="margin-bottom: 3%;">Events</h1>
+<div class="container" style="text-align: left; margin-left: 5%;">
+  <div class="row">
+    <div class="col-sm-3">
+    <!--
+      <div class="border" style="padding: 5%;">
+        Search events by type <br>
+        <select class="custom-select">
+          <option selected>All</option>
+          <option value="Sport">Sport</option>
+          <option value="Trip">Trip</option>
+          <option value="Party">Party</option>
+        </select>
+        <button type="button" class="btn btn-outline-primary" id="search-button">Go</button> <br>
+        Events to show
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="customCheck1">
+          <label class="custom-control-label" for="customCheck1">Only where participate</label>
+        </div>
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="customCheck2">
+          <label class="custom-control-label" for="customCheck2">Only public events</label>
+        </div>
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="customCheck3">
+          <label class="custom-control-label" for="customCheck3">Only own events</label>
+        </div>
+      </div>
+      -->
+    </div>
+    <div class="col-sm">
+      <div *ngFor="let event of events">
+        <app-event-block [eventId]="event.id"></app-event-block>
+      </div>
+    </div>
+  </div>
+</div>

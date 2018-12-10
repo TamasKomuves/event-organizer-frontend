@@ -1,0 +1,38 @@
+<div class="container border shadow" style="padding: 2%; margin-bottom: 2%;">
+  <div class="row">
+    <div class="col-sm">
+      <strong>Event name:</strong> {{ name }}
+    </div>
+    <div class="col-sm">
+      <strong>Date:</strong> {{ date }}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm">
+      <strong>Organizer:</strong> {{ organizerName }}
+    </div>
+    <div class="col-sm">
+      <!-- <strong>Number of participants:</strong> {{ numberOfParticipants }} -->
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm">
+      <strong>Type:</strong> {{ type }}
+    </div>
+    <div class="col-sm">
+       <!-- <strong>Location:</strong> {{ location }} -->
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm">
+      <strong>Visibility:</strong> {{ visibility }}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm event-buttons">
+      <button type="submit" class="btn btn-outline-dark sign-in-button btn-sm" (click)="showEventDetails()">Show event details</button>
+      <button type="submit" class="btn btn-outline-dark sign-in-button btn-sm" *ngIf="!isPublic  && !isParticipate">Request invitation</button>
+      <button type="submit" class="btn btn-outline-dark sign-in-button btn-sm" *ngIf="isPublic && !isParticipate" (click)="joinEvent()">Join</button>
+    </div>
+  </div>
+</div>
