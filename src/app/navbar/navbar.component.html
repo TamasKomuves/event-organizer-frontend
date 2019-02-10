@@ -1,4 +1,4 @@
-<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark" *ngIf="isLoggedIn">
   <a class="navbar-brand text-light">Event organizer</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -8,16 +8,16 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="home">Home <span class="sr-only">(current)</span></a>
+        <button class="btn btn-link nav-link" type="button" (click)="showHome()">Home</button>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="show-events">Events</a>
+        <button class="btn btn-link nav-link" type="button" (click)="showEvents()">Events</button>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="create-event">Create event</a>
+        <button class="btn btn-link nav-link" type="button" (click)="showCreateEvent()">Create event</button>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="notifications">Notifications</a>
+        <button class="btn btn-link nav-link" type="button" (click)="showNotifications()">Notifications</button>
       </li>
       <li class="nav-item dropdown my-2 my-lg-0">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
@@ -25,9 +25,9 @@
           Profile
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <!-- <a class="dropdown-item" href="profile-settings">Settings</a> -->
+          <a class="dropdown-item" href="profile-settings">Settings</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="login">Logout</a>
+          <button class="dropdown-item" type="button" (click)="logout()">Logout</button>
         </div>
       </li>
     </ul>
