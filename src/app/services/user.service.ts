@@ -13,9 +13,6 @@ export class UserService {
   login(email: string, password: string) {
     let user = { email: email, password: password };
 
-    const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-
     return this.httpClient.get(this.SERVER_LINK + 'users/login/' + email + '/' + password);
   }
 
@@ -126,9 +123,9 @@ export class UserService {
   getInvitationById(invitationId: string) {
     return this.httpClient.get(this.SERVER_LINK + 'invitations/' + invitationId);
   }
-  
+
   createInvitation(eventId: number, userEmail: string, isUserRequested: number) {
-  	return this.httpClient.get(this.SERVER_LINK + 'invitations/create/' + eventId + '/' + userEmail + '/' + isUserRequested);
+    return this.httpClient.get(this.SERVER_LINK + 'invitations/create/' + eventId + '/' + userEmail + '/' + isUserRequested);
   }
 }
 

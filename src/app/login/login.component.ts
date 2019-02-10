@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-    this.userService.login(this.email, this.password).subscribe(data => { 
+    this.userService.login(this.email, this.password).subscribe(data => {
       if (data['result'] == 'success') {
         this.router.navigateByUrl('/home');
         this.messageService.sendLoggedInMessage(true);
@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
         return;
       }
     }, error => {
-    	console.log(error);
+      console.log(error);
     });
   }
 
