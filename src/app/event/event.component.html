@@ -10,7 +10,7 @@
          <br> <br>
          <input type="text" class="form-control" [(ngModel)]="invitedUserEmail" placeholder="User's email">
         <button type="button" class="btn btn-outline-dark btn-sm" (click)="inviteUser()">Add new participant</button> <br> <br>
-        <!-- <button type="button" class="btn btn-outline-dark btn-sm">View requests</button> -->
+        <button type="button" class="btn btn-outline-dark btn-sm">View requests</button>
       </div>
     </div>
 
@@ -20,7 +20,7 @@
           <textarea type="text" [(ngModel)]="newPost" class="md-textarea form-control" rows="3" placeholder="Write a post..."></textarea>
         </div>
         <button type="button" class="btn btn-dark btn-sm" (click)="sendPost()">Send</button>
-        <!-- <button type="button" class="btn btn-dark btn-sm">Create poll</button> -->
+        <button type="button" class="btn btn-dark btn-sm">Create poll</button>
       </div>
       <div *ngFor="let post of posts">
         <app-post-block [postId]="post.id"></app-post-block>
@@ -35,8 +35,8 @@
           <p><strong>Type:</strong> {{ type }}</p>
           <p><strong>Date:</strong> {{ date }}</p>
           <p><strong>Description:</strong> {{ description }}</p>
-          <!-- <button type="button" class="btn btn-outline-dark btn-sm">Modify</button>
-          <button type="button" class="btn btn-danger btn-sm">Delete event</button> -->
+          <button type="button" class="btn btn-outline-dark btn-sm">Modify</button>
+          <button type="button" class="btn btn-danger btn-sm">Delete event</button>
         </div>
       </div>
     </div>
