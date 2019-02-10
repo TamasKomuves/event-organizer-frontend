@@ -25,6 +25,7 @@ export class PostBlockComponent implements OnInit {
     this.isShowComments = false;
     this.isAnyComment = false;
     this.numberOfLikes = 0;
+    this.isCurrentUserLiked = true;
 
     this.userService.getPostById(this.postId).subscribe(data => {
       this.text = data['text'];
@@ -52,11 +53,6 @@ export class PostBlockComponent implements OnInit {
         });
       });
     });
-
-    /*this.text = "asdasdasda sdasfsfsdfs dfsdfsdf\nsdfsdsdfsdfsdfsdfsdfsd\nfsdffsdfsdfsda\n";
-    this.numberOfLikes = 20;
-    this.posterName = "Gavin Joel";
-    this.date = "2018-08-04 16:20";*/
   }
 
   setIsShowComments(isShowComments: boolean): void {
@@ -68,9 +64,9 @@ export class PostBlockComponent implements OnInit {
   }
 
   likePost(): void {
+    this.isCurrentUserLiked = true;
     this.userService.getCurrentUser().subscribe(data => {
       this.userService.createLikesPost(data['email'], this.postId).subscribe(data2 => {
-        this.isCurrentUserLiked = true;
         this.numberOfLikes++;
       });
     });
