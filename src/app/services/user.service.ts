@@ -19,6 +19,10 @@ export class UserService {
     return this.httpClient.get(this.SERVER_LINK + 'users/login/' + email + '/' + password);
   }
 
+  logout() {
+    return this.httpClient.get(this.SERVER_LINK + 'users/logout');
+  }
+
   getCurrentUser() {
     return this.httpClient.get(this.SERVER_LINK + 'users/current-user');
   }
