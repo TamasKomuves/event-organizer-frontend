@@ -1,6 +1,6 @@
 <div class="shadow p-3 mb-5 bg-white rounded border" style="text-align: right;">
   <div class="small font-weight-bold">
-    {{ posterName }}: {{ date }}
+    {{ posterName }}: {{ date | date: 'yyyy-MM-dd hh:mm:ss' }}
   </div>
   <div class="form-control-static border border-dark" style="text-align: left; padding: 1%; margin: 1%;">
     {{ text }}

@@ -4,7 +4,7 @@
       <strong>Event name:</strong> {{ name }}
     </div>
     <div class="col-sm">
-      <strong>Date:</strong> {{ date }}
+      <strong>Date:</strong> {{ date | date: 'yyyy-MM-dd hh:mm' }}
     </div>
   </div>
   <div class="row">
