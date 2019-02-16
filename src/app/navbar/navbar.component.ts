@@ -48,4 +48,8 @@ export class NavbarComponent implements OnInit {
   showNotifications(): void {
     this.router.navigateByUrl('/notifications');
   }
+
+  showSettings(): void {
+    this.router.navigateByUrl('/profile-settings');
+  }
 }
