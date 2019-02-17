@@ -47,10 +47,8 @@
       </div>
       <div class="col-sm-6">
         <select class="form-control" [(ngModel)]="visibility" name="visibility">
-          <option value="" selected disabled>Visibility</option>
-          <option value="public">public</option>
-          <option value="restricted">restricted</option>
-          <option value="private">private</option>
+          <option [value]="" disabled>Visibility</option>
+          <option [value]="visibility" *ngFor="let visibility of visibilities">{{ visibility }}</option>
         </select>
       </div>
     </div>
