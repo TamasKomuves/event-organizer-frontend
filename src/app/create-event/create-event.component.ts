@@ -26,11 +26,6 @@ export class CreateEventComponent implements OnInit {
   ngOnInit() { }
 
   createEvent(): void {
-    if (this.visibility == 'visibility') {
-      alert('Please select a visibility!');
-      return;
-    }
-
     this.userService.getCurrentUser().subscribe(user => {
       this.userService.createEvent(this.name, this.description, this.maxParticipants, this.visibility, this.estimatedCost, '2018-08-08', 2, this.type, user['email']).subscribe(respond => {
         alert('Event created!');
