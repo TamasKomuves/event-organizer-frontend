@@ -44,11 +44,6 @@ export class NotificationBlockComponent implements OnInit {
         this.result = 'has been sent';
       }
     });
-
-    /*this.isAccepted = false;
-    this.isUserRequested = true;
-    this.sentDate = '2018-08-04 12:00';
-    this.decisionDate = null;*/
   }
 
   initText(): string {

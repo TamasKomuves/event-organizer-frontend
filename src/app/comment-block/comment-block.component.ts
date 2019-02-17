@@ -32,10 +32,5 @@ export class CommentBlockComponent implements OnInit {
           this.numberOfLikes = likers.length;
       });
     });
-
-    /* this.text = "asdasdasda sdasfsfsdfs dfsdfsdf\nsdfsdsdfsdfsdfsdfsdfsd\nfsdffsdfsdfsda\n";
-    this.numberOfLikes = 4;
-    this.commenterName = "John Smith";
-    this.date = "2018-08-04 16:27"; */
   }
 }

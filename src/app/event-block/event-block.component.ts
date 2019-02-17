@@ -42,7 +42,6 @@ export class EventBlockComponent implements OnInit {
     
     this.userService.getCurrentUser().subscribe(data2 => {
 		this.userService.isUserParticipateInEvent(this.eventId, data2['email']).subscribe(data3 => {
-			console.log(data3['result']);
 			this.isParticipate = data3['result'] == 'true';
 		});
 	});

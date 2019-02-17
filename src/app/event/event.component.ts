@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../services/user.service';
 
@@ -40,11 +40,6 @@ export class EventComponent implements OnInit {
     this.userService.getEventParticipants(this.eventId).subscribe(data => {
       this.participants = data;
     });
-
-    /* this.name = "Football event asdasd asd as da s";
-    this.type = "Sport";
-    this.date = "2018-04-08 16:00"; 
-    this.participants = ["Valaki1", "Valaki2", "Valaki3", "Valaki4", "Valaki5"]; */
   }
 
   sendPost(): void {
