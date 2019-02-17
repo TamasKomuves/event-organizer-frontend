@@ -54,17 +54,17 @@ export class NotificationBlockComponent implements OnInit {
   isShowButtons(): boolean {
     return this.decisionDate == null && !this.isUserRequested;
   }
-  
+
   acceptInvitation(): void {
-  	this.userService.answerToInvitation(this.invitationId, 1).subscribe(data => {
-  		
-  	});
+    this.userService.answerToInvitation(this.invitationId, 1).subscribe(data => {
+
+    });
   }
-  
+
   declineInvitation(): void {
-  	this.userService.answerToInvitation(this.invitationId, 0).subscribe(data => {
-  		
-  	});
+    this.userService.answerToInvitation(this.invitationId, 0).subscribe(data => {
+
+    });
   }
 
 }

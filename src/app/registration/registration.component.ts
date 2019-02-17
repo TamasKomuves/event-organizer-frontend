@@ -32,21 +32,20 @@ export class RegistrationComponent implements OnInit {
 
     if (this.email == undefined || this.firstname == undefined || this.lastname == undefined || this.password == undefined || this.country == undefined || this.city == undefined || this.street == undefined || this.streetNumber == undefined) {
       alert('Please fill the fields!');
-      	return;
+      return;
     }
 
     this.userService.register(this.email, this.password, this.firstname, this.lastname, this.country, this.city, this.street, this.streetNumber).subscribe(data => {
-    	console.log(data);
-		if (data['result'] == 'success') {
-      alert('success');
-      this.router.navigateByUrl('/login');
-		} else if (data['result'] == 'exists') {
-			alert('This email is already registered');
-		}
+      console.log(data);
+      if (data['result'] == 'success') {
+        alert('success');
+        this.router.navigateByUrl('/login');
+      } else if (data['result'] == 'exists') {
+        alert('This email is already registered');
+      }
     }, error => {
-    	alert(error);
+      alert(error);
     }
     );
   }
-
 }

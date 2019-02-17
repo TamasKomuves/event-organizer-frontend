@@ -11,14 +11,15 @@
     </span>
     <button type="button" class="btn btn-info btn-sm" [disabled]="isCurrentUserLiked" (click)="likePost()">Like</button>
     <div *ngIf="!isShowComments" style="text-align: left;">
-      <button type="button" *ngIf="isAnyComment" class="btn btn-outline-dark btn-sm" (click)="setIsShowComments(true)" style="margin-right: 2%;">Show
+      <button type="button" *ngIf="isAnyComment" class="btn btn-outline-dark btn-sm" (click)="setIsShowComments(true)"
+        style="margin-right: 2%;">Show
         comments</button>
       <button type="button" class="btn btn-outline-dark btn-sm">Comment</button>
     </div>
     <div *ngIf="isShowComments">
       <div style="margin-bottom: 4%;">
         <div *ngFor="let comment of comments">
-            <app-comment-block [commentId]="comment.id"></app-comment-block>
+          <app-comment-block [commentId]="comment.id"></app-comment-block>
         </div>
       </div>
       <button type="button" class="btn btn-outline-dark btn-sm" (click)="setIsShowComments(false)" style="margin-right: 2%;">Hide

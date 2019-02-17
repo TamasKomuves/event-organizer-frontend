@@ -14,7 +14,7 @@ export class CommentBlockComponent implements OnInit {
   commenterName: string;
   date: string;
   numberOfLikes: number;
-  
+
   constructor(private userService: UserService) { }
 
   ngOnInit() {
@@ -27,9 +27,9 @@ export class CommentBlockComponent implements OnInit {
         this.commenterName = data2['firstName'] + ' ' + data2['lastName'];
       });
       this.userService.getCommentLikes(this.commentId).subscribe(data => {
-          var likers: any;
-          likers = data;
-          this.numberOfLikes = likers.length;
+        var likers: any;
+        likers = data;
+        this.numberOfLikes = likers.length;
       });
     });
   }
