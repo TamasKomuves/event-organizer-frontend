@@ -4,9 +4,10 @@
     <div class="col-sm-3">
       <div class="participant-div shadow p-3 mb-5 bg-white rounded border border-dark">
         <strong>Participants</strong>
-        <ul *ngFor="let participant of participants" style="margin-top: 3%;">
+        <ul *ngFor="let participant of participants | slice:0:5;" style="margin-top: 3%;">
           <li> {{ participant.firstName }} {{ participant.lastName }} </li>
         </ul>
+        <button type="button" class="btn btn-outline-dark btn-sm">Show all participants</button>
          <br> <br>
          <input type="text" class="form-control" [(ngModel)]="invitedUserEmail" placeholder="User's email">
         <button type="button" class="btn btn-outline-dark btn-sm" (click)="inviteUser()">Add new participant</button> <br> <br>
