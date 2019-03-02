@@ -36,7 +36,6 @@ export class RegistrationComponent implements OnInit {
     }
 
     this.userService.register(this.email, this.password, this.firstname, this.lastname, this.country, this.city, this.street, this.streetNumber).subscribe(data => {
-      console.log(data);
       if (data['result'] == 'success') {
         alert('success');
         this.router.navigateByUrl('/login');

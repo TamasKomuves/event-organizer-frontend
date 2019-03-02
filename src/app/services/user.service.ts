@@ -61,7 +61,6 @@ export class UserService {
   }
 
   createPost(eventId: number, userEmail: string, text: string) {
-    console.log(this.SERVER_LINK + 'posts/create/' + eventId + '/' + userEmail + '/' + text);
     return this.httpClient.get(this.SERVER_LINK + 'posts/create/' + eventId + '/' + userEmail + '/' + text);
   }
 
