@@ -13,30 +13,40 @@ export class NotificationBlockComponent implements OnInit {
   eventId: string;
   sentDate: string;
   decisionDate: string;
+  dateToShow: string;
   text: string;
   result: string;
   isAccepted: number;
   isUserRequested: number;
   isShowButtons = false;
+  eventName: string;
 
   constructor(private userService: UserService) { }
 
   ngOnInit() {
-    this.userService.getInvitationById(this.invitationId).subscribe(data => {
-      this.isAccepted = data['isAccepted'];
-      this.isUserRequested = data['isUserRequested'];
-      this.sentDate = data['sentDate'];
-      this.decisionDate = data['decisionDate'];
+    this.initNotification();
+  }
 
-      this.text = this.initText();
-      this.result = this.calculateResult();
-      this.isShowButtons = this.shouldShowButtons();
+  initNotification(): void {
+    this.userService.getInvitationById(this.invitationId).subscribe(invitation => {
+      this.isAccepted = invitation['isAccepted'];
+      this.isUserRequested = invitation['isUserRequested'];
+      this.sentDate = invitation['sentDate'];
+      this.decisionDate = invitation['decisionDate'];
+      this.dateToShow = this.decisionDate != null ? this.decisionDate : this.sentDate;
+
+      this.userService.getEventById(invitation['eventId']).subscribe(event => {
+        this.eventName = event['name'];
+        this.text = this.initText();
+        this.result = this.calculateResult();
+        this.isShowButtons = this.shouldShowButtons();
+      });
     });
   }
 
   initText(): string {
-    return !this.isUserRequested ? 'You have been invited to Football fans conference!' :
-      'Your request for join Football fans conference';
+    return !this.isUserRequested ? 'You have been invited to ' + this.eventName + '!' :
+      'Your request for join ' + this.eventName;
   }
 
   calculateResult(): string {
@@ -63,14 +73,16 @@ export class NotificationBlockComponent implements OnInit {
   }
 
   acceptInvitation(): void {
+    this.isShowButtons = false;
     this.userService.answerToInvitation(this.invitationId, 1).subscribe(data => {
-      this.isShowButtons = this.shouldShowButtons();
+      this.initNotification();
     });
   }
 
   declineInvitation(): void {
-    this.userService.answerToInvitation(this.invitationId, 0).subscribe(data => {
-      this.isShowButtons = this.shouldShowButtons();
+    this.isShowButtons = false;
+    this.userService.answerToInvitation(this.invitationId, 0).subscribe(data => { 
+      this.initNotification();
     });
   }
 
