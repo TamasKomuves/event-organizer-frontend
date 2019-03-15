@@ -36,7 +36,7 @@ export class CreateEventComponent implements OnInit {
     this.isCreateButtonClickable = false;
     this.userService.getCurrentUser().subscribe(user => {
       this.userService.createAddress(this.country, this.city, this.street, this.streetNumber).subscribe(result => {
-        this.userService.createEvent(this.name, this.description, this.maxParticipants, this.visibility, this.estimatedCost, '2018-08-08', result['addressId'], this.type, user['email']).subscribe(respond => {
+        this.userService.createEvent(this.name, this.description, this.maxParticipants, this.visibility, this.estimatedCost, this.eventDate + ':00', result['addressId'], this.type, user['email']).subscribe(respond => {
           alert('Event created!');
           this.resetInputFields();
           this.isCreateButtonClickable = true;
@@ -56,7 +56,8 @@ export class CreateEventComponent implements OnInit {
   isAllInputValid(): boolean {
     return this.isNonEmptyString(this.name) && this.isNonEmptyString(this.type) && this.isNonEmptyString(this.country)
       && this.isNonEmptyString(this.city) && this.isNonEmptyString(this.street) && this.isNonEmptyString(this.streetNumber)
-      && this.isNonEmptyString(this.description) && this.isValidInteger(this.maxParticipants) && this.isValidInteger(this.estimatedCost);
+      && this.isNonEmptyString(this.description) && this.isValidInteger(this.maxParticipants) && this.isValidInteger(this.estimatedCost)
+      && this.isDateValid();
   }
 
   isNonEmptyString(text: string): boolean {
@@ -65,6 +66,13 @@ export class CreateEventComponent implements OnInit {
 
   isValidInteger(num: any): boolean {
     return this.isNonEmptyString(num) && Number.isInteger(+num);
+  }
+
+  // TODO full date validation
+  isDateValid(): boolean {
+    let regexp: RegExp = /^(\d{4}-[01]\d-[0-3]\d [0-2]\d:[0-5]\d)$/;
+
+    return this.isNonEmptyString(this.eventDate) && regexp.test(this.eventDate);
   }
 
   resetInputFields(): void {
