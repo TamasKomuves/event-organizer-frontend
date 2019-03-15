@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'app-create-event',
@@ -10,8 +11,8 @@ export class CreateEventComponent implements OnInit {
 
   name: string;
   type: string;
-  maxParticipants: number;
-  estimatedCost: number;
+  maxParticipants: any;
+  estimatedCost: any;
   country: string;
   city: string;
   street: string;
@@ -27,10 +28,15 @@ export class CreateEventComponent implements OnInit {
   ngOnInit() { }
 
   createEvent(): void {
+    if (!this.isAllInputValid()) {
+      alert('Please fill in all fields!');
+      return;
+    }
+
     this.isCreateButtonClickable = false;
     this.userService.getCurrentUser().subscribe(user => {
       this.userService.createAddress(this.country, this.city, this.street, this.streetNumber).subscribe(result => {
-        this.userService.createEvent(this.name, this.description, this.maxParticipants, this.visibility, this.estimatedCost, '2018-08-08', 2, this.type, user['email']).subscribe(respond => {
+        this.userService.createEvent(this.name, this.description, this.maxParticipants, this.visibility, this.estimatedCost, '2018-08-08', result['addressId'], this.type, user['email']).subscribe(respond => {
           alert('Event created!');
           this.resetInputFields();
           this.isCreateButtonClickable = true;
@@ -45,6 +51,20 @@ export class CreateEventComponent implements OnInit {
       alert('Event creation failed!');
       this.isCreateButtonClickable = true;
     });
+  }
+
+  isAllInputValid(): boolean {
+    return this.isNonEmptyString(this.name) && this.isNonEmptyString(this.type) && this.isNonEmptyString(this.country)
+      && this.isNonEmptyString(this.city) && this.isNonEmptyString(this.street) && this.isNonEmptyString(this.streetNumber)
+      && this.isNonEmptyString(this.description) && this.isValidInteger(this.maxParticipants) && this.isValidInteger(this.estimatedCost);
+  }
+
+  isNonEmptyString(text: string): boolean {
+    return !isNullOrUndefined(text) && text !== '';
+  }
+
+  isValidInteger(num: any): boolean {
+    return this.isNonEmptyString(num) && Number.isInteger(+num);
   }
 
   resetInputFields(): void {
