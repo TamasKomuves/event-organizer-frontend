@@ -38,7 +38,7 @@
           <p><strong>Date:</strong> {{ date | date: 'yyyy-MM-dd hh:mm' }}</p>
           <p><strong>Description:</strong> {{ description }}</p>
           <button type="button" class="btn btn-outline-dark btn-sm">Modify</button>
-          <button type="button" class="btn btn-danger btn-sm">Delete event</button>
+          <button type="button" class="btn btn-danger btn-sm" *ngIf="isOrganizer">Delete event</button>
         </div>
       </div>
     </div>

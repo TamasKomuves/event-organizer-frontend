@@ -18,6 +18,7 @@ export class EventComponent implements OnInit {
   posts: any;
   newPost: string;
   invitedUserEmail: string;
+  isOrganizer = false;
 
   constructor(private userService: UserService, private route: ActivatedRoute) { }
 
@@ -25,11 +26,14 @@ export class EventComponent implements OnInit {
     const eventIdJson = this.route.snapshot.queryParamMap.get('eventId');
     this.eventId = JSON.parse(eventIdJson);
 
-    this.userService.getEventById(this.eventId).subscribe(data => {
-      this.name = data['name'];
-      this.type = data['eventType'];
-      this.date = data['eventDate'];
-      this.description = data['description'];
+    this.userService.getEventById(this.eventId).subscribe(event => {
+      this.name = event['name'];
+      this.type = event['eventType'];
+      this.date = event['eventDate'];
+      this.description = event['description'];
+      this.userService.getCurrentUser().subscribe(user => {
+        this.isOrganizer = event['organizerEmail'] === user['email'];
+      });
     });
 
     this.userService.getEventPosts(this.eventId).subscribe(data => {
