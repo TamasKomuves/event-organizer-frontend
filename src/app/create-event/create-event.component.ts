@@ -20,29 +20,38 @@ export class CreateEventComponent implements OnInit {
   eventDate: string;
   visibilities = ['public', 'restricted', 'private'];
   visibility = this.visibilities[0];
+  isCreateButtonClickable = true;
 
   constructor(private userService: UserService) { }
 
   ngOnInit() { }
 
   createEvent(): void {
+    this.isCreateButtonClickable = false;
     this.userService.getCurrentUser().subscribe(user => {
-      this.userService.createEvent(this.name, this.description, this.maxParticipants, this.visibility, this.estimatedCost, '2018-08-08', 2, this.type, user['email']).subscribe(respond => {
-        alert('Event created!');
-        this.resetInputFields();
-      }, error => {
-        console.log(error);
+      this.userService.createAddress(this.country, this.city, this.street, this.streetNumber).subscribe(result => {
+        this.userService.createEvent(this.name, this.description, this.maxParticipants, this.visibility, this.estimatedCost, '2018-08-08', 2, this.type, user['email']).subscribe(respond => {
+          alert('Event created!');
+          this.resetInputFields();
+          this.isCreateButtonClickable = true;
+        }, error => {
+          console.log(error);
+          alert('Event creation failed!');
+          this.isCreateButtonClickable = true;
+        });
       });
     }, error => {
       console.log(error);
+      alert('Event creation failed!');
+      this.isCreateButtonClickable = true;
     });
   }
 
   resetInputFields(): void {
     this.name = '';
     this.type = '';
-    this.maxParticipants = 0;
-    this.estimatedCost = 0;
+    this.maxParticipants = null;
+    this.estimatedCost = null;
     this.country = '';
     this.city = '';
     this.street = '';
