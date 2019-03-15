@@ -49,7 +49,7 @@ export class PostBlockComponent implements OnInit {
       this.userService.getCurrentUser().subscribe(data => {
         let email = data['email'];
         this.userService.isLikedPost(this.postId, email).subscribe(data2 => {
-          this.isCurrentUserLiked = data2['result'] == 'true';
+          this.isCurrentUserLiked = data2['result'] === 'true';
         });
       });
     });

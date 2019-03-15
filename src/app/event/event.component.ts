@@ -47,7 +47,7 @@ export class EventComponent implements OnInit {
   }
 
   sendPost(): void {
-    if (this.newPost == '' || this.newPost == null || this.newPost == undefined) {
+    if (this.newPost === '' || this.newPost === null || this.newPost === undefined) {
       alert('Empty post');
       return;
     }
@@ -68,7 +68,7 @@ export class EventComponent implements OnInit {
   }
 
   inviteUser(): void {
-    if (this.invitedUserEmail == '' || this.invitedUserEmail == null || this.invitedUserEmail == undefined) {
+    if (this.invitedUserEmail === '' || this.invitedUserEmail === null || this.invitedUserEmail === undefined) {
       alert('Please fill the email field!');
       return;
     }

@@ -53,23 +53,23 @@ export class NotificationBlockComponent implements OnInit {
     let result = '';
 
     if (this.decisionDate != null) {
-      if (this.isUserRequested == 1 && this.isAccepted == 1) {
+      if (this.isUserRequested === 1 && this.isAccepted === 1) {
         result = 'has been accepted';
-      } else if (this.isUserRequested == 1) {
+      } else if (this.isUserRequested === 1) {
         result = 'has been declined';
-      } else if (this.isAccepted == 1) {
+      } else if (this.isAccepted === 1) {
         result = 'You accepted the invitation';
       } else {
         result = 'You declined the invitation';
       }
-    } else if (this.isUserRequested == 1) {
+    } else if (this.isUserRequested === 1) {
       result = 'has been sent';
     }
     return result;
   }
 
   shouldShowButtons(): boolean {
-    return this.decisionDate == null && this.isUserRequested == 0;
+    return this.decisionDate === null && this.isUserRequested === 0;
   }
 
   acceptInvitation(): void {

@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
 
   login(): void {
     this.userService.login(this.email, this.password).subscribe(data => {
-      if (data['result'] == 'success') {
+      if (data['result'] === 'success') {
         this.router.navigateByUrl('/home');
         this.messageService.sendLoggedInMessage(true);
       } else {

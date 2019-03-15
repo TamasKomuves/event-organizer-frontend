@@ -36,13 +36,13 @@ export class EventBlockComponent implements OnInit {
         this.organizerName = data2['firstName'] + ' ' + data2['lastName'];
       });
 
-      this.isPublic = this.visibility == 'public';
+      this.isPublic = this.visibility === 'public';
       this.isShowable = this.visibility != 'private';
     });
 
     this.userService.getCurrentUser().subscribe(data2 => {
       this.userService.isUserParticipateInEvent(this.eventId, data2['email']).subscribe(data3 => {
-        this.isParticipate = data3['result'] == 'true';
+        this.isParticipate = data3['result'] === 'true';
       });
     });
   }
