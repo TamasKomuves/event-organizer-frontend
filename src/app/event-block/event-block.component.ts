@@ -50,7 +50,13 @@ export class EventBlockComponent implements OnInit {
   joinEvent(): void {
     this.userService.getCurrentUser().subscribe(data => {
       this.userService.addUserToEvent(this.eventId, data['email']).subscribe(data2 => {
-        this.router.navigate(['/event'], { queryParams: { eventId: this.eventId } });
+        if (data2['result'] === 'success') {
+          this.router.navigate(['/event'], { queryParams: { eventId: this.eventId } });
+        } else if (data2['result'] === 'no more place') {
+          alert('The event is full!');
+        } else if (data2['result'] === 'already added') {
+          alert('Already participate!');
+        }
       }, error => {
         console.log(error);
       });
