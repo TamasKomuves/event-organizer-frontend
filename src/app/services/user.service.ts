@@ -126,6 +126,10 @@ export class UserService {
   createInvitation(eventId: number, userEmail: string, isUserRequested: number) {
     return this.httpClient.get(this.SERVER_LINK + 'invitations/create/' + eventId + '/' + userEmail + '/' + isUserRequested);
   }
+
+  getAddressById(addressId: number) {
+    return this.httpClient.get(this.SERVER_LINK + 'addresses/' + addressId);
+  }
 }
 
 
