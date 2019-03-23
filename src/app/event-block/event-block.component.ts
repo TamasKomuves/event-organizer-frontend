@@ -69,6 +69,16 @@ export class EventBlockComponent implements OnInit {
     });
   }
 
+  requestInvitation(): void {
+    this.userService.getCurrentUser().subscribe(user => {
+      this.userService.createInvitation(this.eventId, user['email'], 1).subscribe(result => {
+        alert('Request sent');
+      }, error => {
+        alert('Request sending failed');
+      });
+    });
+  }
+
   showEventDetails(): void {
     this.router.navigate(['/event'], { queryParams: { eventId: this.eventId } });
   }
