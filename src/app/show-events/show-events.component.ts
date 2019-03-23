@@ -9,6 +9,8 @@ import { UserService } from '../services/user.service';
 export class ShowEventsComponent implements OnInit {
 
   events: any;
+  eventTypes: any;
+  selectedEventType: string;
 
   constructor(private userService: UserService) { }
 
@@ -16,5 +18,21 @@ export class ShowEventsComponent implements OnInit {
     this.userService.getAllEvents().subscribe(data => {
       this.events = data;
     });
+
+    this.userService.getAllEventType().subscribe(eventTypes => {
+      this.eventTypes = eventTypes;
+    });
+  }
+
+  showEventsByType(): void {
+    if (this.selectedEventType === 'all') {
+      this.userService.getAllEvents().subscribe(events => {
+        this.events = events;
+      });
+    } else {
+      this.userService.getEventsByType(this.selectedEventType).subscribe(events => {
+        this.events = events;
+      });
+    }
   }
 }

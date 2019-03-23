@@ -130,11 +130,12 @@ export class UserService {
   getAddressById(addressId: number) {
     return this.httpClient.get(this.SERVER_LINK + 'addresses/' + addressId);
   }
+
+  getAllEventType() {
+    return this.httpClient.get(this.SERVER_LINK + 'event-types/all');
+  }
+
+  getEventsByType(type: string) {
+    return this.httpClient.get(this.SERVER_LINK + 'events/type/' + type);
+  }
 }
-
-
-
-
-
-
-

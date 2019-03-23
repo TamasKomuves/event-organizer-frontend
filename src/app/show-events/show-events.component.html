@@ -4,13 +4,12 @@
     <div class="col-sm-3">
       <div class="border" style="padding: 5%;">
         Search events by type <br>
-        <select class="custom-select">
-          <option selected>All</option>
-          <option value="Sport">Sport</option>
-          <option value="Trip">Trip</option>
-          <option value="Party">Party</option>
+        <select class="custom-select" [(ngModel)]="selectedEventType">
+          <option selected>all</option>
+          <option [value]="eventType.type" *ngFor="let eventType of eventTypes">{{ eventType.type }}</option>
         </select>
-        <button type="button" class="btn btn-outline-primary" id="search-button">Go</button> <br>
+        <button type="button" class="btn btn-outline-primary" id="search-button" (click)="showEventsByType()">Go</button>
+        <br>
         Events to show
         <div class="custom-control custom-checkbox">
           <input type="checkbox" class="custom-control-input" id="customCheck1">
