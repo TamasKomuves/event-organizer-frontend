@@ -14,30 +14,36 @@ export class EventBlockComponent implements OnInit {
   name: string;
   date: string;
   organizerName: string;
-  numberOfParticipants: number;
+  numberOfParticipants: any;
   type: string;
   visibility: string;
   location: string;
   isPublic: boolean;
-  isShowable: boolean;
   isParticipate: boolean;
 
   constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit() {
 
-    this.userService.getEventById(this.eventId).subscribe(data => {
-      this.name = data['name'];
-      this.date = data['eventDate'];
-      this.type = data['eventType'];
-      this.visibility = data['visibility'];
+    this.userService.getEventById(this.eventId).subscribe(event => {
+      this.name = event['name'];
+      this.date = event['eventDate'];
+      this.type = event['eventType'];
+      this.visibility = event['visibility'];
 
-      this.userService.getUserByEmail(data['organizerEmail']).subscribe(data2 => {
-        this.organizerName = data2['firstName'] + ' ' + data2['lastName'];
+      this.userService.getEventParticipants(this.eventId).subscribe(participants => {
+        this.numberOfParticipants = Object.keys(participants).length;
+      });
+
+      this.userService.getAddressById(event['addressId']).subscribe(address => {
+        this.location = address['street'] + ' ' + address['streetNumber'] + ', ' + address['city'] + ', ' + address['country'];
+      });
+
+      this.userService.getUserByEmail(event['organizerEmail']).subscribe(user => {
+        this.organizerName = user['firstName'] + ' ' + user['lastName'];
       });
 
       this.isPublic = this.visibility === 'public';
-      this.isShowable = this.visibility != 'private';
     });
 
     this.userService.getCurrentUser().subscribe(data2 => {
