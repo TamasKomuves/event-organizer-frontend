@@ -19,7 +19,9 @@ export class EventBlockComponent implements OnInit {
   visibility: string;
   location: string;
   isPublic: boolean;
-  isParticipate: boolean;
+  isParticipate = false;
+  isHasMorePlace = false;
+  isHasRequest = true;
 
   constructor(private userService: UserService, private router: Router) { }
 
@@ -31,10 +33,6 @@ export class EventBlockComponent implements OnInit {
       this.type = event['eventType'];
       this.visibility = event['visibility'];
 
-      this.userService.getEventParticipants(this.eventId).subscribe(participants => {
-        this.numberOfParticipants = Object.keys(participants).length;
-      });
-
       this.userService.getAddressById(event['addressId']).subscribe(address => {
         this.location = address['street'] + ' ' + address['streetNumber'] + ', ' + address['city'] + ', ' + address['country'];
       });
@@ -43,7 +41,21 @@ export class EventBlockComponent implements OnInit {
         this.organizerName = user['firstName'] + ' ' + user['lastName'];
       });
 
+      this.userService.getCurrentUser().subscribe(currentUser => {
+        this.userService.isUserHasRequest(this.eventId, currentUser['email']).subscribe(result => {
+          this.isHasRequest = result['result'] === 'true';
+        });
+      })
+
       this.isPublic = this.visibility === 'public';
+    });
+
+    this.userService.isEventHasMorePlace(this.eventId).subscribe(result => {
+      this.isHasMorePlace = result['result'] === 'true';
+    });
+
+    this.userService.getEventParticipants(this.eventId).subscribe(participants => {
+      this.numberOfParticipants = Object.keys(participants).length;
     });
 
     this.userService.getCurrentUser().subscribe(data2 => {
@@ -54,6 +66,7 @@ export class EventBlockComponent implements OnInit {
   }
 
   joinEvent(): void {
+    this.isParticipate = true;
     this.userService.getCurrentUser().subscribe(data => {
       this.userService.addUserToEvent(this.eventId, data['email']).subscribe(data2 => {
         if (data2['result'] === 'success') {
@@ -70,6 +83,7 @@ export class EventBlockComponent implements OnInit {
   }
 
   requestInvitation(): void {
+    this.isHasRequest = true;
     this.userService.getCurrentUser().subscribe(user => {
       this.userService.createInvitation(this.eventId, user['email'], 1).subscribe(result => {
         alert('Request sent');

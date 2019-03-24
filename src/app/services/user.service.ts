@@ -138,4 +138,13 @@ export class UserService {
   getEventsByType(type: string) {
     return this.httpClient.get(this.SERVER_LINK + 'events/type/' + type);
   }
+
+  isEventHasMorePlace(eventId: number) {
+    return this.httpClient.get(this.SERVER_LINK + 'events/' + eventId + '/has-more-place');
+  }
+
+  isUserHasRequest(eventId: number, userEmail: string) {
+    return this.httpClient.get(this.SERVER_LINK + 'invitations/is-invited/' + eventId
+      + '/' + userEmail);
+  }
 }

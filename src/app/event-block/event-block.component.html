@@ -33,9 +33,9 @@
       <button type="submit" class="btn btn-outline-dark sign-in-button btn-sm" *ngIf="isParticipate" (click)="showEventDetails()">Show
         event
         details</button>
-      <button type="submit" class="btn btn-outline-dark sign-in-button btn-sm" *ngIf="!isPublic && !isParticipate"
-        (click)="requestInvitation()">Request invitation</button>
-      <button type="submit" class="btn btn-outline-dark sign-in-button btn-sm" *ngIf="isPublic && !isParticipate"
+      <button type="submit" class="btn btn-outline-dark sign-in-button btn-sm" [disabled]="!isHasMorePlace || isHasRequest"
+        *ngIf="!isPublic && !isParticipate" (click)="requestInvitation()">Request invitation</button>
+      <button type="submit" class="btn btn-outline-dark sign-in-button btn-sm" [disabled]="!isHasMorePlace" *ngIf="isPublic && !isParticipate"
         (click)="joinEvent()">Join</button>
     </div>
   </div>
