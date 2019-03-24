@@ -30,7 +30,8 @@
   </div>
   <div class="row">
     <div class="col-sm event-buttons">
-      <button type="submit" class="btn btn-outline-dark sign-in-button btn-sm" (click)="showEventDetails()">Show event
+      <button type="submit" class="btn btn-outline-dark sign-in-button btn-sm" *ngIf="isParticipate" (click)="showEventDetails()">Show
+        event
         details</button>
       <button type="submit" class="btn btn-outline-dark sign-in-button btn-sm" *ngIf="!isPublic && !isParticipate"
         (click)="requestInvitation()">Request invitation</button>
