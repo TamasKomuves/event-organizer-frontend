@@ -23,6 +23,17 @@ export class ProfileSettingsComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit() {
+    this.userService.getCurrentUser().subscribe(currentUser => {
+      this.firstname = currentUser['firstName'];
+      this.lastname = currentUser['lastName'];
+
+      this.userService.getAddressById(currentUser['addressId']).subscribe(address => {
+        this.country = address['country'];
+        this.city = address['city'];
+        this.street = address['street'];
+        this.streetNumber = address['streetNumber'];
+      });
+    });
   }
 
   saveGeneral(): void {
@@ -34,11 +45,11 @@ export class ProfileSettingsComponent implements OnInit {
   }
 
   savePassword(): void {
-    
+
   }
 
   deleteProfile(): void {
-    
+
   }
 
 }
