@@ -147,4 +147,18 @@ export class UserService {
     return this.httpClient.get(this.SERVER_LINK + 'invitations/is-invited/' + eventId
       + '/' + userEmail);
   }
+
+  updateAddress(addressId: number, country: string, city: string, street: string, streetNumber: string) {
+    return this.httpClient.get(this.SERVER_LINK + 'addresses/update/' + addressId
+      + '/' + country + '/' + city + '/' + street + '/' + streetNumber);
+  }
+
+  updateUserName(email: string, firstname: string, lastname: string) {
+    return this.httpClient.get(this.SERVER_LINK + 'users/update/' + email
+      + '/' + firstname + '/' + lastname);
+  }
+
+  deleteUser(email: string) {
+    return this.httpClient.get(this.SERVER_LINK + 'users/delete/' + email);
+  }
 }
