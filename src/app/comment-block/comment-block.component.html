@@ -1,8 +1,9 @@
 <div class="comment" style="margin-left: 20%; margin-bottom: 4%;">
-  <div class="small font-weight-bold">
-    {{ commenterName }}: {{ date | date: 'yyyy-MM-dd hh:mm:ss' }}
-  </div>
-  <div class="form-control-static border small border-dark" style="text-align: left; padding: 1%; margin: 1%; margin-left: 20%;">
+  <div class="small font-weight-bold">{{ commenterName }}: {{ date | date: 'yyyy-MM-dd hh:mm:ss' }}</div>
+  <div
+    class="form-control-static border small border-dark"
+    style="text-align: left; padding: 1%; margin: 1%; margin-left: 20%;"
+  >
     {{ text }}
   </div>
   <span class="small font-weight-bold" style="text-align: right;">

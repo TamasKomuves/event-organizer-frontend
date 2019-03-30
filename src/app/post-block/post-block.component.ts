@@ -7,7 +7,6 @@ import { UserService } from '../services/user.service';
   styleUrls: ['./post-block.component.css']
 })
 export class PostBlockComponent implements OnInit {
-
   @Input() postId: number;
 
   text: string;
@@ -19,7 +18,7 @@ export class PostBlockComponent implements OnInit {
   isAnyComment: boolean;
   isCurrentUserLiked: boolean;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService) {}
 
   ngOnInit() {
     this.isShowComments = false;
@@ -27,29 +26,29 @@ export class PostBlockComponent implements OnInit {
     this.numberOfLikes = 0;
     this.isCurrentUserLiked = true;
 
-    this.userService.getPostById(this.postId).subscribe(data => {
-      this.text = data['text'];
-      this.date = data['postDate'];
-      this.userService.getUserByEmail(data['posterEmail']).subscribe(data2 => {
-        this.posterName = data2['firstName'] + ' ' + data2['lastName'];
-      })
-      this.userService.getPostComments(this.postId).subscribe(data2 => {
-        this.comments = data2;
+    this.userService.getPostById(this.postId).subscribe(post => {
+      this.text = post['text'];
+      this.date = post['postDate'];
+      this.userService.getUserByEmail(post['posterEmail']).subscribe(user => {
+        this.posterName = user['firstName'] + ' ' + user['lastName'];
+      });
+      this.userService.getPostComments(this.postId).subscribe(comments => {
+        this.comments = comments;
 
-        if (this.comments != undefined && this.comments.length > 0) {
+        if (this.comments !== undefined && this.comments.length > 0) {
           this.isAnyComment = true;
         }
-      })
-      this.userService.getPostLikes(this.postId).subscribe(data => {
-        var likers: any;
-        likers = data;
+      });
+      this.userService.getPostLikers(this.postId).subscribe(postLikers => {
+        let likers: any;
+        likers = postLikers;
         this.numberOfLikes = likers.length;
       });
 
-      this.userService.getCurrentUser().subscribe(data => {
-        let email = data['email'];
-        this.userService.isLikedPost(this.postId, email).subscribe(data2 => {
-          this.isCurrentUserLiked = data2['result'] === 'true';
+      this.userService.getCurrentUser().subscribe(user => {
+        const email = user['email'];
+        this.userService.isLikedPost(this.postId, email).subscribe(result => {
+          this.isCurrentUserLiked = result['result'] === 'true';
         });
       });
     });
@@ -59,17 +58,14 @@ export class PostBlockComponent implements OnInit {
     this.isShowComments = isShowComments;
   }
 
-  sendComment(): void {
-
-  }
+  sendComment(): void {}
 
   likePost(): void {
     this.isCurrentUserLiked = true;
     this.userService.getCurrentUser().subscribe(data => {
-      this.userService.createLikesPost(data['email'], this.postId).subscribe(data2 => {
+      this.userService.createLikesPost(data['email'], this.postId).subscribe(result => {
         this.numberOfLikes++;
       });
     });
   }
-
 }

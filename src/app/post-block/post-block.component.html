@@ -1,19 +1,23 @@
 <div class="shadow p-3 mb-5 bg-white rounded border" style="text-align: right;">
-  <div class="small font-weight-bold">
-    {{ posterName }}: {{ date | date: 'yyyy-MM-dd hh:mm:ss' }}
-  </div>
+  <div class="small font-weight-bold">{{ posterName }}: {{ date | date: 'yyyy-MM-dd hh:mm:ss' }}</div>
   <div class="form-control-static border border-dark" style="text-align: left; padding: 1%; margin: 1%;">
     {{ text }}
   </div>
   <div>
-    <span class="small font-weight-bold">
-      {{ numberOfLikes }} people liked this
-    </span>
-    <button type="button" class="btn btn-info btn-sm" [disabled]="isCurrentUserLiked" (click)="likePost()">Like</button>
+    <span class="small font-weight-bold"> {{ numberOfLikes }} people liked this </span>
+    <button type="button" class="btn btn-info btn-sm" [disabled]="isCurrentUserLiked" (click)="likePost()">
+      Like
+    </button>
     <div *ngIf="!isShowComments" style="text-align: left;">
-      <button type="button" *ngIf="isAnyComment" class="btn btn-outline-dark btn-sm" (click)="setIsShowComments(true)"
-        style="margin-right: 2%;">Show
-        comments</button>
+      <button
+        type="button"
+        *ngIf="isAnyComment"
+        class="btn btn-outline-dark btn-sm"
+        (click)="setIsShowComments(true)"
+        style="margin-right: 2%;"
+      >
+        Show comments
+      </button>
       <button type="button" class="btn btn-outline-dark btn-sm">Comment</button>
     </div>
     <div *ngIf="isShowComments">
@@ -22,8 +26,14 @@
           <app-comment-block [commentId]="comment.id"></app-comment-block>
         </div>
       </div>
-      <button type="button" class="btn btn-outline-dark btn-sm" (click)="setIsShowComments(false)" style="margin-right: 2%;">Hide
-        comments</button>
+      <button
+        type="button"
+        class="btn btn-outline-dark btn-sm"
+        (click)="setIsShowComments(false)"
+        style="margin-right: 2%;"
+      >
+        Hide comments
+      </button>
       <button type="button" class="btn btn-outline-dark btn-sm">Comment</button>
     </div>
   </div>

@@ -38,16 +38,8 @@ import { HomeComponent } from './home/home.component';
     NotificationBlockComponent,
     HomeComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule
-  ],
-  providers: [
-    UserService,
-    MessageService
-  ],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
+  providers: [UserService, MessageService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

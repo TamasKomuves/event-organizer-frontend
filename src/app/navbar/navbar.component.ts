@@ -9,17 +9,23 @@ import { Router } from '@angular/router';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-
   isLoggedIn: boolean;
 
-  constructor(private messageService: MessageService, private userService: UserService, private router: Router) { }
+  constructor(
+    private messageService: MessageService,
+    private userService: UserService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
-    this.userService.getCurrentUser().subscribe(data => {
-      this.isLoggedIn = true;
-    }, error => {
-      this.isLoggedIn = false;
-    });
+    this.userService.getCurrentUser().subscribe(
+      data => {
+        this.isLoggedIn = true;
+      },
+      error => {
+        this.isLoggedIn = false;
+      }
+    );
     this.messageService.getLoggedInMessage().subscribe(message => {
       this.isLoggedIn = message.isLoggedIn;
     });

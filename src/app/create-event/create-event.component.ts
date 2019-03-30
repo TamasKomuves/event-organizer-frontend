@@ -8,7 +8,6 @@ import { isNullOrUndefined } from 'util';
   styleUrls: ['./create-event.component.css']
 })
 export class CreateEventComponent implements OnInit {
-
   name: string;
   type: string;
   maxParticipants: any;
@@ -23,9 +22,9 @@ export class CreateEventComponent implements OnInit {
   visibility = this.visibilities[0];
   isCreateButtonClickable = true;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService) {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   createEvent(): void {
     if (!this.isAllInputValid()) {
@@ -34,30 +33,58 @@ export class CreateEventComponent implements OnInit {
     }
 
     this.isCreateButtonClickable = false;
-    this.userService.getCurrentUser().subscribe(user => {
-      this.userService.createAddress(this.country, this.city, this.street, this.streetNumber).subscribe(result => {
-        this.userService.createEvent(this.name, this.description, this.maxParticipants, this.visibility, this.estimatedCost, this.eventDate + ':00', result['addressId'], this.type, user['email']).subscribe(respond => {
-          alert('Event created!');
-          this.resetInputFields();
-          this.isCreateButtonClickable = true;
-        }, error => {
-          console.log(error);
-          alert('Event creation failed!');
-          this.isCreateButtonClickable = true;
-        });
-      });
-    }, error => {
-      console.log(error);
-      alert('Event creation failed!');
-      this.isCreateButtonClickable = true;
-    });
+    this.userService.getCurrentUser().subscribe(
+      user => {
+        this.userService
+          .createAddress(this.country, this.city, this.street, this.streetNumber)
+          .subscribe(result => {
+            this.userService
+              .createEvent(
+                this.name,
+                this.description,
+                this.maxParticipants,
+                this.visibility,
+                this.estimatedCost,
+                this.eventDate + ':00',
+                result['addressId'],
+                this.type,
+                user['email']
+              )
+              .subscribe(
+                respond => {
+                  alert('Event created!');
+                  this.resetInputFields();
+                  this.isCreateButtonClickable = true;
+                },
+                error => {
+                  console.log(error);
+                  alert('Event creation failed!');
+                  this.isCreateButtonClickable = true;
+                }
+              );
+          });
+      },
+      error => {
+        console.log(error);
+        alert('Event creation failed!');
+        this.isCreateButtonClickable = true;
+      }
+    );
   }
 
   isAllInputValid(): boolean {
-    return this.isNonEmptyString(this.name) && this.isNonEmptyString(this.type) && this.isNonEmptyString(this.country)
-      && this.isNonEmptyString(this.city) && this.isNonEmptyString(this.street) && this.isNonEmptyString(this.streetNumber)
-      && this.isNonEmptyString(this.description) && this.isValidInteger(this.maxParticipants) && this.isValidInteger(this.estimatedCost)
-      && this.isDateValid();
+    return (
+      this.isNonEmptyString(this.name) &&
+      this.isNonEmptyString(this.type) &&
+      this.isNonEmptyString(this.country) &&
+      this.isNonEmptyString(this.city) &&
+      this.isNonEmptyString(this.street) &&
+      this.isNonEmptyString(this.streetNumber) &&
+      this.isNonEmptyString(this.description) &&
+      this.isValidInteger(this.maxParticipants) &&
+      this.isValidInteger(this.estimatedCost) &&
+      this.isDateValid()
+    );
   }
 
   isNonEmptyString(text: string): boolean {
@@ -70,7 +97,7 @@ export class CreateEventComponent implements OnInit {
 
   // TODO full date validation
   isDateValid(): boolean {
-    let regexp: RegExp = /^(\d{4}-[01]\d-[0-3]\d [0-2]\d:[0-5]\d)$/;
+    const regexp: RegExp = /^(\d{4}-[01]\d-[0-3]\d [0-2]\d:[0-5]\d)$/;
 
     return this.isNonEmptyString(this.eventDate) && regexp.test(this.eventDate);
   }

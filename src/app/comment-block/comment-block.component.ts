@@ -7,7 +7,6 @@ import { UserService } from '../services/user.service';
   styleUrls: ['./comment-block.component.css']
 })
 export class CommentBlockComponent implements OnInit {
-
   @Input() commentId: number;
 
   text: string;
@@ -15,20 +14,20 @@ export class CommentBlockComponent implements OnInit {
   date: string;
   numberOfLikes: number;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService) {}
 
   ngOnInit() {
     this.numberOfLikes = 0;
 
-    this.userService.getCommentById(this.commentId).subscribe(data => {
-      this.text = data['text'];
-      this.date = data['date'];
-      this.userService.getUserByEmail(data['commenterEmail']).subscribe(data2 => {
-        this.commenterName = data2['firstName'] + ' ' + data2['lastName'];
+    this.userService.getCommentById(this.commentId).subscribe(comment => {
+      this.text = comment['text'];
+      this.date = comment['date'];
+      this.userService.getUserByEmail(comment['commenterEmail']).subscribe(user => {
+        this.commenterName = user['firstName'] + ' ' + user['lastName'];
       });
-      this.userService.getCommentLikes(this.commentId).subscribe(data => {
-        var likers: any;
-        likers = data;
+      this.userService.getCommentLikes(this.commentId).subscribe(commentLikers => {
+        let likers: any;
+        likers = commentLikers;
         this.numberOfLikes = likers.length;
       });
     });

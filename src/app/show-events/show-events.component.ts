@@ -7,12 +7,11 @@ import { UserService } from '../services/user.service';
   styleUrls: ['./show-events.component.css']
 })
 export class ShowEventsComponent implements OnInit {
-
   events: any;
   eventTypes: any;
   selectedEventType: string;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService) {}
 
   ngOnInit() {
     this.userService.getAllEvents().subscribe(data => {

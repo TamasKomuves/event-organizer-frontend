@@ -5,14 +5,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class UserService {
-
   SERVER_LINK = 'https://powerful-shelf-66888.herokuapp.com/';
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
   login(email: string, password: string) {
-    let user = { email: email, password: password };
-
     return this.httpClient.get(this.SERVER_LINK + 'users/login/' + email + '/' + password);
   }
 
@@ -44,7 +41,7 @@ export class UserService {
     return this.httpClient.get(this.SERVER_LINK + 'posts/' + postId);
   }
 
-  getPostLikes(postId: number) {
+  getPostLikers(postId: number) {
     return this.httpClient.get(this.SERVER_LINK + 'posts/' + postId + '/likers');
   }
 
@@ -65,18 +62,49 @@ export class UserService {
   }
 
   createComment(postId: number, commenter_email: string, text: string) {
-    return this.httpClient.get(this.SERVER_LINK + 'comments/create/' + postId + '/' + commenter_email + '/' + text);
+    return this.httpClient.get(
+      this.SERVER_LINK + 'comments/create/' + postId + '/' + commenter_email + '/' + text
+    );
   }
 
-  createEvent(name: string, description: string, max_participant: number, visibility: string, total_cost: number, event_date: string, address_id: number, event_type_type: String, organizer_email: string) {
-    return this.httpClient.get(this.SERVER_LINK + 'events/create/' +
-      name + '/' + description + '/' + max_participant + '/' + visibility + '/' +
-      total_cost + '/' + event_date + '/' + address_id + '/' + event_type_type + '/' +
-      organizer_email);
+  createEvent(
+    name: string,
+    description: string,
+    max_participant: number,
+    visibility: string,
+    total_cost: number,
+    event_date: string,
+    address_id: number,
+    event_type_type: String,
+    organizer_email: string
+  ) {
+    return this.httpClient.get(
+      this.SERVER_LINK +
+        'events/create/' +
+        name +
+        '/' +
+        description +
+        '/' +
+        max_participant +
+        '/' +
+        visibility +
+        '/' +
+        total_cost +
+        '/' +
+        event_date +
+        '/' +
+        address_id +
+        '/' +
+        event_type_type +
+        '/' +
+        organizer_email
+    );
   }
 
   createAddress(country: string, city: string, street: string, streetNumber: string) {
-    return this.httpClient.get(this.SERVER_LINK + 'addresses/create/' + country + '/' + city + '/' + street + '/' + streetNumber);
+    return this.httpClient.get(
+      this.SERVER_LINK + 'addresses/create/' + country + '/' + city + '/' + street + '/' + streetNumber
+    );
   }
 
   createLikesComment(userEmail: string, commentId: number) {
@@ -95,8 +123,35 @@ export class UserService {
     return this.httpClient.get(this.SERVER_LINK + 'posts/' + postId + '/likers/' + email);
   }
 
-  register(email: string, password: String, firstname: String, lastname: String, country: String, city: String, street: String, streetNumber: String) {
-    return this.httpClient.get(this.SERVER_LINK + 'users/registration/' + email + '/' + password + '/' + firstname + '/' + lastname + '/' + country + '/' + city + '/' + street + '/' + streetNumber);
+  register(
+    email: string,
+    password: String,
+    firstname: String,
+    lastname: String,
+    country: String,
+    city: String,
+    street: String,
+    streetNumber: String
+  ) {
+    return this.httpClient.get(
+      this.SERVER_LINK +
+        'users/registration/' +
+        email +
+        '/' +
+        password +
+        '/' +
+        firstname +
+        '/' +
+        lastname +
+        '/' +
+        country +
+        '/' +
+        city +
+        '/' +
+        street +
+        '/' +
+        streetNumber
+    );
   }
 
   getAllEvents() {
@@ -124,7 +179,9 @@ export class UserService {
   }
 
   createInvitation(eventId: number, userEmail: string, isUserRequested: number) {
-    return this.httpClient.get(this.SERVER_LINK + 'invitations/create/' + eventId + '/' + userEmail + '/' + isUserRequested);
+    return this.httpClient.get(
+      this.SERVER_LINK + 'invitations/create/' + eventId + '/' + userEmail + '/' + isUserRequested
+    );
   }
 
   getAddressById(addressId: number) {
@@ -144,18 +201,27 @@ export class UserService {
   }
 
   isUserHasRequest(eventId: number, userEmail: string) {
-    return this.httpClient.get(this.SERVER_LINK + 'invitations/is-invited/' + eventId
-      + '/' + userEmail);
+    return this.httpClient.get(this.SERVER_LINK + 'invitations/is-invited/' + eventId + '/' + userEmail);
   }
 
   updateAddress(addressId: number, country: string, city: string, street: string, streetNumber: string) {
-    return this.httpClient.get(this.SERVER_LINK + 'addresses/update/' + addressId
-      + '/' + country + '/' + city + '/' + street + '/' + streetNumber);
+    return this.httpClient.get(
+      this.SERVER_LINK +
+        'addresses/update/' +
+        addressId +
+        '/' +
+        country +
+        '/' +
+        city +
+        '/' +
+        street +
+        '/' +
+        streetNumber
+    );
   }
 
   updateUserName(email: string, firstname: string, lastname: string) {
-    return this.httpClient.get(this.SERVER_LINK + 'users/update/' + email
-      + '/' + firstname + '/' + lastname);
+    return this.httpClient.get(this.SERVER_LINK + 'users/update/' + email + '/' + firstname + '/' + lastname);
   }
 
   deleteUser(email: string) {

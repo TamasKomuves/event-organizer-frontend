@@ -7,7 +7,6 @@ import { UserService } from '../services/user.service';
   styleUrls: ['./notification-block.component.css']
 })
 export class NotificationBlockComponent implements OnInit {
-
   @Input() invitationId;
 
   eventId: string;
@@ -21,7 +20,7 @@ export class NotificationBlockComponent implements OnInit {
   isShowButtons = false;
   eventName: string;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService) {}
 
   ngOnInit() {
     this.initNotification();
@@ -45,8 +44,9 @@ export class NotificationBlockComponent implements OnInit {
   }
 
   initText(): string {
-    return !this.isUserRequested ? 'You have been invited to ' + this.eventName + '!' :
-      'Your request for join ' + this.eventName;
+    return !this.isUserRequested
+      ? 'You have been invited to ' + this.eventName + '!'
+      : 'Your request for join ' + this.eventName;
   }
 
   calculateResult(): string {
@@ -81,9 +81,8 @@ export class NotificationBlockComponent implements OnInit {
 
   declineInvitation(): void {
     this.isShowButtons = false;
-    this.userService.answerToInvitation(this.invitationId, 0).subscribe(data => { 
+    this.userService.answerToInvitation(this.invitationId, 0).subscribe(data => {
       this.initNotification();
     });
   }
-
 }

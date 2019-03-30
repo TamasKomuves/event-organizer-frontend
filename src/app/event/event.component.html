@@ -1,17 +1,21 @@
-<h1 style="margin-bottom: 3%;"> {{ name }} </h1>
+<h1 style="margin-bottom: 3%;">{{ name }}</h1>
 <div class="container">
   <div class="row">
     <div class="col-sm-3">
       <div class="participant-div shadow p-3 mb-5 bg-white rounded border border-dark">
         <strong>Participants</strong>
-        <ul *ngFor="let participant of participants | slice:0:5;" style="margin-top: 3%;">
-          <li> {{ participant.firstName }} {{ participant.lastName }} </li>
+        <ul *ngFor="let participant of (participants | slice: 0:5)" style="margin-top: 3%;">
+          <li>{{ participant.firstName }} {{ participant.lastName }}</li>
         </ul>
         <button type="button" class="btn btn-outline-dark btn-sm">Show all participants</button>
-        <br> <br>
-        <input type="text" class="form-control" [(ngModel)]="invitedUserEmail" placeholder="User's email">
-        <button type="button" class="btn btn-outline-dark btn-sm" (click)="inviteUser()">Add new participant</button>
-        <br> <br>
+        <br />
+        <br />
+        <input type="text" class="form-control" [(ngModel)]="invitedUserEmail" placeholder="User's email" />
+        <button type="button" class="btn btn-outline-dark btn-sm" (click)="inviteUser()">
+          Add new participant
+        </button>
+        <br />
+        <br />
         <button type="button" class="btn btn-outline-dark btn-sm">View requests</button>
       </div>
     </div>
@@ -19,7 +23,13 @@
     <div class="col-sm-6">
       <div style="margin-bottom: 12%;">
         <div class="md-form">
-          <textarea type="text" [(ngModel)]="newPost" class="md-textarea form-control" rows="3" placeholder="Write a post..."></textarea>
+          <textarea
+            type="text"
+            [(ngModel)]="newPost"
+            class="md-textarea form-control"
+            rows="3"
+            placeholder="Write a post..."
+          ></textarea>
         </div>
         <button type="button" class="btn btn-dark btn-sm" (click)="sendPost()">Send</button>
         <button type="button" class="btn btn-dark btn-sm">Create poll</button>

@@ -7,16 +7,15 @@ import { UserService } from '../services/user.service';
   styleUrls: ['./notifications.component.css']
 })
 export class NotificationsComponent implements OnInit {
-
   invitations: any;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService) {}
 
   ngOnInit() {
     this.userService.getCurrentUser().subscribe(data => {
       this.userService.getInvitationsForUser(data['email']).subscribe(data2 => {
         this.invitations = data2;
-      })
+      });
     });
   }
 }

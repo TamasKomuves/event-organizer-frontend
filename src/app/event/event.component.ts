@@ -8,7 +8,6 @@ import { UserService } from '../services/user.service';
   styleUrls: ['./event.component.css']
 })
 export class EventComponent implements OnInit {
-
   eventId: any;
   participants: any;
   name: string;
@@ -20,7 +19,7 @@ export class EventComponent implements OnInit {
   invitedUserEmail: string;
   isOrganizer = false;
 
-  constructor(private userService: UserService, private route: ActivatedRoute) { }
+  constructor(private userService: UserService, private route: ActivatedRoute) {}
 
   ngOnInit() {
     const eventIdJson = this.route.snapshot.queryParamMap.get('eventId');
@@ -52,33 +51,43 @@ export class EventComponent implements OnInit {
       return;
     }
 
-    this.userService.getCurrentUser().subscribe(data => {
-      let userEmail = data['email'];
+    this.userService.getCurrentUser().subscribe(
+      user => {
+        const userEmail = user['email'];
 
-      this.userService.createPost(this.eventId, userEmail, this.newPost).subscribe(data => {
-        this.newPost = '';
-        this.userService.getEventPosts(this.eventId).subscribe(data => {
-          this.posts = data;
-          this.posts = this.posts.sort((a, b) => b.postDate.localeCompare(a.postDate));
+        this.userService.createPost(this.eventId, userEmail, this.newPost).subscribe(result => {
+          this.newPost = '';
+          this.userService.getEventPosts(this.eventId).subscribe(posts => {
+            this.posts = posts;
+            this.posts = this.posts.sort((a, b) => b.postDate.localeCompare(a.postDate));
+          });
         });
-      });
-    }, error => {
-      console.log(error);
-    });
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   inviteUser(): void {
-    if (this.invitedUserEmail === '' || this.invitedUserEmail === null || this.invitedUserEmail === undefined) {
+    if (
+      this.invitedUserEmail === '' ||
+      this.invitedUserEmail === null ||
+      this.invitedUserEmail === undefined
+    ) {
       alert('Please fill the email field!');
       return;
     }
 
-    this.userService.createInvitation(this.eventId, this.invitedUserEmail, 0).subscribe(data => {
-      this.invitedUserEmail = '';
-      alert('Request sent');
-    }, error => {
-      console.log(error);
-      alert('Invalid email');
-    });
+    this.userService.createInvitation(this.eventId, this.invitedUserEmail, 0).subscribe(
+      data => {
+        this.invitedUserEmail = '';
+        alert('Request sent');
+      },
+      error => {
+        console.log(error);
+        alert('Invalid email');
+      }
+    );
   }
 }

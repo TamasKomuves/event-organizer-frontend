@@ -5,10 +5,9 @@ import { Subject, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class MessageService {
-
   private loggedInSubject = new Subject<any>();
 
-  constructor() { }
+  constructor() {}
 
   getLoggedInMessage(): Observable<any> {
     return this.loggedInSubject.asObservable();
