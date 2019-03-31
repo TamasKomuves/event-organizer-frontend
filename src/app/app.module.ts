@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './core/app-routing.module';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { NgxSmartModalModule } from 'ngx-smart-modal';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -20,6 +21,7 @@ import { NotificationBlockComponent } from './notification-block/notification-bl
 import { UserService } from './services/user.service';
 import { MessageService } from './services/message.service';
 import { HomeComponent } from './home/home.component';
+import { CreateCommentComponent } from './modals/create-comment/create-comment.component';
 
 @NgModule({
   declarations: [
@@ -36,9 +38,10 @@ import { HomeComponent } from './home/home.component';
     CommentBlockComponent,
     EventBlockComponent,
     NotificationBlockComponent,
-    HomeComponent
+    HomeComponent,
+    CreateCommentComponent
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule, NgxSmartModalModule.forRoot()],
   providers: [UserService, MessageService],
   bootstrap: [AppComponent]
 })
