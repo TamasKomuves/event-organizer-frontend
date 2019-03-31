@@ -9,6 +9,9 @@ import { UserService } from '../services/user.service';
 export class PostBlockComponent implements OnInit {
   @Input() postId: number;
 
+  readonly showCommentsConst = 'Show comments';
+  readonly hideCommentsConst = 'Hide comments';
+
   text: string;
   numberOfLikes: number;
   posterName: string;
@@ -17,10 +20,13 @@ export class PostBlockComponent implements OnInit {
   isShowComments: boolean;
   isAnyComment: boolean;
   isCurrentUserLiked: boolean;
+  showCommentsText: string;
+  commentText: string;
 
   constructor(private userService: UserService) {}
 
   ngOnInit() {
+    this.showCommentsText = 'Show comments';
     this.isShowComments = false;
     this.isAnyComment = false;
     this.numberOfLikes = 0;
@@ -34,10 +40,7 @@ export class PostBlockComponent implements OnInit {
       });
       this.userService.getPostComments(this.postId).subscribe(comments => {
         this.comments = comments;
-
-        if (this.comments !== undefined && this.comments.length > 0) {
-          this.isAnyComment = true;
-        }
+        this.isAnyComment = this.comments !== undefined && this.comments.length > 0;
       });
       this.userService.getPostLikers(this.postId).subscribe(postLikers => {
         let likers: any;
@@ -54,11 +57,11 @@ export class PostBlockComponent implements OnInit {
     });
   }
 
-  setIsShowComments(isShowComments: boolean): void {
-    this.isShowComments = isShowComments;
+  toggleCommentVisibility(): void {
+    this.isShowComments = !this.isShowComments;
+    this.showCommentsText =
+      this.showCommentsText === this.showCommentsConst ? this.hideCommentsConst : this.showCommentsConst;
   }
-
-  sendComment(): void {}
 
   likePost(): void {
     this.isCurrentUserLiked = true;
@@ -66,6 +69,29 @@ export class PostBlockComponent implements OnInit {
       this.userService.createLikesPost(data['email'], this.postId).subscribe(result => {
         this.numberOfLikes++;
       });
+    });
+  }
+
+  sendComment(): void {
+    if (this.commentText === undefined || this.commentText === null || this.commentText === '') {
+      alert('Missing comment text');
+      return;
+    }
+
+    this.userService.getCurrentUser().subscribe(user => {
+      this.userService.createComment(this.postId, user['email'], this.commentText).subscribe(
+        result => {
+          this.commentText = '';
+          this.userService.getPostComments(this.postId).subscribe(comments => {
+            this.comments = comments;
+            this.isAnyComment = this.comments !== undefined && this.comments.length > 0;
+          });
+        },
+        error => {
+          this.commentText = '';
+          console.log(error);
+        }
+      );
     });
   }
 }
