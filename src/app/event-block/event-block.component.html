@@ -28,7 +28,7 @@
         type="submit"
         class="btn btn-outline-dark sign-in-button btn-sm"
         [disabled]="!isHasMorePlace || isHasRequest"
-        *ngIf="!isPublic && !isParticipate"
+        *ngIf="!isPublic && !isParticipate && isParticipateLoaded"
         (click)="requestInvitation()"
       >
         Request invitation
@@ -37,7 +37,7 @@
         type="submit"
         class="btn btn-outline-dark sign-in-button btn-sm"
         [disabled]="!isHasMorePlace"
-        *ngIf="isPublic && !isParticipate"
+        *ngIf="isPublic && !isParticipate && isParticipateLoaded"
         (click)="joinEvent()"
       >
         Join

@@ -9,7 +9,7 @@ import { UserService } from '../services/user.service';
 export class ShowEventsComponent implements OnInit {
   events: any;
   eventTypes: any;
-  selectedEventType: string;
+  selectedEventType = 'all';
 
   constructor(private userService: UserService) {}
 

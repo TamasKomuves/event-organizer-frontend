@@ -21,6 +21,7 @@ export class EventBlockComponent implements OnInit {
   isParticipate = false;
   isHasMorePlace = false;
   isHasRequest = true;
+  isParticipateLoaded = false;
 
   constructor(private userService: UserService, private router: Router) {}
 
@@ -50,6 +51,11 @@ export class EventBlockComponent implements OnInit {
         this.userService.isUserHasRequest(this.eventId, currentUser['email']).subscribe(result => {
           this.isHasRequest = result['result'] === 'true';
         });
+
+        this.userService.isUserParticipateInEvent(this.eventId, currentUser['email']).subscribe(result => {
+          this.isParticipate = result['result'] === 'true';
+          this.isParticipateLoaded = true;
+        });
       });
 
       this.isPublic = this.visibility === 'public';
@@ -61,12 +67,6 @@ export class EventBlockComponent implements OnInit {
 
     this.userService.getEventParticipants(this.eventId).subscribe(participants => {
       this.numberOfParticipants = Object.keys(participants).length;
-    });
-
-    this.userService.getCurrentUser().subscribe(data2 => {
-      this.userService.isUserParticipateInEvent(this.eventId, data2['email']).subscribe(data3 => {
-        this.isParticipate = data3['result'] === 'true';
-      });
     });
   }
 
