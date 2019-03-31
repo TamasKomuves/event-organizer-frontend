@@ -13,6 +13,7 @@ export class CommentBlockComponent implements OnInit {
   commenterName: string;
   date: string;
   numberOfLikes: number;
+  isCurrentUserLiked = true;
 
   constructor(private userService: UserService) {}
 
@@ -29,6 +30,22 @@ export class CommentBlockComponent implements OnInit {
         let likers: any;
         likers = commentLikers;
         this.numberOfLikes = likers.length;
+      });
+    });
+
+    this.userService.getCurrentUser().subscribe(user => {
+      const email = user['email'];
+      this.userService.isLikedComment(this.commentId, email).subscribe(result => {
+        this.isCurrentUserLiked = result['result'] === 'true';
+      });
+    });
+  }
+
+  likeComment(): void {
+    this.isCurrentUserLiked = true;
+    this.userService.getCurrentUser().subscribe(user => {
+      this.userService.createLikesComment(user['email'], this.commentId).subscribe(result => {
+        this.numberOfLikes++;
       });
     });
   }
