@@ -21,7 +21,6 @@ import { NotificationBlockComponent } from './notification-block/notification-bl
 import { UserService } from './services/user.service';
 import { MessageService } from './services/message.service';
 import { HomeComponent } from './home/home.component';
-import { CreateCommentComponent } from './modals/create-comment/create-comment.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +38,6 @@ import { CreateCommentComponent } from './modals/create-comment/create-comment.c
     EventBlockComponent,
     NotificationBlockComponent,
     HomeComponent,
-    CreateCommentComponent
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule, NgxSmartModalModule.forRoot()],
   providers: [UserService, MessageService],
