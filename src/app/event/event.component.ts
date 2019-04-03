@@ -18,6 +18,7 @@ export class EventComponent implements OnInit {
   newPost: string;
   invitedUserEmail: string;
   isOrganizer = false;
+  address: string;
 
   constructor(private userService: UserService, private route: ActivatedRoute) {}
 
@@ -32,6 +33,16 @@ export class EventComponent implements OnInit {
       this.description = event['description'];
       this.userService.getCurrentUser().subscribe(user => {
         this.isOrganizer = event['organizerEmail'] === user['email'];
+      });
+      this.userService.getAddressById(event['addressId']).subscribe(address => {
+        this.address =
+          address['street'] +
+          ' ' +
+          address['streetNumber'] +
+          ', ' +
+          address['city'] +
+          ', ' +
+          address['country'];
       });
     });
 
