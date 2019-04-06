@@ -23,6 +23,8 @@ import { MessageService } from './services/message.service';
 import { HomeComponent } from './home/home.component';
 import { ViewRequestModalComponent } from './modals/view-request-modal/view-request-modal.component';
 import { InvitationRequestBlockComponent } from './invitation-request-block/invitation-request-block.component';
+import { InvitationOffersModalComponent } from './modals/invitation-offers-modal/invitation-offers-modal.component';
+import { InvitationOfferBlockComponent } from './invitation-offer-block/invitation-offer-block.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import { InvitationRequestBlockComponent } from './invitation-request-block/invi
     NotificationBlockComponent,
     HomeComponent,
     ViewRequestModalComponent,
-    InvitationRequestBlockComponent
+    InvitationRequestBlockComponent,
+    InvitationOffersModalComponent,
+    InvitationOfferBlockComponent
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule, NgxSmartModalModule.forRoot()],
   providers: [UserService, MessageService],

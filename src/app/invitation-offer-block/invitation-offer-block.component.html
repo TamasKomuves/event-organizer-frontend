@@ -1,0 +1,10 @@
+<div *ngIf="isLoaded" style="text-align: right">
+  {{ nameAndEmail }}
+  <input
+    type="button"
+    class="btn btn-outline-danger btn-sm"
+    value="Undo invitation"
+    style="margin: 0 2%;"
+    (click)="undoInvitation()"
+  />
+</div>

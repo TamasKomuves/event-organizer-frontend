@@ -231,4 +231,12 @@ export class UserService {
   getInvitationRequestsForEvent(eventId: number) {
     return this.httpClient.get(this.SERVER_LINK + 'events/' + eventId + '/invitation-requests');
   }
+
+  getInvitationOffersForEvent(eventId: number) {
+    return this.httpClient.get(this.SERVER_LINK + 'events/' + eventId + '/invitation-offers');
+  }
+
+  deleteInvitation(invitationId: number) {
+    return this.httpClient.get(this.SERVER_LINK + 'invitations/' + invitationId + '/delete');
+  }
 }

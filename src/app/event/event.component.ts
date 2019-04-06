@@ -98,7 +98,7 @@ export class EventComponent implements OnInit {
     this.userService.createInvitation(this.eventId, this.invitedUserEmail, 0).subscribe(
       data => {
         this.invitedUserEmail = '';
-        alert('Request sent');
+        alert('Invitation sent');
       },
       error => {
         console.log(error);
@@ -109,6 +109,11 @@ export class EventComponent implements OnInit {
 
   openViewRequestsModal(): void {
     const createInvitationRequestModal = this.ngxSmartModalService.getModal('invitationRequestModal');
+    createInvitationRequestModal.open();
+  }
+
+  openInvitationOffersModal(): void {
+    const createInvitationRequestModal = this.ngxSmartModalService.getModal('invitationOffersModal');
     createInvitationRequestModal.open();
   }
 }
