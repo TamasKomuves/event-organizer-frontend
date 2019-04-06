@@ -108,12 +108,19 @@ export class EventComponent implements OnInit {
   }
 
   openViewRequestsModal(): void {
-    const createInvitationRequestModal = this.ngxSmartModalService.getModal('invitationRequestModal');
-    createInvitationRequestModal.open();
+    this.openModal('invitationRequestModal');
+  }
+
+  openModal(modalId: string): void {
+    const modal = this.ngxSmartModalService.getModal(modalId);
+    modal.open();
   }
 
   openInvitationOffersModal(): void {
-    const createInvitationRequestModal = this.ngxSmartModalService.getModal('invitationOffersModal');
-    createInvitationRequestModal.open();
+    this.openModal('invitationOffersModal');
+  }
+
+  openEventParticipantsModal(): void {
+    this.openModal('eventParticipantsModal');
   }
 }

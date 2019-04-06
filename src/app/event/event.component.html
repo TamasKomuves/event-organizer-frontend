@@ -1,5 +1,6 @@
 <app-view-request-modal [eventId]="eventId"></app-view-request-modal>
 <app-invitation-offers-modal [eventId]="eventId"></app-invitation-offers-modal>
+<app-event-participants-modal [eventId]="eventId"></app-event-participants-modal>
 <h1 style="margin-bottom: 3%;">{{ name }}</h1>
 <div class="container">
   <div class="row">
@@ -9,7 +10,9 @@
         <ul *ngFor="let participant of (participants | slice: 0:5)" style="margin-top: 3%;">
           <li>{{ participant.firstName }} {{ participant.lastName }}</li>
         </ul>
-        <button type="button" class="btn btn-outline-dark btn-sm">Show all participants</button>
+        <button type="button" class="btn btn-outline-dark btn-sm" (click)="openEventParticipantsModal()">
+          Show all participants
+        </button>
         <br />
         <br />
         <input type="text" class="form-control" [(ngModel)]="invitedUserEmail" placeholder="User's email" />

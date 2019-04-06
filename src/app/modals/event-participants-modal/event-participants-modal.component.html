@@ -1,0 +1,8 @@
+<ngx-smart-modal #eventParticipantsModal identifier="eventParticipantsModal">
+  <h3 style="margin-bottom: 10%;">All participants</h3>
+  <ul style="text-align: left">
+    <li *ngFor="let participant of participants">
+      {{ participant.firstName }} {{ participant.lastName }} ({{ participant.email }})
+    </li>
+  </ul>
+</ngx-smart-modal>
