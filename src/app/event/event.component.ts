@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../services/user.service';
+import { NgxSmartModalService } from 'ngx-smart-modal';
 
 @Component({
   selector: 'app-event',
@@ -20,7 +21,11 @@ export class EventComponent implements OnInit {
   isOrganizer = false;
   address: string;
 
-  constructor(private userService: UserService, private route: ActivatedRoute) {}
+  constructor(
+    private userService: UserService,
+    private route: ActivatedRoute,
+    private ngxSmartModalService: NgxSmartModalService
+  ) {}
 
   ngOnInit() {
     const eventIdJson = this.route.snapshot.queryParamMap.get('eventId');
@@ -100,5 +105,10 @@ export class EventComponent implements OnInit {
         alert('Invalid email');
       }
     );
+  }
+
+  openViewRequestsModal(): void {
+    const createInvitationRequestModal = this.ngxSmartModalService.getModal('invitationRequestModal');
+    createInvitationRequestModal.open();
   }
 }

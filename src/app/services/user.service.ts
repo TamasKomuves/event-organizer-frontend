@@ -227,4 +227,8 @@ export class UserService {
   deleteUser(email: string) {
     return this.httpClient.get(this.SERVER_LINK + 'users/delete/' + email);
   }
+
+  getInvitationRequestsForEvent(eventId: number) {
+    return this.httpClient.get(this.SERVER_LINK + 'events/' + eventId + '/invitation-requests');
+  }
 }

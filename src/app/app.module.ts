@@ -21,6 +21,8 @@ import { NotificationBlockComponent } from './notification-block/notification-bl
 import { UserService } from './services/user.service';
 import { MessageService } from './services/message.service';
 import { HomeComponent } from './home/home.component';
+import { ViewRequestModalComponent } from './modals/view-request-modal/view-request-modal.component';
+import { InvitationRequestBlockComponent } from './invitation-request-block/invitation-request-block.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,8 @@ import { HomeComponent } from './home/home.component';
     EventBlockComponent,
     NotificationBlockComponent,
     HomeComponent,
+    ViewRequestModalComponent,
+    InvitationRequestBlockComponent
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule, NgxSmartModalModule.forRoot()],
   providers: [UserService, MessageService],

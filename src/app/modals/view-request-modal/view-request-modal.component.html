@@ -1,0 +1,9 @@
+<ngx-smart-modal #invitationRequestModal identifier="invitationRequestModal">
+  <h3 style="margin-bottom: 10%;">Join requests</h3>
+  <div *ngFor="let invitation of invitations">
+    <app-invitation-request-block
+      [invitationId]="invitation.id"
+      style="margin-bottom: 3%;"
+    ></app-invitation-request-block>
+  </div>
+</ngx-smart-modal>

@@ -1,3 +1,4 @@
+<app-view-request-modal [eventId]="eventId"></app-view-request-modal>
 <h1 style="margin-bottom: 3%;">{{ name }}</h1>
 <div class="container">
   <div class="row">
@@ -16,7 +17,9 @@
         </button>
         <br />
         <br />
-        <button type="button" class="btn btn-outline-dark btn-sm">View requests</button>
+        <button type="button" class="btn btn-outline-dark btn-sm" (click)="openViewRequestsModal()">
+          View requests
+        </button>
       </div>
     </div>
 

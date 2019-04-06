@@ -1,0 +1,11 @@
+<div *ngIf="isLoaded" style="text-align: right">
+  {{ nameAndEmail }}
+  <input
+    type="button"
+    class="btn btn-outline-success btn-sm"
+    style="margin: 0 2%;"
+    value="Accept"
+    (click)="acceptRequest()"
+  />
+  <input type="button" class="btn btn-outline-danger btn-sm" value="Decline" (click)="declineRequest()" />
+</div>
