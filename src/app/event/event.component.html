@@ -1,6 +1,7 @@
 <app-view-request-modal [eventId]="eventId"></app-view-request-modal>
 <app-invitation-offers-modal [eventId]="eventId"></app-invitation-offers-modal>
 <app-event-participants-modal [eventId]="eventId"></app-event-participants-modal>
+<app-modify-event-info-modal [eventId]="eventId"></app-modify-event-info-modal>
 <h1 style="margin-bottom: 3%;">{{ name }}</h1>
 <div class="container">
   <div class="row">
@@ -67,7 +68,14 @@
           <p><strong>Date:</strong> {{ date | date: 'yyyy-MM-dd hh:mm' }}</p>
           <p><strong>Address:</strong> {{ address }}</p>
           <p><strong>Description:</strong> {{ description }}</p>
-          <button type="button" class="btn btn-outline-dark btn-sm">Modify</button>
+          <button
+            type="button"
+            class="btn btn-outline-dark btn-sm"
+            *ngIf="isOrganizer"
+            (click)="openModifyEventInfoModal()"
+          >
+            Modify
+          </button>
           <button type="button" class="btn btn-danger btn-sm" *ngIf="isOrganizer">Delete event</button>
         </div>
       </div>

@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../services/user.service';
-import { NgxSmartModalService } from 'ngx-smart-modal';
+import { NgxSmartModalService, NgxSmartModalComponent } from 'ngx-smart-modal';
 
 @Component({
   selector: 'app-event',
   templateUrl: './event.component.html',
   styleUrls: ['./event.component.css']
 })
-export class EventComponent implements OnInit {
+export class EventComponent implements OnInit, AfterViewInit {
   eventId: any;
   participants: any;
   name: string;
@@ -32,6 +32,26 @@ export class EventComponent implements OnInit {
     const eventIdJson = this.route.snapshot.queryParamMap.get('eventId');
     this.eventId = JSON.parse(eventIdJson);
 
+    this.loadEventInfo();
+
+    this.userService.getEventPosts(this.eventId).subscribe(data => {
+      this.posts = data;
+      this.posts = this.posts.sort((a, b) => b.postDate.localeCompare(a.postDate));
+    });
+
+    this.userService.getEventParticipants(this.eventId).subscribe(data => {
+      this.participants = data;
+    });
+  }
+
+  ngAfterViewInit() {
+    const modifyEventInfoModal = this.ngxSmartModalService.getModal('modifyEventInfoModal');
+    modifyEventInfoModal.onClose.subscribe((modal: NgxSmartModalComponent) => {
+      this.loadEventInfo();
+    });
+  }
+
+  loadEventInfo(): void {
     this.userService.getEventById(this.eventId).subscribe(event => {
       this.name = event['name'];
       this.type = event['eventType'];
@@ -51,15 +71,6 @@ export class EventComponent implements OnInit {
           ', ' +
           address['country'];
       });
-    });
-
-    this.userService.getEventPosts(this.eventId).subscribe(data => {
-      this.posts = data;
-      this.posts = this.posts.sort((a, b) => b.postDate.localeCompare(a.postDate));
-    });
-
-    this.userService.getEventParticipants(this.eventId).subscribe(data => {
-      this.participants = data;
     });
   }
 
@@ -128,5 +139,9 @@ export class EventComponent implements OnInit {
 
   openEventParticipantsModal(): void {
     this.openModal('eventParticipantsModal');
+  }
+
+  openModifyEventInfoModal(): void {
+    this.openModal('modifyEventInfoModal');
   }
 }

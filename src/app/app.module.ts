@@ -26,6 +26,7 @@ import { InvitationRequestBlockComponent } from './invitation-request-block/invi
 import { InvitationOffersModalComponent } from './modals/invitation-offers-modal/invitation-offers-modal.component';
 import { InvitationOfferBlockComponent } from './invitation-offer-block/invitation-offer-block.component';
 import { EventParticipantsModalComponent } from './modals/event-participants-modal/event-participants-modal.component';
+import { ModifyEventInfoModalComponent } from './modals/modify-event-info-modal/modify-event-info-modal.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { EventParticipantsModalComponent } from './modals/event-participants-mod
     InvitationRequestBlockComponent,
     InvitationOffersModalComponent,
     InvitationOfferBlockComponent,
-    EventParticipantsModalComponent
+    EventParticipantsModalComponent,
+    ModifyEventInfoModalComponent
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule, NgxSmartModalModule.forRoot()],
   providers: [UserService, MessageService],

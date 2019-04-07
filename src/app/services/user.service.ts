@@ -239,4 +239,38 @@ export class UserService {
   deleteInvitation(invitationId: number) {
     return this.httpClient.get(this.SERVER_LINK + 'invitations/' + invitationId + '/delete');
   }
+
+  updateEventInfo(
+    eventId: number,
+    name: string,
+    description: string,
+    max_participant: number,
+    total_cost: number,
+    event_date: string,
+    visibility: string,
+    address_id: number,
+    event_type_type: string
+  ) {
+    return this.httpClient.get(
+      this.SERVER_LINK +
+        'events/' +
+        eventId +
+        '/update-info/' +
+        name +
+        '/' +
+        description +
+        '/' +
+        max_participant +
+        '/' +
+        total_cost +
+        '/' +
+        event_date +
+        '/' +
+        visibility +
+        '/' +
+        address_id +
+        '/' +
+        event_type_type
+    );
+  }
 }
