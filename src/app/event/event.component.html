@@ -15,20 +15,27 @@
         </button>
         <br />
         <br />
-        <input type="text" class="form-control" [(ngModel)]="invitedUserEmail" placeholder="User's email" />
-        <button type="button" class="btn btn-outline-dark btn-sm" (click)="inviteUser()">
-          Invite user
-        </button>
-        <br />
-        <br />
-        <button type="button" class="btn btn-outline-dark btn-sm" (click)="openInvitationOffersModal()">
-          Show invitees
-        </button>
-        <br />
-        <br />
-        <button type="button" class="btn btn-outline-dark btn-sm" (click)="openViewRequestsModal()">
-          View requests
-        </button>
+        <div *ngIf="visibility === 'restricted' || visibility === 'private'">
+          <input type="text" class="form-control" [(ngModel)]="invitedUserEmail" placeholder="User's email" />
+          <button type="button" class="btn btn-outline-dark btn-sm" (click)="inviteUser()">
+            Invite user
+          </button>
+          <br />
+          <br />
+          <button type="button" class="btn btn-outline-dark btn-sm" (click)="openInvitationOffersModal()">
+            Show invitees
+          </button>
+          <br />
+          <br />
+          <button
+            type="button"
+            class="btn btn-outline-dark btn-sm"
+            *ngIf="visibility === 'restricted'"
+            (click)="openViewRequestsModal()"
+          >
+            View requests
+          </button>
+        </div>
       </div>
     </div>
 

@@ -1,21 +1,30 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, AfterViewInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
+import { NgxSmartModalService, NgxSmartModalComponent } from 'ngx-smart-modal';
 
 @Component({
   selector: 'app-invitation-offers-modal',
   templateUrl: './invitation-offers-modal.component.html',
   styleUrls: ['./invitation-offers-modal.component.css']
 })
-export class InvitationOffersModalComponent implements OnInit {
+export class InvitationOffersModalComponent implements AfterViewInit {
   @Input() eventId;
 
   invitations: any;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private ngxSmartModalService: NgxSmartModalService) {}
 
-  ngOnInit() {
-    this.userService.getInvitationOffersForEvent(this.eventId).subscribe(invitations => {
-      this.invitations = invitations;
+  ngAfterViewInit() {
+    const invitationOfferModal = this.ngxSmartModalService.getModal('invitationOffersModal');
+
+    invitationOfferModal.onOpen.subscribe((modal: NgxSmartModalComponent) => {
+      this.userService.getInvitationOffersForEvent(this.eventId).subscribe(invitations => {
+        this.invitations = invitations;
+      });
+    });
+
+    invitationOfferModal.onClose.subscribe((modal: NgxSmartModalComponent) => {
+      this.invitations = [];
     });
   }
 }

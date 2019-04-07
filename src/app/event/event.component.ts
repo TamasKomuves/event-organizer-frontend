@@ -20,6 +20,7 @@ export class EventComponent implements OnInit {
   invitedUserEmail: string;
   isOrganizer = false;
   address: string;
+  visibility: string;
 
   constructor(
     private userService: UserService,
@@ -36,6 +37,7 @@ export class EventComponent implements OnInit {
       this.type = event['eventType'];
       this.date = event['eventDate'];
       this.description = event['description'];
+      this.visibility = event['visibility'];
       this.userService.getCurrentUser().subscribe(user => {
         this.isOrganizer = event['organizerEmail'] === user['email'];
       });
@@ -96,9 +98,13 @@ export class EventComponent implements OnInit {
     }
 
     this.userService.createInvitation(this.eventId, this.invitedUserEmail, 0).subscribe(
-      data => {
+      result => {
+        if (result['result'] === 'success') {
+          alert('Invitation sent');
+        } else if (result['result'] === 'already invited') {
+          alert('already invited');
+        }
         this.invitedUserEmail = '';
-        alert('Invitation sent');
       },
       error => {
         console.log(error);

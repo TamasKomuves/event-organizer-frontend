@@ -10,7 +10,6 @@ export class EventParticipantsModalComponent implements OnInit {
   @Input() eventId;
 
   participants: any;
-  nameAndEmail: any;
 
   constructor(private userService: UserService) {}
 
