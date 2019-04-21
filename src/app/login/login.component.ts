@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   email: string;
   password: string;
+  isLoading = false;
 
   constructor(
     private userService: UserService,
@@ -21,18 +22,22 @@ export class LoginComponent implements OnInit {
   ngOnInit() {}
 
   login(): void {
+    this.isLoading = true;
     this.userService.login(this.email, this.password).subscribe(
       data => {
         if (data['result'] === 'success') {
           this.router.navigateByUrl('/home');
           this.messageService.sendLoggedInMessage(true);
+          this.isLoading = false;
         } else {
           alert('Invalid data');
+          this.isLoading = false;
           return;
         }
       },
       error => {
         console.log(error);
+        this.isLoading = false;
       }
     );
   }
