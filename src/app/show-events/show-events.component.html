@@ -12,25 +12,43 @@
           Go
         </button>
         <br />
-        Events to show
+        Events filter
         <div style="margin-top: 5%;">
           <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" id="customCheck1" />
+            <input
+              type="checkbox"
+              class="custom-control-input"
+              [(ngModel)]="isShowOnlyEventsWhereParticipate"
+              (change)="changeShowedEventsList()"
+              id="customCheck1"
+            />
             <label class="custom-control-label" for="customCheck1">Only where participate</label>
           </div>
           <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" id="customCheck2" />
+            <input
+              type="checkbox"
+              class="custom-control-input"
+              [(ngModel)]="isShowOnlyPublicEvents"
+              (change)="changeShowedEventsList()"
+              id="customCheck2"
+            />
             <label class="custom-control-label" for="customCheck2">Only public events</label>
           </div>
           <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" id="customCheck3" />
+            <input
+              type="checkbox"
+              class="custom-control-input"
+              [(ngModel)]="isShowOnlyOwnEvents"
+              (change)="changeShowedEventsList()"
+              id="customCheck3"
+            />
             <label class="custom-control-label" for="customCheck3">Only own events</label>
           </div>
         </div>
       </div>
     </div>
     <div class="col-sm">
-      <div *ngFor="let event of events">
+      <div *ngFor="let event of eventsToShow">
         <app-event-block [eventId]="event.id"></app-event-block>
       </div>
     </div>
