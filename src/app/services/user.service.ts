@@ -1,70 +1,97 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  SERVER_LINK = 'https://powerful-shelf-66888.herokuapp.com/';
+  // SERVER_LINK = 'https://powerful-shelf-66888.herokuapp.com/';
+  SERVER_LINK = 'http://localhost:8080/';
 
   constructor(private httpClient: HttpClient) {}
 
+  getOptionsWithHeaders() {
+    return { headers: new HttpHeaders().set('authorization', 'Bearer ' + sessionStorage.getItem('token')) };
+  }
+
+  getMethod(url: string) {
+    return this.httpClient.get(this.SERVER_LINK + url, this.getOptionsWithHeaders());
+  }
+
+  postMethod(url: string, params: HttpParams) {
+    return this.httpClient.post(this.SERVER_LINK + url, null, {
+      headers: new HttpHeaders().set('content-type', 'application/json'),
+      params: params
+    });
+  }
+
   login(email: string, password: string) {
-    return this.httpClient.get(this.SERVER_LINK + 'users/login/' + email + '/' + password);
+    return this.httpClient.get(this.SERVER_LINK + 'public/users/login/' + email + '/' + password);
   }
 
   logout() {
-    return this.httpClient.get(this.SERVER_LINK + 'users/logout');
+    const url = 'users/logout';
+    return this.getMethod(url);
   }
 
   getCurrentUser() {
-    return this.httpClient.get(this.SERVER_LINK + 'users/current-user');
+    const url = 'users/current';
+    return this.getMethod(url);
   }
 
   getUserByEmail(email: string) {
-    return this.httpClient.get(this.SERVER_LINK + 'users/' + email);
+    const url = 'users/' + email;
+    return this.getMethod(url);
   }
 
   getEventById(id: number) {
-    return this.httpClient.get(this.SERVER_LINK + 'events/' + id);
+    const url = 'events/' + id;
+    return this.getMethod(url);
   }
 
   getEventPosts(eventId: number) {
-    return this.httpClient.get(this.SERVER_LINK + 'events/' + eventId + '/posts');
+    const url = 'events/' + eventId + '/posts';
+    return this.getMethod(url);
   }
 
   getPostComments(postId: number) {
-    return this.httpClient.get(this.SERVER_LINK + 'posts/' + postId + '/comments');
+    const url = 'posts/' + postId + '/comments';
+    return this.getMethod(url);
   }
 
   getPostById(postId: number) {
-    return this.httpClient.get(this.SERVER_LINK + 'posts/' + postId);
+    const url = 'posts/' + postId;
+    return this.getMethod(url);
   }
 
   getPostLikers(postId: number) {
-    return this.httpClient.get(this.SERVER_LINK + 'posts/' + postId + '/likers');
+    const url = 'posts/' + postId + '/likers';
+    return this.getMethod(url);
   }
 
   getCommentById(commentId: number) {
-    return this.httpClient.get(this.SERVER_LINK + 'comments/' + commentId);
+    const url = 'comments/' + commentId;
+    return this.getMethod(url);
   }
 
   getCommentLikes(commentId: number) {
-    return this.httpClient.get(this.SERVER_LINK + 'comments/' + commentId + '/likers');
+    const url = 'comments/' + commentId + '/likers';
+    return this.getMethod(url);
   }
 
   getEventParticipants(eventId: number) {
-    return this.httpClient.get(this.SERVER_LINK + 'events/' + eventId + '/users');
+    const url = 'events/' + eventId + '/users';
+    return this.getMethod(url);
   }
 
   createPost(eventId: number, userEmail: string, text: string) {
-    return this.httpClient.get(this.SERVER_LINK + 'posts/create/' + eventId + '/' + userEmail + '/' + text);
+    const url = 'posts/create/' + eventId + '/' + userEmail + '/' + text;
+    return this.getMethod(url);
   }
 
   createComment(postId: number, commenter_email: string, text: string) {
-    return this.httpClient.get(
-      this.SERVER_LINK + 'comments/create/' + postId + '/' + commenter_email + '/' + text
-    );
+    const url = 'comments/create/' + postId + '/' + commenter_email + '/' + text;
+    return this.getMethod(url);
   }
 
   createEvent(
@@ -78,166 +105,167 @@ export class UserService {
     event_type_type: String,
     organizer_email: string
   ) {
-    return this.httpClient.get(
-      this.SERVER_LINK +
-        'events/create/' +
-        name +
-        '/' +
-        description +
-        '/' +
-        max_participant +
-        '/' +
-        visibility +
-        '/' +
-        total_cost +
-        '/' +
-        event_date +
-        '/' +
-        address_id +
-        '/' +
-        event_type_type +
-        '/' +
-        organizer_email
-    );
+    const url =
+      'events/create/' +
+      name +
+      '/' +
+      description +
+      '/' +
+      max_participant +
+      '/' +
+      visibility +
+      '/' +
+      total_cost +
+      '/' +
+      event_date +
+      '/' +
+      address_id +
+      '/' +
+      event_type_type +
+      '/' +
+      organizer_email;
+    return this.getMethod(url);
   }
 
   createAddress(country: string, city: string, street: string, streetNumber: string) {
-    return this.httpClient.get(
-      this.SERVER_LINK + 'addresses/create/' + country + '/' + city + '/' + street + '/' + streetNumber
-    );
+    const url = 'addresses/create/' + country + '/' + city + '/' + street + '/' + streetNumber;
+    return this.getMethod(url);
   }
 
   createLikesComment(userEmail: string, commentId: number) {
-    return this.httpClient.get(this.SERVER_LINK + 'likes-comments/create/' + userEmail + '/' + commentId);
+    const url = 'likes-comments/create/' + userEmail + '/' + commentId;
+    return this.getMethod(url);
   }
 
   createLikesPost(userEmail: string, postId: number) {
-    return this.httpClient.get(this.SERVER_LINK + 'likes-posts/create/' + userEmail + '/' + postId);
+    const url = 'likes-posts/create/' + userEmail + '/' + postId;
+    return this.getMethod(url);
   }
 
   isLikedComment(commentId: number, email: string) {
-    return this.httpClient.get(this.SERVER_LINK + 'comments/' + commentId + '/likers/' + email);
+    const url = 'comments/' + commentId + '/likers/' + email;
+    return this.getMethod(url);
   }
 
   isLikedPost(postId: number, email: string) {
-    return this.httpClient.get(this.SERVER_LINK + 'posts/' + postId + '/likers/' + email);
+    const url = 'posts/' + postId + '/likers/' + email;
+    return this.getMethod(url);
   }
 
   register(
     email: string,
-    password: String,
-    firstname: String,
-    lastname: String,
-    country: String,
-    city: String,
-    street: String,
-    streetNumber: String
+    password: string,
+    firstname: string,
+    lastname: string,
+    country: string,
+    city: string,
+    street: string,
+    streetNumber: string
   ) {
-    return this.httpClient.get(
-      this.SERVER_LINK +
-        'users/registration/' +
-        email +
-        '/' +
-        password +
-        '/' +
-        firstname +
-        '/' +
-        lastname +
-        '/' +
-        country +
-        '/' +
-        city +
-        '/' +
-        street +
-        '/' +
-        streetNumber
-    );
+    const url = 'public/users/registration';
+
+    const httpParams = new HttpParams()
+      .append('email', email)
+      .append('password', password)
+      .append('firstname', firstname)
+      .append('lastname', lastname)
+      .append('country', country)
+      .append('city', city)
+      .append('street', street)
+      .append('streetNumber', streetNumber);
+
+    return this.postMethod(url, httpParams);
   }
 
   getAllEvents() {
-    return this.httpClient.get(this.SERVER_LINK + 'events');
+    const url = 'events';
+    return this.getMethod(url);
   }
 
   isUserParticipateInEvent(eventId: number, userEmail: String) {
-    return this.httpClient.get(this.SERVER_LINK + 'events/' + eventId + '/is-participate/' + userEmail);
+    const url = 'events/' + eventId + '/is-participate/' + userEmail;
+    return this.getMethod(url);
   }
 
   addUserToEvent(eventId: number, userEmail: String) {
-    return this.httpClient.get(this.SERVER_LINK + 'events/' + eventId + '/add-user/' + userEmail);
+    const url = 'events/' + eventId + '/add-user/' + userEmail;
+    return this.getMethod(url);
   }
 
   getInvitationsForUser(userEmail: String) {
-    return this.httpClient.get(this.SERVER_LINK + 'invitations/users/' + userEmail);
+    const url = 'invitations/users/' + userEmail;
+    return this.getMethod(url);
   }
 
   answerToInvitation(invitationId: number, isAccepted: number) {
-    return this.httpClient.get(this.SERVER_LINK + 'invitations/' + invitationId + '/answer/' + isAccepted);
+    const url = 'invitations/' + invitationId + '/answer/' + isAccepted;
+    return this.getMethod(url);
   }
 
   getInvitationById(invitationId: string) {
-    return this.httpClient.get(this.SERVER_LINK + 'invitations/' + invitationId);
+    const url = 'invitations/' + invitationId;
+    return this.getMethod(url);
   }
 
   createInvitation(eventId: number, userEmail: string, isUserRequested: number) {
-    return this.httpClient.get(
-      this.SERVER_LINK + 'invitations/create/' + eventId + '/' + userEmail + '/' + isUserRequested
-    );
+    const url = 'invitations/create/' + eventId + '/' + userEmail + '/' + isUserRequested;
+    return this.getMethod(url);
   }
 
   getAddressById(addressId: number) {
-    return this.httpClient.get(this.SERVER_LINK + 'addresses/' + addressId);
+    const url = 'addresses/' + addressId;
+    return this.getMethod(url);
   }
 
   getAllEventType() {
-    return this.httpClient.get(this.SERVER_LINK + 'event-types/all');
+    const url = 'event-types/all';
+    return this.getMethod(url);
   }
 
   getEventsByType(type: string) {
-    return this.httpClient.get(this.SERVER_LINK + 'events/type/' + type);
+    const url = 'events/type/' + type;
+    return this.getMethod(url);
   }
 
   isEventHasMorePlace(eventId: number) {
-    return this.httpClient.get(this.SERVER_LINK + 'events/' + eventId + '/has-more-place');
+    const url = 'events/' + eventId + '/has-more-place';
+    return this.getMethod(url);
   }
 
   isUserHasRequest(eventId: number, userEmail: string) {
-    return this.httpClient.get(this.SERVER_LINK + 'invitations/is-invited/' + eventId + '/' + userEmail);
+    const url = 'invitations/is-invited/' + eventId + '/' + userEmail;
+    return this.getMethod(url);
   }
 
   updateAddress(addressId: number, country: string, city: string, street: string, streetNumber: string) {
-    return this.httpClient.get(
-      this.SERVER_LINK +
-        'addresses/update/' +
-        addressId +
-        '/' +
-        country +
-        '/' +
-        city +
-        '/' +
-        street +
-        '/' +
-        streetNumber
-    );
+    const url =
+      'addresses/update/' + addressId + '/' + country + '/' + city + '/' + street + '/' + streetNumber;
+    return this.getMethod(url);
   }
 
   updateUserName(email: string, firstname: string, lastname: string) {
-    return this.httpClient.get(this.SERVER_LINK + 'users/update/' + email + '/' + firstname + '/' + lastname);
+    const url = 'users/update/' + email + '/' + firstname + '/' + lastname;
+    return this.getMethod(url);
   }
 
   deleteUser(email: string) {
-    return this.httpClient.get(this.SERVER_LINK + 'users/delete/' + email);
+    const url = 'users/delete/' + email;
+    return this.getMethod(url);
   }
 
   getInvitationRequestsForEvent(eventId: number) {
-    return this.httpClient.get(this.SERVER_LINK + 'events/' + eventId + '/invitation-requests');
+    const url = 'events/' + eventId + '/invitation-requests';
+    return this.getMethod(url);
   }
 
   getInvitationOffersForEvent(eventId: number) {
-    return this.httpClient.get(this.SERVER_LINK + 'events/' + eventId + '/invitation-offers');
+    const url = 'events/' + eventId + '/invitation-offers';
+    return this.getMethod(url);
   }
 
   deleteInvitation(invitationId: number) {
-    return this.httpClient.get(this.SERVER_LINK + 'invitations/' + invitationId + '/delete');
+    const url = 'invitations/' + invitationId + '/delete';
+    return this.getMethod(url);
   }
 
   updateEventInfo(
@@ -251,26 +279,25 @@ export class UserService {
     address_id: number,
     event_type_type: string
   ) {
-    return this.httpClient.get(
-      this.SERVER_LINK +
-        'events/' +
-        eventId +
-        '/update-info/' +
-        name +
-        '/' +
-        description +
-        '/' +
-        max_participant +
-        '/' +
-        total_cost +
-        '/' +
-        event_date +
-        '/' +
-        visibility +
-        '/' +
-        address_id +
-        '/' +
-        event_type_type
-    );
+    const url =
+      'events/' +
+      eventId +
+      '/update-info/' +
+      name +
+      '/' +
+      description +
+      '/' +
+      max_participant +
+      '/' +
+      total_cost +
+      '/' +
+      event_date +
+      '/' +
+      visibility +
+      '/' +
+      address_id +
+      '/' +
+      event_type_type;
+    return this.getMethod(url);
   }
 }

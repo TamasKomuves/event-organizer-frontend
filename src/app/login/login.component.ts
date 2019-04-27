@@ -24,18 +24,15 @@ export class LoginComponent implements OnInit {
   login(): void {
     this.isLoading = true;
     this.userService.login(this.email, this.password).subscribe(
-      data => {
-        if (data['result'] === 'success') {
-          this.router.navigateByUrl('/home');
-          this.messageService.sendLoggedInMessage(true);
-          this.isLoading = false;
-        } else {
-          alert('Invalid data');
-          this.isLoading = false;
-          return;
-        }
+      result => {
+        sessionStorage.setItem('token', result['token']);
+        this.router.navigateByUrl('/home');
+        this.messageService.sendLoggedInMessage(true);
+        this.isLoading = false;
+        console.log(sessionStorage.getItem('token'));
       },
       error => {
+        alert('Invalid data');
         console.log(error);
         this.isLoading = false;
       }

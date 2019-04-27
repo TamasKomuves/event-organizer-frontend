@@ -63,7 +63,7 @@ export class RegistrationComponent implements OnInit {
           }
         },
         error => {
-          alert(error);
+          console.log(error);
         }
       );
   }
