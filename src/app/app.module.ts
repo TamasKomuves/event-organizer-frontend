@@ -27,6 +27,7 @@ import { InvitationOffersModalComponent } from './modals/invitation-offers-modal
 import { InvitationOfferBlockComponent } from './invitation-offer-block/invitation-offer-block.component';
 import { EventParticipantsModalComponent } from './modals/event-participants-modal/event-participants-modal.component';
 import { ModifyEventInfoModalComponent } from './modals/modify-event-info-modal/modify-event-info-modal.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,7 @@ import { ModifyEventInfoModalComponent } from './modals/modify-event-info-modal/
     ModifyEventInfoModalComponent
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule, NgxSmartModalModule.forRoot()],
-  providers: [UserService, MessageService],
+  providers: [UserService, MessageService, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
