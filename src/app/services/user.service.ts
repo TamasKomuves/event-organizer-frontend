@@ -18,10 +18,9 @@ export class UserService {
     return this.httpClient.get(this.SERVER_LINK + url, this.getOptionsWithHeaders());
   }
 
-  postMethod(url: string, params: HttpParams) {
-    return this.httpClient.post(this.SERVER_LINK + url, null, {
-      headers: new HttpHeaders().set('content-type', 'application/json'),
-      params: params
+  postMethod(url: string, body: any) {
+    return this.httpClient.post(this.SERVER_LINK + url, body, {
+      headers: new HttpHeaders().set('content-type', 'application/json')
     });
   }
 
@@ -164,17 +163,18 @@ export class UserService {
   ) {
     const url = 'public/users/registration';
 
-    const httpParams = new HttpParams()
-      .append('email', email)
-      .append('password', password)
-      .append('firstname', firstname)
-      .append('lastname', lastname)
-      .append('country', country)
-      .append('city', city)
-      .append('street', street)
-      .append('streetNumber', streetNumber);
+    const body = {
+      email: email,
+      password: password,
+      firstname: firstname,
+      lastname: lastname,
+      country: country,
+      city: city,
+      street: street,
+      streetNumber: streetNumber
+    }
 
-    return this.postMethod(url, httpParams);
+    return this.postMethod(url, body);
   }
 
   getAllEvents() {
