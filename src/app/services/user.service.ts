@@ -10,22 +10,34 @@ export class UserService {
 
   constructor(private httpClient: HttpClient) {}
 
-  getOptionsWithHeaders() {
-    return { headers: new HttpHeaders().set('authorization', 'Bearer ' + sessionStorage.getItem('token')) };
-  }
-
   getMethod(url: string) {
-    return this.httpClient.get(this.SERVER_LINK + url, this.getOptionsWithHeaders());
+    return this.httpClient.get(this.SERVER_LINK + url, {
+      headers: new HttpHeaders().set('authorization', 'Bearer ' + sessionStorage.getItem('token'))
+    });
   }
 
   postMethod(url: string, body: any) {
+    return this.httpClient.post(this.SERVER_LINK + url, body, {
+      headers: new HttpHeaders()
+        .set('content-type', 'application/json')
+        .set('authorization', 'Bearer ' + sessionStorage.getItem('token'))
+    });
+  }
+
+  postMethodWithoutAuth(url: string, body: any) {
     return this.httpClient.post(this.SERVER_LINK + url, body, {
       headers: new HttpHeaders().set('content-type', 'application/json')
     });
   }
 
   login(email: string, password: string) {
-    return this.httpClient.get(this.SERVER_LINK + 'public/users/login/' + email + '/' + password);
+    const url = 'public/users/login';
+    const body = {
+      email: email,
+      password: password
+    };
+
+    return this.postMethodWithoutAuth(url, body);
   }
 
   logout() {
@@ -96,49 +108,60 @@ export class UserService {
   createEvent(
     name: string,
     description: string,
-    max_participant: number,
+    maxParticipant: number,
     visibility: string,
-    total_cost: number,
-    event_date: string,
-    address_id: number,
-    event_type_type: String,
-    organizer_email: string
+    totalCost: number,
+    eventDate: string,
+    addressId: number,
+    eventTypeType: String,
+    organizerEmail: string
   ) {
-    const url =
-      'events/create/' +
-      name +
-      '/' +
-      description +
-      '/' +
-      max_participant +
-      '/' +
-      visibility +
-      '/' +
-      total_cost +
-      '/' +
-      event_date +
-      '/' +
-      address_id +
-      '/' +
-      event_type_type +
-      '/' +
-      organizer_email;
-    return this.getMethod(url);
+    const url = 'events/create';
+    const body = {
+      name: name,
+      description: description,
+      maxParticipant: maxParticipant,
+      visibility: visibility,
+      totalCost: totalCost,
+      eventDate: eventDate,
+      addressId: addressId,
+      eventTypeType: eventTypeType,
+      organizerEmail: organizerEmail
+    };
+
+    return this.postMethod(url, body);
   }
 
   createAddress(country: string, city: string, street: string, streetNumber: string) {
-    const url = 'addresses/create/' + country + '/' + city + '/' + street + '/' + streetNumber;
-    return this.getMethod(url);
+    const url = 'addresses/create';
+    const body = {
+      country: country,
+      city: city,
+      street: street,
+      streetNumber: streetNumber
+    };
+
+    return this.postMethod(url, body);
   }
 
   createLikesComment(userEmail: string, commentId: number) {
-    const url = 'likes-comments/create/' + userEmail + '/' + commentId;
-    return this.getMethod(url);
+    const url = 'likes-comments/create';
+    const body = {
+      userEmail: userEmail,
+      commentId: commentId
+    };
+
+    return this.postMethod(url, body);
   }
 
   createLikesPost(userEmail: string, postId: number) {
-    const url = 'likes-posts/create/' + userEmail + '/' + postId;
-    return this.getMethod(url);
+    const url = 'likes-posts/create';
+    const body = {
+      userEmail: userEmail,
+      postId: postId
+    };
+
+    return this.postMethod(url, body);
   }
 
   isLikedComment(commentId: number, email: string) {
@@ -162,7 +185,6 @@ export class UserService {
     streetNumber: string
   ) {
     const url = 'public/users/registration';
-
     const body = {
       email: email,
       password: password,
@@ -172,9 +194,9 @@ export class UserService {
       city: city,
       street: street,
       streetNumber: streetNumber
-    }
+    };
 
-    return this.postMethod(url, body);
+    return this.postMethodWithoutAuth(url, body);
   }
 
   getAllEvents() {
@@ -208,8 +230,14 @@ export class UserService {
   }
 
   createInvitation(eventId: number, userEmail: string, isUserRequested: number) {
-    const url = 'invitations/create/' + eventId + '/' + userEmail + '/' + isUserRequested;
-    return this.getMethod(url);
+    const url = 'invitations/create';
+    const body = {
+      eventId: eventId,
+      userEmail: userEmail,
+      isUserRequested: isUserRequested
+    };
+
+    return this.postMethod(url, body);
   }
 
   getAddressById(addressId: number) {
