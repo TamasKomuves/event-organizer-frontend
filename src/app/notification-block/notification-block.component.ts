@@ -32,7 +32,8 @@ export class NotificationBlockComponent implements OnInit {
       this.isUserRequested = invitation['isUserRequested'];
       this.sentDate = invitation['sentDate'];
       this.decisionDate = invitation['decisionDate'];
-      this.dateToShow = this.decisionDate != null ? this.decisionDate : this.sentDate;
+      this.dateToShow = this.decisionDate !== null ? this.decisionDate : this.sentDate;
+      console.log(invitation);
 
       this.userService.getEventById(invitation['eventId']).subscribe(event => {
         this.eventName = event['name'];
@@ -52,7 +53,7 @@ export class NotificationBlockComponent implements OnInit {
   calculateResult(): string {
     let result = '';
 
-    if (this.decisionDate != null) {
+    if (this.decisionDate !== null) {
       if (this.isUserRequested === 1 && this.isAccepted === 1) {
         result = 'has been accepted';
       } else if (this.isUserRequested === 1) {
