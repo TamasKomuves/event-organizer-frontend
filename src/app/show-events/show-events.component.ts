@@ -20,6 +20,7 @@ export class ShowEventsComponent implements OnInit {
   ngOnInit() {
     this.userService.getAllEvents().subscribe(events => {
       this.events = events;
+      this.events.sort((a, b) => b.eventDate.localeCompare(a.eventDate));
       this.eventsToShow = events;
     });
 
