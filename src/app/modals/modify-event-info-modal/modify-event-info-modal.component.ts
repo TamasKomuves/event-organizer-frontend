@@ -40,7 +40,7 @@ export class ModifyEventInfoModalComponent implements AfterViewInit {
         this.maxParticipants = event['maxParticipant'];
         this.estimatedCost = event['totalCost'];
         this.description = event['description'];
-        this.eventDate = formatDate(event['eventDate'], 'yyyy-MM-dd hh:mm', 'en');
+        this.eventDate = formatDate(event['eventDate'], 'yyyy-MM-dd HH:mm', 'en');
         this.visibility = event['visibility'];
         this.userService.getAddressById(event['addressId']).subscribe(address => {
           this.country = address['country'];
