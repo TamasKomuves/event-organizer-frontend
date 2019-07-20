@@ -32,7 +32,7 @@ export class NotificationBlockComponent implements OnInit {
       this.isUserRequested = invitation['isUserRequested'];
       this.sentDate = invitation['sentDate'];
       this.decisionDate = invitation['decisionDate'];
-      this.dateToShow = this.decisionDate !== null ? this.decisionDate : this.sentDate;
+      this.dateToShow = this.getDateToShowFromInvitation(invitation);
 
       this.userService.getEventById(invitation['eventId']).subscribe(event => {
         this.eventName = event['name'];
@@ -41,6 +41,10 @@ export class NotificationBlockComponent implements OnInit {
         this.isShowButtons = this.shouldShowButtons();
       });
     });
+  }
+
+  getDateToShowFromInvitation(invitation: any): string {
+    return invitation['decisionDate'] !== null ? invitation['decisionDate'] : invitation['sentDate'];
   }
 
   initText(): string {

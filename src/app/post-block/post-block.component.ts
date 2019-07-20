@@ -41,6 +41,7 @@ export class PostBlockComponent implements OnInit {
       this.userService.getPostComments(this.postId).subscribe(comments => {
         this.comments = comments;
         this.isAnyComment = this.comments !== undefined && this.comments.length > 0;
+        this.comments.sort((a, b) => a.commentDate.localeCompare(b.commentDate));
       });
       this.userService.getPostLikers(this.postId).subscribe(postLikers => {
         let likers: any;

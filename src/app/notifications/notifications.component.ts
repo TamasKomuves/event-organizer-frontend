@@ -12,10 +12,15 @@ export class NotificationsComponent implements OnInit {
   constructor(private userService: UserService) {}
 
   ngOnInit() {
-    this.userService.getCurrentUser().subscribe(data => {
-      this.userService.getInvitationsForUser(data['email']).subscribe(data2 => {
-        this.invitations = data2;
+    this.userService.getCurrentUser().subscribe(currentUser => {
+      this.userService.getInvitationsForUser(currentUser['email']).subscribe(invitations => {
+        this.invitations = invitations;
+        this.invitations.sort((a, b) => this.dateToShow(b).localeCompare(this.dateToShow(a)));
       });
     });
+  }
+
+  dateToShow(invitation: any): string {
+    return invitation['decisionDate'] !== null ? invitation['decisionDate'] : invitation['sentDate'];
   }
 }
