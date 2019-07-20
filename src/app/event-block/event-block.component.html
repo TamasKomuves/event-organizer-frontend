@@ -1,7 +1,7 @@
 <div class="container border shadow" style="padding: 2%; margin-bottom: 2%;">
   <div class="row">
     <div class="col-sm"><strong>Event name:</strong> {{ name }}</div>
-    <div class="col-sm"><strong>Date:</strong> {{ date }}</div>
+    <div class="col-sm"><strong>Date:</strong> {{ date | date: 'yyyy-MM-dd HH:mm' }}</div>
   </div>
   <div class="row">
     <div class="col-sm"><strong>Organizer:</strong> {{ organizerName }}</div>

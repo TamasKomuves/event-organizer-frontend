@@ -22,7 +22,7 @@ export class CommentBlockComponent implements OnInit {
 
     this.userService.getCommentById(this.commentId).subscribe(comment => {
       this.text = comment['text'];
-      this.date = comment['date'];
+      this.date = comment['commentDate'];
       this.userService.getUserByEmail(comment['commenterEmail']).subscribe(user => {
         this.commenterName = user['firstName'] + ' ' + user['lastName'];
       });

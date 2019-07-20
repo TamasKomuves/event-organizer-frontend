@@ -8,7 +8,7 @@
     <div class="col-sm-3">
       <div class="participant-div shadow p-3 mb-5 bg-white rounded border border-dark">
         <strong>Participants</strong>
-        <ul *ngFor="let participant of (participants | slice: 0:5)" style="margin-top: 3%;">
+        <ul *ngFor="let participant of participants | slice: 0:5" style="margin-top: 3%;">
           <li>{{ participant.firstName }} {{ participant.lastName }}</li>
         </ul>
         <button type="button" class="btn btn-outline-dark btn-sm" (click)="openEventParticipantsModal()">
@@ -65,7 +65,7 @@
           <p class=""><strong>Event info</strong></p>
           <p><strong>Name:</strong> {{ name }}</p>
           <p><strong>Type:</strong> {{ type }}</p>
-          <p><strong>Date:</strong> {{ date }}</p>
+          <p><strong>Date:</strong> {{ date | date: 'yyyy-MM-dd HH:mm' }}</p>
           <p><strong>Address:</strong> {{ address }}</p>
           <p><strong>Description:</strong> {{ description }}</p>
           <button

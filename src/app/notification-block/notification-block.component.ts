@@ -33,7 +33,6 @@ export class NotificationBlockComponent implements OnInit {
       this.sentDate = invitation['sentDate'];
       this.decisionDate = invitation['decisionDate'];
       this.dateToShow = this.decisionDate !== null ? this.decisionDate : this.sentDate;
-      console.log(invitation);
 
       this.userService.getEventById(invitation['eventId']).subscribe(event => {
         this.eventName = event['name'];

@@ -111,7 +111,7 @@ export class UserService {
     maxParticipant: number,
     visibility: string,
     totalCost: number,
-    eventDate: string,
+    eventDate: Date,
     addressId: number,
     eventTypeType: String,
     organizerEmail: string

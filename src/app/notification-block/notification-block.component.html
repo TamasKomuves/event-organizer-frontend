@@ -3,7 +3,7 @@
   style="padding: 2%; margin-left: 25%; margin-right: 25%; margin-bottom: 3%;"
 >
   <div class="small font-weight-bold" style="text-align: right;">
-    {{ dateToShow }}
+    {{ dateToShow | date: 'yyyy-MM-dd HH:mm:ss' }}
   </div>
   <div class="form-control-static">
     {{ text }}

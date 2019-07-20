@@ -45,7 +45,7 @@ export class CreateEventComponent implements OnInit {
                 this.maxParticipants,
                 this.visibility,
                 this.estimatedCost,
-                this.eventDate + ':00',
+                new Date(this.eventDate),
                 result['addressId'],
                 this.type,
                 user['email']
