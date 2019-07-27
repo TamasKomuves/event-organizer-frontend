@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { UserService } from '../services/user.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-notification-block',
@@ -19,14 +20,17 @@ export class NotificationBlockComponent implements OnInit {
   isUserRequested: number;
   isShowButtons = false;
   eventName: string;
+  spinnerName: string;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private spinner: NgxSpinnerService) {}
 
   ngOnInit() {
     this.initNotification();
   }
 
   initNotification(): void {
+    this.spinnerName = 'mySpinner' + this.invitationId;
+    this.spinner.show(this.spinnerName);
     this.userService.getInvitationById(this.invitationId).subscribe(invitation => {
       this.isAccepted = invitation['isAccepted'];
       this.isUserRequested = invitation['isUserRequested'];
@@ -39,6 +43,7 @@ export class NotificationBlockComponent implements OnInit {
         this.text = this.initText();
         this.result = this.calculateResult();
         this.isShowButtons = this.shouldShowButtons();
+        this.spinner.hide(this.spinnerName);
       });
     });
   }

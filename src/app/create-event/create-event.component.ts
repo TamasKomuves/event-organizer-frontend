@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { isNullOrUndefined } from 'util';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-create-event',
@@ -22,7 +23,7 @@ export class CreateEventComponent implements OnInit {
   visibility = this.visibilities[0];
   isCreateButtonClickable = true;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private spinner: NgxSpinnerService) {}
 
   ngOnInit() {}
 
@@ -33,6 +34,7 @@ export class CreateEventComponent implements OnInit {
     }
 
     this.isCreateButtonClickable = false;
+    this.spinner.show();
     this.userService.getCurrentUser().subscribe(
       user => {
         this.userService
@@ -55,11 +57,13 @@ export class CreateEventComponent implements OnInit {
                   alert('Event created!');
                   this.resetInputFields();
                   this.isCreateButtonClickable = true;
+                  this.spinner.hide();
                 },
                 error => {
                   console.log(error);
                   alert('Event creation failed!');
                   this.isCreateButtonClickable = true;
+                  this.spinner.hide();
                 }
               );
           });
@@ -68,6 +72,7 @@ export class CreateEventComponent implements OnInit {
         console.log(error);
         alert('Event creation failed!');
         this.isCreateButtonClickable = true;
+        this.spinner.hide();
       }
     );
   }

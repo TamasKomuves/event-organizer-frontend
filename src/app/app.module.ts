@@ -4,6 +4,7 @@ import { AppRoutingModule } from './core/app-routing.module';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxSmartModalModule } from 'ngx-smart-modal';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -52,7 +53,14 @@ import { DatePipe } from '@angular/common';
     EventParticipantsModalComponent,
     ModifyEventInfoModalComponent
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule, NgxSmartModalModule.forRoot()],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule,
+    NgxSmartModalModule.forRoot(),
+    NgxSpinnerModule
+  ],
   providers: [UserService, MessageService, DatePipe],
   bootstrap: [AppComponent]
 })

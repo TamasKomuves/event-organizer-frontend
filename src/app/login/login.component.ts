@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { MessageService } from '../services/message.service';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-login',
@@ -16,12 +17,14 @@ export class LoginComponent implements OnInit {
   constructor(
     private userService: UserService,
     private router: Router,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private spinner: NgxSpinnerService
   ) {}
 
   ngOnInit() {}
 
   login(): void {
+    this.spinner.show();
     this.isLoading = true;
     this.userService.login(this.email, this.password).subscribe(
       result => {
@@ -30,11 +33,13 @@ export class LoginComponent implements OnInit {
         this.messageService.sendLoggedInMessage(true);
         this.isLoading = false;
         console.log(sessionStorage.getItem('token'));
+        this.spinner.hide();
       },
       error => {
         alert('Invalid data');
         console.log(error);
         this.isLoading = false;
+        this.spinner.hide();
       }
     );
   }

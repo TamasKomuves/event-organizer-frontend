@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-event-block',
@@ -18,14 +19,17 @@ export class EventBlockComponent implements OnInit {
   visibility: string;
   location: string;
   isPublic: boolean;
+  spinnerName: string;
   isParticipate = false;
   isHasMorePlace = false;
   isHasRequest = true;
   isParticipateLoaded = false;
 
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(private userService: UserService, private router: Router, private spinner: NgxSpinnerService) {}
 
   ngOnInit() {
+    this.spinnerName = 'mySpinner' + this.eventId;
+    this.spinner.show(this.spinnerName);
     this.userService.getEventById(this.eventId).subscribe(event => {
       this.name = event['name'];
       this.date = event['eventDate'];
@@ -55,6 +59,7 @@ export class EventBlockComponent implements OnInit {
         this.userService.isUserParticipateInEvent(this.eventId, currentUser['email']).subscribe(result => {
           this.isParticipate = result['result'] === 'true';
           this.isParticipateLoaded = true;
+          this.spinner.hide(this.spinnerName);
         });
       });
 
@@ -72,8 +77,8 @@ export class EventBlockComponent implements OnInit {
 
   joinEvent(): void {
     this.isParticipate = true;
-    this.userService.getCurrentUser().subscribe(data => {
-      this.userService.addUserToEvent(this.eventId, data['email']).subscribe(
+    this.userService.getCurrentUser().subscribe(currentUser => {
+      this.userService.addUserToEvent(this.eventId, currentUser['email']).subscribe(
         data2 => {
           if (data2['result'] === 'success') {
             this.router.navigate(['/event'], { queryParams: { eventId: this.eventId } });

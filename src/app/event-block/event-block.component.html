@@ -1,4 +1,15 @@
-<div class="container border shadow" style="padding: 2%; margin-bottom: 2%;">
+<div class="container border shadow" style="padding: 2%; margin-bottom: 2%; position: relative;">
+  <ngx-spinner
+    bdOpacity="0.2"
+    bdColor="rgba(0,0,0,0.52)"
+    size="medium"
+    color="#010101"
+    type="ball-scale-multiple"
+    [fullScreen]="false"
+    [name]="spinnerName"
+  >
+    <p style="color: white">Loading...</p>
+  </ngx-spinner>
   <div class="row">
     <div class="col-sm"><strong>Event name:</strong> {{ name }}</div>
     <div class="col-sm"><strong>Date:</strong> {{ date | date: 'yyyy-MM-dd HH:mm' }}</div>

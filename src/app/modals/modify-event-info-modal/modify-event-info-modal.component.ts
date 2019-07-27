@@ -1,8 +1,9 @@
 import { Component, Input, AfterViewInit } from '@angular/core';
 import { isNullOrUndefined } from 'util';
-import { UserService } from 'src/app/services/user.service';
+import { UserService } from '../../services/user.service';
 import { formatDate } from '@angular/common';
 import { NgxSmartModalComponent, NgxSmartModalService } from 'ngx-smart-modal';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-modify-event-info-modal',
@@ -26,7 +27,11 @@ export class ModifyEventInfoModalComponent implements AfterViewInit {
   visibility = this.visibilities[0];
   isLoaded = false;
 
-  constructor(private userService: UserService, private ngxSmartModalService: NgxSmartModalService) {}
+  constructor(
+    private userService: UserService,
+    private ngxSmartModalService: NgxSmartModalService,
+    private spinner: NgxSpinnerService
+  ) {}
 
   ngAfterViewInit() {
     const modifyEventInfoModal = this.ngxSmartModalService.getModal('modifyEventInfoModal');
@@ -55,9 +60,11 @@ export class ModifyEventInfoModalComponent implements AfterViewInit {
 
   modifyEventInfo(): void {
     this.isLoaded = false;
+    this.spinner.show();
     if (!this.isAllInputValid()) {
       alert('Please fill in all fields!');
       this.isLoaded = true;
+      this.spinner.hide();
       return;
     }
 
@@ -74,16 +81,31 @@ export class ModifyEventInfoModalComponent implements AfterViewInit {
           event['addressId'],
           this.type
         )
-        .subscribe(result => {
-          this.userService
-            .updateAddress(event['addressId'], this.country, this.city, this.street, this.streetNumber)
-            .subscribe(result2 => {
-              this.resetInputFields();
-              const modifyEventInfoModal = this.ngxSmartModalService.getModal('modifyEventInfoModal');
-              modifyEventInfoModal.close();
-              alert('Event info updated');
-            });
-        });
+        .subscribe(
+          result => {
+            this.userService
+              .updateAddress(event['addressId'], this.country, this.city, this.street, this.streetNumber)
+              .subscribe(
+                result2 => {
+                  this.resetInputFields();
+                  const modifyEventInfoModal = this.ngxSmartModalService.getModal('modifyEventInfoModal');
+                  modifyEventInfoModal.close();
+                  alert('Event info updated');
+                  this.spinner.hide();
+                },
+                error => {
+                  console.log(error);
+                  alert('Modification failed!');
+                  this.spinner.hide();
+                }
+              );
+          },
+          error => {
+            console.log(error);
+            alert('Modification failed!');
+            this.spinner.hide();
+          }
+        );
     });
   }
 
