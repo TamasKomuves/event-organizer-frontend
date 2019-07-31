@@ -11,6 +11,7 @@ export class ShowEventsComponent implements OnInit {
   eventsToShow: any;
   eventTypes: any;
   selectedEventType = 'all';
+  lastSelectedEventType: string;
   isShowOnlyEventsWhereParticipate = false;
   isShowOnlyPublicEvents = false;
   isShowOnlyOwnEvents = false;
@@ -18,6 +19,7 @@ export class ShowEventsComponent implements OnInit {
   constructor(private userService: UserService) {}
 
   ngOnInit() {
+    this.lastSelectedEventType = this.selectedEventType;
     this.userService.getAllEvents().subscribe(events => {
       this.events = events;
       this.events.sort((a, b) => b.eventDate.localeCompare(a.eventDate));
@@ -30,6 +32,11 @@ export class ShowEventsComponent implements OnInit {
   }
 
   showEventsByType(): void {
+    if (this.lastSelectedEventType === this.selectedEventType) {
+      this.changeShowedEventsList();
+      return;
+    }
+
     if (this.selectedEventType === 'all') {
       this.userService.getAllEvents().subscribe(events => {
         this.events = events;
@@ -41,6 +48,7 @@ export class ShowEventsComponent implements OnInit {
         this.changeShowedEventsList();
       });
     }
+    this.lastSelectedEventType = this.selectedEventType;
   }
 
   changeShowedEventsList(): void {
@@ -57,11 +65,11 @@ export class ShowEventsComponent implements OnInit {
     });
   }
 
-  isEventShowable(event: any, currentUser: any, isParticipateresult: any): boolean {
+  isEventShowable(event: any, currentUser: any, isParticipateResult: any): boolean {
     return (
       (!this.isShowOnlyOwnEvents || event['organizerEmail'] === currentUser['email']) &&
       (!this.isShowOnlyPublicEvents || event['visibility'] === 'public') &&
-      (!this.isShowOnlyEventsWhereParticipate || isParticipateresult['result'] === 'true')
+      (!this.isShowOnlyEventsWhereParticipate || isParticipateResult['result'] === 'true')
     );
   }
 }

@@ -8,9 +8,6 @@
           <option selected>all</option>
           <option [value]="eventType.type" *ngFor="let eventType of eventTypes">{{ eventType.type }}</option>
         </select>
-        <button type="button" class="btn btn-outline-primary" id="search-button" (click)="showEventsByType()">
-          Go
-        </button>
         <br />
         Events filter
         <div style="margin-top: 5%;">
@@ -19,7 +16,6 @@
               type="checkbox"
               class="custom-control-input"
               [(ngModel)]="isShowOnlyEventsWhereParticipate"
-              (change)="changeShowedEventsList()"
               id="customCheck1"
             />
             <label class="custom-control-label" for="customCheck1">Only where participate</label>
@@ -29,7 +25,6 @@
               type="checkbox"
               class="custom-control-input"
               [(ngModel)]="isShowOnlyPublicEvents"
-              (change)="changeShowedEventsList()"
               id="customCheck2"
             />
             <label class="custom-control-label" for="customCheck2">Only public events</label>
@@ -39,11 +34,18 @@
               type="checkbox"
               class="custom-control-input"
               [(ngModel)]="isShowOnlyOwnEvents"
-              (change)="changeShowedEventsList()"
               id="customCheck3"
             />
             <label class="custom-control-label" for="customCheck3">Only own events</label>
           </div>
+          <button
+            type="button"
+            class="btn btn-outline-primary"
+            id="search-button"
+            (click)="showEventsByType()"
+          >
+            Search
+          </button>
         </div>
       </div>
     </div>
