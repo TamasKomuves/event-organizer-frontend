@@ -1,0 +1,26 @@
+<div class="container shadow p-3 mb-5 bg-white rounded border" style="text-align: left;">
+  <div class="row">
+    <div class="col font-weight-bold">
+      {{ pollQuestion.text }}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col small">Valaki Akivolt: {{ pollQuestion.date | date: 'yyyy-MM-dd HH:mm:ss' }}</div>
+  </div>
+  <hr style="border-color: gray;" />
+  <div class="row" *ngFor="let answerId of answerIds">
+    <div class="col">
+      <app-poll-answer [answerId]="answerId"></app-poll-answer>
+    </div>
+  </div>
+  <div class="row" style="margin-top: 1%;">
+    <div class="col-7">
+      <input type="text" class="form-control" placeholder="Enter a new option" />
+    </div>
+    <div class="col">
+      <button type="button" class="btn-sm btn-dark">
+        Add new option
+      </button>
+    </div>
+  </div>
+</div>

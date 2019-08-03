@@ -328,4 +328,33 @@ export class UserService {
       event_type_type;
     return this.getMethod(url);
   }
+
+  getPollQuiestionById(id: number) {
+    const url = 'poll-questions/' + id;
+    return this.getMethod(url);
+  }
+
+  getPollAnswerById(id: number) {
+    const url = 'poll-answers/' + id;
+    return this.getMethod(url);
+  }
+
+  getPollAnswerIdsByQuestionId(questionId: number) {
+    const url = 'poll-questions/' + questionId + '/answerIds';
+    return this.getMethod(url);
+  }
+
+  getVotesForAnswerById(id: number) {
+    const url = 'poll-answers/' + id + '/votes';
+    return this.getMethod(url);
+  }
+
+  createAnswersToPoll(pollAnswerId: number) {
+    const url = 'answers-to-polls/create';
+    const body = {
+      pollAnswerId: pollAnswerId
+    };
+
+    return this.postMethod(url, body);
+  }
 }

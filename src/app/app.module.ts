@@ -29,6 +29,8 @@ import { InvitationOfferBlockComponent } from './invitation-offer-block/invitati
 import { EventParticipantsModalComponent } from './modals/event-participants-modal/event-participants-modal.component';
 import { ModifyEventInfoModalComponent } from './modals/modify-event-info-modal/modify-event-info-modal.component';
 import { DatePipe } from '@angular/common';
+import { PollBlockComponent } from './poll-block/poll-block.component';
+import { PollAnswerComponent } from './poll-answer/poll-answer.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,9 @@ import { DatePipe } from '@angular/common';
     InvitationOffersModalComponent,
     InvitationOfferBlockComponent,
     EventParticipantsModalComponent,
-    ModifyEventInfoModalComponent
+    ModifyEventInfoModalComponent,
+    PollBlockComponent,
+    PollAnswerComponent
   ],
   imports: [
     BrowserModule,
