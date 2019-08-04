@@ -5,7 +5,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="col small">Valaki Akivolt: {{ date | date: 'yyyy-MM-dd HH:mm:ss' }}</div>
+    <div class="col small">{{ date | date: 'yyyy-MM-dd HH:mm:ss' }}</div>
   </div>
   <hr style="border-color: gray;" />
   <div class="row" *ngFor="let answerId of answerIds">
@@ -15,10 +15,10 @@
   </div>
   <div class="row" style="margin-top: 1%;">
     <div class="col-7">
-      <input type="text" class="form-control" placeholder="Enter a new option" />
+      <input type="text" class="form-control" [(ngModel)]="newAnswerText" placeholder="Enter a new option" />
     </div>
     <div class="col">
-      <button type="button" class="btn-sm btn-dark">
+      <button type="button" class="btn-sm btn-dark" (click)="createNewAnswer()">
         Add new option
       </button>
     </div>

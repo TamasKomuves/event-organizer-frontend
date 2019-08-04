@@ -12,6 +12,7 @@ export class PollBlockComponent implements OnInit {
   answerIds: any;
   text: string;
   date: string;
+  newAnswerText: string;
 
   constructor(private userService: UserService) {}
 
@@ -20,9 +21,21 @@ export class PollBlockComponent implements OnInit {
       this.text = pollQuestion['text'];
       this.date = pollQuestion['date'];
     });
+    this.updateAnswers();
+  }
 
+  updateAnswers(): void {
     this.userService.getPollAnswerIdsByQuestionId(this.pollId).subscribe(answerIds => {
       this.answerIds = answerIds;
+    });
+  }
+
+  createNewAnswer(): void {
+    if (this.newAnswerText === null || this.newAnswerText === undefined || this.newAnswerText === '') {
+      return;
+    }
+    this.userService.createPollAnswer(this.pollId, this.newAnswerText).subscribe(result => {
+      this.updateAnswers();
     });
   }
 }

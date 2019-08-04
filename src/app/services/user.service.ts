@@ -367,4 +367,14 @@ export class UserService {
     const url = 'answers-to-polls/' + id + '/delete';
     return this.getMethod(url);
   }
+
+  createPollAnswer(pollQuestionId: number, text: string) {
+    const url = 'poll-answers/create';
+    const body = {
+      pollQuestionId: pollQuestionId,
+      text: text
+    };
+
+    return this.postMethod(url, body);
+  }
 }
