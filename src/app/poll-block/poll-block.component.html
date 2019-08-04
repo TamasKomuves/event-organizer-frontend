@@ -1,11 +1,11 @@
 <div class="container shadow p-3 mb-5 bg-white rounded border" style="text-align: left;">
   <div class="row">
     <div class="col font-weight-bold">
-      {{ pollQuestion.text }}
+      {{ text }}
     </div>
   </div>
   <div class="row">
-    <div class="col small">Valaki Akivolt: {{ pollQuestion.date | date: 'yyyy-MM-dd HH:mm:ss' }}</div>
+    <div class="col small">Valaki Akivolt: {{ date | date: 'yyyy-MM-dd HH:mm:ss' }}</div>
   </div>
   <hr style="border-color: gray;" />
   <div class="row" *ngFor="let answerId of answerIds">

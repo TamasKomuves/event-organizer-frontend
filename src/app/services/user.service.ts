@@ -357,4 +357,14 @@ export class UserService {
 
     return this.postMethod(url, body);
   }
+
+  isAnswerAlreadySelected(pollAnswerId: number) {
+    const url = 'poll-answers/' + pollAnswerId + '/is-already-selected';
+    return this.getMethod(url);
+  }
+
+  deleteAnswersToPoll(id: number) {
+    const url = 'answers-to-polls/' + id + '/delete';
+    return this.getMethod(url);
+  }
 }

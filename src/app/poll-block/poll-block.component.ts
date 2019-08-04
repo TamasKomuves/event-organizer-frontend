@@ -10,14 +10,15 @@ export class PollBlockComponent implements OnInit {
   @Input() pollId: number;
 
   answerIds: any;
-  pollQuestion: any;
-  votes: any;
+  text: string;
+  date: string;
 
   constructor(private userService: UserService) {}
 
   ngOnInit() {
     this.userService.getPollQuiestionById(this.pollId).subscribe(pollQuestion => {
-      this.pollQuestion = pollQuestion;
+      this.text = pollQuestion['text'];
+      this.date = pollQuestion['date'];
     });
 
     this.userService.getPollAnswerIdsByQuestionId(this.pollId).subscribe(answerIds => {

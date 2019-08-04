@@ -1,9 +1,14 @@
 <div class="custom-control custom-checkbox">
-  <input type="checkbox" class="custom-control-input" [id]="checkboxId" />
-  <label class="custom-control-label" [for]="checkboxId" style="font-style: italic;"
-    >{{ answer.text }}
-  </label>
+  <input
+    type="checkbox"
+    class="custom-control-input"
+    [id]="checkboxId"
+    [(ngModel)]="isAlreadySelected"
+    (change)="toggleAnswerSelection()"
+    [disabled]="!isLoaded"
+  />
+  <label class="custom-control-label" [for]="checkboxId" style="font-style: italic;">{{ text }} </label>
   <button type="button" class="btn-sm btn-light" style="border-radius: 50%; margin-left: 2%;">
-    {{ votes.length }}
+    {{ numberOfVotes }}
   </button>
 </div>
