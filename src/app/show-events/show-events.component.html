@@ -2,7 +2,7 @@
 <div class="container" style="text-align: left; margin-left: 5%;">
   <div class="row">
     <div class="col-sm-3">
-      <div class="border" style="padding: 5%;">
+      <div class="left-panel border">
         Search events by type <br />
         <select class="custom-select" [(ngModel)]="selectedEventType" style="margin: 6% auto;">
           <option selected>all</option>
@@ -38,12 +38,7 @@
             />
             <label class="custom-control-label" for="customCheck3">Only own events</label>
           </div>
-          <button
-            type="button"
-            class="btn btn-outline-primary"
-            id="search-button"
-            (click)="showEventsByType()"
-          >
+          <button type="button" class="btn btn-outline-light" id="search-button" (click)="showEventsByType()">
             Search
           </button>
         </div>

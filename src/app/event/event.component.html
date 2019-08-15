@@ -6,31 +6,31 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-3">
-      <div class="participant-div shadow p-3 mb-5 bg-white rounded border border-dark">
+      <div class="participant-div shadow p-3 mb-5 rounded border">
         <strong>Participants</strong>
         <ul *ngFor="let participant of participants | slice: 0:5" style="margin-top: 3%;">
           <li>{{ participant.firstName }} {{ participant.lastName }}</li>
         </ul>
-        <button type="button" class="btn btn-outline-dark btn-sm" (click)="openEventParticipantsModal()">
+        <button type="button" class="btn btn-outline-light btn-sm" (click)="openEventParticipantsModal()">
           Show all participants
         </button>
         <br />
         <br />
         <div *ngIf="visibility === 'restricted' || visibility === 'private'">
           <input type="text" class="form-control" [(ngModel)]="invitedUserEmail" placeholder="User's email" />
-          <button type="button" class="btn btn-outline-dark btn-sm" (click)="inviteUser()">
+          <button type="button" class="btn btn-outline-light btn-sm" (click)="inviteUser()">
             Invite user
           </button>
           <br />
           <br />
-          <button type="button" class="btn btn-outline-dark btn-sm" (click)="openInvitationOffersModal()">
+          <button type="button" class="btn btn-outline-light btn-sm" (click)="openInvitationOffersModal()">
             Show invitees
           </button>
           <br />
           <br />
           <button
             type="button"
-            class="btn btn-outline-dark btn-sm"
+            class="btn btn-outline-light btn-sm"
             *ngIf="visibility === 'restricted'"
             (click)="openViewRequestsModal()"
           >
@@ -40,9 +40,9 @@
       </div>
     </div>
 
-    <div class="col-sm-6">
+    <div class="col-sm-6" style="background-color: rgba(0,0,0,0.8); padding-top: 2%;">
       <div style="margin-bottom: 12%;">
-        <div class="md-form">
+        <div class="md-form" style="margin-bottom: 3%;">
           <textarea
             type="text"
             [(ngModel)]="newPost"
@@ -51,8 +51,8 @@
             placeholder="Write a post..."
           ></textarea>
         </div>
-        <button type="button" class="btn btn-dark btn-sm" (click)="sendPost()">Send</button>
-        <button type="button" class="btn btn-dark btn-sm">Create poll</button>
+        <button type="button" class="btn btn-outline-light btn-sm" (click)="sendPost()">Send</button>
+        <button type="button" class="btn btn-outline-light btn-sm">Create poll</button>
       </div>
       <div *ngFor="let post of posts">
         <app-post-block [postId]="post.id"></app-post-block>
@@ -60,24 +60,22 @@
     </div>
 
     <div class="col-sm-3">
-      <div class="info-div">
-        <div class="shadow p-3 mb-5 bg-white rounded border border-dark">
-          <p class=""><strong>Event info</strong></p>
-          <p><strong>Name:</strong> {{ name }}</p>
-          <p><strong>Type:</strong> {{ type }}</p>
-          <p><strong>Date:</strong> {{ date | date: 'yyyy-MM-dd HH:mm' }}</p>
-          <p><strong>Address:</strong> {{ address }}</p>
-          <p><strong>Description:</strong> {{ description }}</p>
-          <button
-            type="button"
-            class="btn btn-outline-dark btn-sm"
-            *ngIf="isOrganizer"
-            (click)="openModifyEventInfoModal()"
-          >
-            Modify
-          </button>
-          <button type="button" class="btn btn-danger btn-sm" *ngIf="isOrganizer">Delete event</button>
-        </div>
+      <div class="info-div shadow p-3 mb-5 rounded border">
+        <p class=""><strong>Event info</strong></p>
+        <p><strong>Name:</strong> {{ name }}</p>
+        <p><strong>Type:</strong> {{ type }}</p>
+        <p><strong>Date:</strong> {{ date | date: 'yyyy-MM-dd HH:mm' }}</p>
+        <p><strong>Address:</strong> {{ address }}</p>
+        <p><strong>Description:</strong> {{ description }}</p>
+        <button
+          type="button"
+          class="btn btn-outline-light btn-sm"
+          *ngIf="isOrganizer"
+          (click)="openModifyEventInfoModal()"
+        >
+          Modify
+        </button>
+        <button type="button" class="btn btn-danger btn-sm" *ngIf="isOrganizer">Delete event</button>
       </div>
     </div>
   </div>

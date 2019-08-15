@@ -6,3 +6,10 @@
 .event-buttons button {
   margin-right: 1%;
 }
+
+.event-block {
+  padding: 2%;
+  margin-bottom: 2%;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.8);
+}

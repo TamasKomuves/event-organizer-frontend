@@ -2,3 +2,8 @@
 .custom-checkbox {
   margin-bottom: 15%;
 }
+
+.left-panel {
+  padding: 5%;
+  background-color: rgba(0, 0, 0, 0.8);
+}

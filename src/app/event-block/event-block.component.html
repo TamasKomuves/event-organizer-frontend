@@ -1,4 +1,4 @@
-<div class="container border shadow" style="padding: 2%; margin-bottom: 2%; position: relative;">
+<div class="container border event-block">
   <ngx-spinner
     bdOpacity="0.2"
     bdColor="rgba(0,0,0,0.52)"
@@ -29,7 +29,7 @@
     <div class="col-sm event-buttons">
       <button
         type="submit"
-        class="btn btn-outline-dark sign-in-button btn-sm"
+        class="btn btn-outline-light sign-in-button btn-sm"
         *ngIf="isParticipate"
         (click)="showEventDetails()"
       >
@@ -37,7 +37,7 @@
       </button>
       <button
         type="submit"
-        class="btn btn-outline-dark sign-in-button btn-sm"
+        class="btn btn-outline-light sign-in-button btn-sm"
         [disabled]="!isHasMorePlace || isHasRequest"
         *ngIf="!isPublic && !isParticipate && isParticipateLoaded"
         (click)="requestInvitation()"
@@ -46,7 +46,7 @@
       </button>
       <button
         type="submit"
-        class="btn btn-outline-dark sign-in-button btn-sm"
+        class="btn btn-outline-light sign-in-button btn-sm"
         [disabled]="!isHasMorePlace"
         *ngIf="isPublic && !isParticipate && isParticipateLoaded"
         (click)="joinEvent()"

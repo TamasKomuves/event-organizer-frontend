@@ -6,3 +6,12 @@ button {
   margin-top: 2%;
   margin-right: 4%;
 }
+
+.notification-block {
+  padding: 2%;
+  margin-left: 25%;
+  margin-right: 25%;
+  margin-bottom: 3%;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.8);
+}
