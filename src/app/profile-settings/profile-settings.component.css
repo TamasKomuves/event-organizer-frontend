@@ -1,0 +1,13 @@
+.tab-pane > .container {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+form {
+  padding-top: 2%;
+  padding-bottom: 1%;
+  text-align: left;
+}
+
+.nav-tabs {
+  background-color: rgba(0, 0, 0, 0.8);
+}
