@@ -31,6 +31,7 @@ import { ModifyEventInfoModalComponent } from './modals/modify-event-info-modal/
 import { DatePipe } from '@angular/common';
 import { PollBlockComponent } from './poll-block/poll-block.component';
 import { PollAnswerComponent } from './poll-answer/poll-answer.component';
+import { PollCreatorModalComponent } from './modals/poll-creator-modal/poll-creator-modal.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { PollAnswerComponent } from './poll-answer/poll-answer.component';
     EventParticipantsModalComponent,
     ModifyEventInfoModalComponent,
     PollBlockComponent,
-    PollAnswerComponent
+    PollAnswerComponent,
+    PollCreatorModalComponent
   ],
   imports: [
     BrowserModule,
