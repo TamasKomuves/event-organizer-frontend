@@ -10,3 +10,12 @@ body {
   background-size: cover;
   color: white;
 }
+
+.page-title {
+  font-weight: bold;
+  background-color: rgba(0, 0, 0, 0.8);
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  font-family: 'Bookman';
+  font-weight: bold;
+}
