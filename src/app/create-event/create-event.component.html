@@ -3,14 +3,17 @@
   <form class="main-container">
     <div class="form-group row">
       <div class="col-sm-6">
+        Name
         <input type="text" class="form-control" [(ngModel)]="name" name="name" placeholder="Event name" />
       </div>
       <div class="col-sm-6">
+        Type
         <input type="text" class="form-control" [(ngModel)]="type" name="type" placeholder="Type" />
       </div>
     </div>
     <div class="form-group row">
       <div class="col-sm-6">
+        Max participants
         <input
           type="text"
           class="form-control"
@@ -20,6 +23,7 @@
         />
       </div>
       <div class="col-sm-6">
+        Estimated cost
         <input
           type="text"
           class="form-control"
@@ -31,6 +35,7 @@
     </div>
     <div class="form-group row">
       <div class="col-sm-6">
+        Country
         <input
           type="text"
           class="form-control"
@@ -41,6 +46,7 @@
         />
       </div>
       <div class="col-sm-6">
+        City
         <input
           type="text"
           class="form-control"
@@ -53,6 +59,7 @@
     </div>
     <div class="form-group row">
       <div class="col-sm-6">
+        Street
         <input
           type="text"
           class="form-control"
@@ -63,6 +70,7 @@
         />
       </div>
       <div class="col-sm-6">
+        Street number
         <input
           type="text"
           class="form-control"
@@ -75,6 +83,7 @@
     </div>
     <div class="form-group row">
       <div class="col-sm-6">
+        Event date (eg. 2018-04-02 14:00)
         <input
           type="text"
           class="form-control"
@@ -85,6 +94,7 @@
         />
       </div>
       <div class="col-sm-6">
+        Visibility
         <select class="form-control" [(ngModel)]="visibility" name="visibility">
           <option [value]="" disabled>Visibility</option>
           <option [value]="visibility" *ngFor="let visibility of visibilities">{{ visibility }}</option>
@@ -94,6 +104,7 @@
     <div class="form-group row">
       <div class="col-sm-6">
         <div class="md-form">
+          Description
           <textarea
             type="text"
             class="md-textarea form-control"
@@ -106,7 +117,8 @@
       </div>
     </div>
     <div class="form-group row">
-      <div class="col-sm-12">
+      <div class="col-sm"></div>
+      <div class="col-sm" style="text-align: center;">
         <button
           type="submit"
           class="btn btn-outline-light btn-lg create-button"
@@ -116,6 +128,7 @@
           Create
         </button>
       </div>
+      <div class="col-sm"></div>
     </div>
   </form>
 </div>
