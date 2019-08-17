@@ -32,10 +32,12 @@ export class PollBlockComponent implements OnInit {
 
   createNewAnswer(): void {
     if (this.newAnswerText === null || this.newAnswerText === undefined || this.newAnswerText === '') {
+      alert("Answer can't be blank");
       return;
     }
     this.userService.createPollAnswer(this.pollId, this.newAnswerText).subscribe(result => {
       this.updateAnswers();
+      this.newAnswerText = '';
     });
   }
 }

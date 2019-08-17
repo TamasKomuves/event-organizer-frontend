@@ -1,4 +1,4 @@
-<div class="container shadow p-3 mb-5 bg-white rounded border" style="text-align: left;">
+<div class="container main-container p-3 mb-5 rounded border" style="text-align: left;">
   <div class="row">
     <div class="col font-weight-bold">
       {{ text }}
@@ -18,7 +18,7 @@
       <input type="text" class="form-control" [(ngModel)]="newAnswerText" placeholder="Enter a new option" />
     </div>
     <div class="col">
-      <button type="button" class="btn-sm btn-dark" (click)="createNewAnswer()">
+      <button type="button" class="btn-sm btn-outline-light" (click)="createNewAnswer()">
         Add new option
       </button>
     </div>
