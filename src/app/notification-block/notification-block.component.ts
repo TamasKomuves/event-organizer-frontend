@@ -55,7 +55,7 @@ export class NotificationBlockComponent implements OnInit {
   initText(): string {
     return !this.isUserRequested
       ? 'You have been invited to ' + this.eventName + '!'
-      : 'Your request for join ' + this.eventName;
+      : 'Your request to join ' + this.eventName;
   }
 
   calculateResult(): string {
