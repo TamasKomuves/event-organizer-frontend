@@ -7,7 +7,7 @@
   <div class="row">
     <div class="col-sm-3">
       <div class="participant-div shadow p-3 mb-5 rounded border">
-        <strong>Participants</strong>
+        <span style="font-weight: bold;">Participants</span>
         <ul *ngFor="let participant of participants | slice: 0:5" style="margin-top: 3%;">
           <li>{{ participant.firstName }} {{ participant.lastName }}</li>
         </ul>
@@ -17,7 +17,14 @@
         <br />
         <br />
         <div *ngIf="visibility === 'restricted' || visibility === 'private'">
-          <input type="text" class="form-control" [(ngModel)]="invitedUserEmail" placeholder="User's email" />
+          <div style="margin-bottom: 8%; font-weight: bold;">Invitations</div>
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="invitedUserEmail"
+            placeholder="Invitee's email"
+            style="margin-bottom: 7%;"
+          />
           <button type="button" class="btn btn-outline-light btn-sm" (click)="inviteUser()">
             Invite user
           </button>
@@ -61,12 +68,12 @@
 
     <div class="col-sm-3">
       <div class="info-div shadow p-3 mb-5 rounded border">
-        <p class=""><strong>Event info</strong></p>
-        <p><strong>Name:</strong> {{ name }}</p>
-        <p><strong>Type:</strong> {{ type }}</p>
-        <p><strong>Date:</strong> {{ date | date: 'yyyy-MM-dd HH:mm' }}</p>
-        <p><strong>Address:</strong> {{ address }}</p>
-        <p><strong>Description:</strong> {{ description }}</p>
+        <p class=""><span>Event info</span></p>
+        <p><span>Name:</span> {{ name }}</p>
+        <p><span>Type:</span> {{ type }}</p>
+        <p><span>Date:</span> {{ date | date: 'yyyy-MM-dd HH:mm' }}</p>
+        <p><span>Address:</span> {{ address }}</p>
+        <p><span>Description:</span> {{ description }}</p>
         <button
           type="button"
           class="btn btn-outline-light btn-sm"
