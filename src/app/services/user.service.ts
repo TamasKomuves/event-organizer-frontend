@@ -377,4 +377,15 @@ export class UserService {
 
     return this.postMethod(url, body);
   }
+
+  createPoll(eventId: number, questionText: string, pollAnswers: Array<any>) {
+    const url = 'poll-questions/createPoll';
+    const body = {
+      eventId: eventId,
+      questionText: questionText,
+      pollAnswers: pollAnswers
+    };
+
+    return this.postMethod(url, body);
+  }
 }

@@ -18,13 +18,13 @@
       <div *ngFor="let answer of answers">
         <div class="form-group row">
           <div class="col-sm">
-            <label [for]="answer.id"> {{ answer.id }} </label>
+            <label [for]="answer.answerId"> {{ answer.answerId }} </label>
             <input
               type="text"
               class="form-control"
               [(ngModel)]="answer.text"
-              [name]="answer.id"
-              [id]="answer.id"
+              [name]="answer.answerId"
+              [id]="answer.answerId"
               placeholder="Answer text"
             />
           </div>
