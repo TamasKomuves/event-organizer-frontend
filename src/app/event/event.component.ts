@@ -51,6 +51,11 @@ export class EventComponent implements OnInit, AfterViewInit {
     modifyEventInfoModal.onClose.subscribe((modal: NgxSmartModalComponent) => {
       this.loadEventInfo();
     });
+
+    const pollCreatorModal = this.ngxSmartModalService.getModal('pollCreatorModal');
+    pollCreatorModal.onClose.subscribe((modal: NgxSmartModalComponent) => {
+      this.updateNewsFeed();
+    });
   }
 
   loadEventInfo(): void {
@@ -65,13 +70,7 @@ export class EventComponent implements OnInit, AfterViewInit {
       });
       this.userService.getAddressById(event.addressId).subscribe(address => {
         this.address =
-          address.street +
-          ' ' +
-          address.streetNumber +
-          ', ' +
-          address.city +
-          ', ' +
-          address.country;
+          address.street + ' ' + address.streetNumber + ', ' + address.city + ', ' + address.country;
       });
     });
   }
@@ -88,16 +87,20 @@ export class EventComponent implements OnInit, AfterViewInit {
 
         this.userService.createPost(this.eventId, userEmail, this.newPost).subscribe(result => {
           this.newPost = '';
-          this.userService.getEventNews(this.eventId).subscribe(newsList => {
-            this.newsList = newsList;
-            this.newsList = this.newsList.sort((a, b) => b.date.localeCompare(a.date));
-          });
+          this.updateNewsFeed();
         });
       },
       error => {
         console.log(error);
       }
     );
+  }
+
+  updateNewsFeed(): void {
+    this.userService.getEventNews(this.eventId).subscribe(newsList => {
+      this.newsList = newsList;
+      this.newsList = this.newsList.sort((a, b) => b.date.localeCompare(a.date));
+    });
   }
 
   inviteUser(): void {
