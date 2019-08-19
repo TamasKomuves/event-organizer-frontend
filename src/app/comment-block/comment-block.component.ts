@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { UserService } from '../services/user.service';
+import { IComment } from '../interface/IComment';
 
 @Component({
   selector: 'app-comment-block',
@@ -11,7 +12,7 @@ export class CommentBlockComponent implements OnInit {
 
   text: string;
   commenterName: string;
-  date: string;
+  commentDate: string;
   numberOfLikes: number;
   isCurrentUserLiked = true;
 
@@ -21,10 +22,11 @@ export class CommentBlockComponent implements OnInit {
     this.numberOfLikes = 0;
 
     this.userService.getCommentById(this.commentId).subscribe(comment => {
-      this.text = comment['text'];
-      this.date = comment['commentDate'];
-      this.userService.getUserByEmail(comment['commenterEmail']).subscribe(user => {
-        this.commenterName = user['firstName'] + ' ' + user['lastName'];
+      this.text = comment.text;
+      this.commentDate = comment.commentDate;
+
+      this.userService.getUserByEmail(comment.commenterEmail).subscribe(user => {
+        this.commenterName = user.firstName + ' ' + user.lastName;
       });
       this.userService.getCommentLikes(this.commentId).subscribe(commentLikers => {
         let likers: any;
@@ -34,7 +36,7 @@ export class CommentBlockComponent implements OnInit {
     });
 
     this.userService.getCurrentUser().subscribe(user => {
-      const email = user['email'];
+      const email = user.email;
       this.userService.isLikedComment(this.commentId, email).subscribe(result => {
         this.isCurrentUserLiked = result['result'] === 'true';
       });
@@ -44,7 +46,7 @@ export class CommentBlockComponent implements OnInit {
   likeComment(): void {
     this.isCurrentUserLiked = true;
     this.userService.getCurrentUser().subscribe(user => {
-      this.userService.createLikesComment(user['email'], this.commentId).subscribe(result => {
+      this.userService.createLikesComment(user.email, this.commentId).subscribe(result => {
         this.numberOfLikes++;
       });
     });

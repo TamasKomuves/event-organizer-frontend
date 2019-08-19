@@ -2,6 +2,8 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { NgxSmartModalService, NgxSmartModalComponent } from 'ngx-smart-modal';
+import { INews } from '../interface/INews';
+import { IUser } from '../interface/IUser';
 
 @Component({
   selector: 'app-event',
@@ -10,14 +12,12 @@ import { NgxSmartModalService, NgxSmartModalComponent } from 'ngx-smart-modal';
 })
 export class EventComponent implements OnInit, AfterViewInit {
   eventId: any;
-  participants: any;
+  participants: Array<IUser>;
   name: string;
   type: string;
   date: string;
   description: string;
-  newsList: any;
-  posts: any;
-  polls: any;
+  newsList: Array<INews>;
   newPost: string;
   invitedUserEmail: string;
   isOrganizer = false;
@@ -36,24 +36,13 @@ export class EventComponent implements OnInit, AfterViewInit {
 
     this.loadEventInfo();
 
-    this.userService.getEventPosts(this.eventId).subscribe(posts => {
-      this.posts = posts;
-      this.posts = this.posts.sort((a, b) => b.date.localeCompare(a.date));
-    });
-
-    this.userService.getEventParticipants(this.eventId).subscribe(data => {
-      this.participants = data;
-    });
-
-    this.userService.getEventPolls(this.eventId).subscribe(polls => {
-      this.polls = polls;
-      console.log(this.polls);
+    this.userService.getEventParticipants(this.eventId).subscribe(participants => {
+      this.participants = participants;
     });
 
     this.userService.getEventNews(this.eventId).subscribe(newsList => {
       this.newsList = newsList;
       this.newsList = this.newsList.sort((a, b) => b.date.localeCompare(a.date));
-      console.log(this.newsList);
     });
   }
 
@@ -66,23 +55,23 @@ export class EventComponent implements OnInit, AfterViewInit {
 
   loadEventInfo(): void {
     this.userService.getEventById(this.eventId).subscribe(event => {
-      this.name = event['name'];
-      this.type = event['eventType'];
-      this.date = event['eventDate'];
-      this.description = event['description'];
-      this.visibility = event['visibility'];
+      this.name = event.name;
+      this.type = event.eventType;
+      this.date = event.eventDate;
+      this.description = event.description;
+      this.visibility = event.visibility;
       this.userService.getCurrentUser().subscribe(user => {
-        this.isOrganizer = event['organizerEmail'] === user['email'];
+        this.isOrganizer = event.organizerEmail === user.email;
       });
-      this.userService.getAddressById(event['addressId']).subscribe(address => {
+      this.userService.getAddressById(event.addressId).subscribe(address => {
         this.address =
-          address['street'] +
+          address.street +
           ' ' +
-          address['streetNumber'] +
+          address.streetNumber +
           ', ' +
-          address['city'] +
+          address.city +
           ', ' +
-          address['country'];
+          address.country;
       });
     });
   }
@@ -95,13 +84,13 @@ export class EventComponent implements OnInit, AfterViewInit {
 
     this.userService.getCurrentUser().subscribe(
       user => {
-        const userEmail = user['email'];
+        const userEmail = user.email;
 
         this.userService.createPost(this.eventId, userEmail, this.newPost).subscribe(result => {
           this.newPost = '';
-          this.userService.getEventPosts(this.eventId).subscribe(posts => {
-            this.posts = posts;
-            this.posts = this.posts.sort((a, b) => b.date.localeCompare(a.date));
+          this.userService.getEventNews(this.eventId).subscribe(newsList => {
+            this.newsList = newsList;
+            this.newsList = this.newsList.sort((a, b) => b.date.localeCompare(a.date));
           });
         });
       },

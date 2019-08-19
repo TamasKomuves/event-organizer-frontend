@@ -40,18 +40,18 @@ export class ModifyEventInfoModalComponent implements AfterViewInit {
       this.isLoaded = false;
       this.resetInputFields();
       this.userService.getEventById(this.eventId).subscribe(event => {
-        this.name = event['name'];
-        this.type = event['eventType'];
-        this.maxParticipants = event['maxParticipant'];
-        this.estimatedCost = event['totalCost'];
-        this.description = event['description'];
-        this.eventDate = formatDate(event['eventDate'], 'yyyy-MM-dd HH:mm', 'en');
-        this.visibility = event['visibility'];
-        this.userService.getAddressById(event['addressId']).subscribe(address => {
-          this.country = address['country'];
-          this.city = address['city'];
-          this.street = address['street'];
-          this.streetNumber = address['streetNumber'];
+        this.name = event.name;
+        this.type = event.eventType;
+        this.maxParticipants = event.maxParticipant;
+        this.estimatedCost = event.totalCost;
+        this.description = event.description;
+        this.eventDate = formatDate(event.eventDate, 'yyyy-MM-dd HH:mm', 'en');
+        this.visibility = event.visibility;
+        this.userService.getAddressById(event.addressId).subscribe(address => {
+          this.country = address.country;
+          this.city = address.city;
+          this.street = address.street;
+          this.streetNumber = address.streetNumber;
           this.isLoaded = true;
         });
       });
@@ -78,13 +78,13 @@ export class ModifyEventInfoModalComponent implements AfterViewInit {
           this.estimatedCost,
           this.eventDate + ':00',
           this.visibility,
-          event['addressId'],
+          event.addressId,
           this.type
         )
         .subscribe(
           result => {
             this.userService
-              .updateAddress(event['addressId'], this.country, this.city, this.street, this.streetNumber)
+              .updateAddress(event.addressId, this.country, this.city, this.street, this.streetNumber)
               .subscribe(
                 result2 => {
                   this.resetInputFields();

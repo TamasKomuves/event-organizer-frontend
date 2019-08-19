@@ -9,7 +9,7 @@ import { UserService } from '../services/user.service';
 export class PollBlockComponent implements OnInit {
   @Input() pollId: number;
 
-  answerIds: any;
+  answerIds: Array<Number>;
   text: string;
   date: string;
   newAnswerText: string;
@@ -18,8 +18,8 @@ export class PollBlockComponent implements OnInit {
 
   ngOnInit() {
     this.userService.getPollQuiestionById(this.pollId).subscribe(pollQuestion => {
-      this.text = pollQuestion['text'];
-      this.date = pollQuestion['date'];
+      this.text = pollQuestion.text;
+      this.date = pollQuestion.date;
     });
     this.updateAnswers();
   }

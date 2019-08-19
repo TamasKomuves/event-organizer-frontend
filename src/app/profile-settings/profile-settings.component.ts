@@ -23,14 +23,14 @@ export class ProfileSettingsComponent implements OnInit {
 
   ngOnInit() {
     this.userService.getCurrentUser().subscribe(currentUser => {
-      this.firstname = currentUser['firstName'];
-      this.lastname = currentUser['lastName'];
+      this.firstname = currentUser.firstName;
+      this.lastname = currentUser.lastName;
 
-      this.userService.getAddressById(currentUser['addressId']).subscribe(address => {
-        this.country = address['country'];
-        this.city = address['city'];
-        this.street = address['street'];
-        this.streetNumber = address['streetNumber'];
+      this.userService.getAddressById(currentUser.addressId).subscribe(address => {
+        this.country = address.country;
+        this.city = address.city;
+        this.street = address.street;
+        this.streetNumber = address.streetNumber;
       });
     });
   }
@@ -42,13 +42,11 @@ export class ProfileSettingsComponent implements OnInit {
     }
 
     this.userService.getCurrentUser().subscribe(currentUser => {
-      this.userService
-        .updateUserName(currentUser['email'], this.firstname, this.lastname)
-        .subscribe(result => {
-          if (result['result'] === 'success') {
-            alert('Updated');
-          }
-        });
+      this.userService.updateUserName(currentUser.email, this.firstname, this.lastname).subscribe(result => {
+        if (result['result'] === 'success') {
+          alert('Updated');
+        }
+      });
     });
   }
 
@@ -65,7 +63,7 @@ export class ProfileSettingsComponent implements OnInit {
 
     this.userService.getCurrentUser().subscribe(currentUser => {
       this.userService
-        .updateAddress(currentUser['addressId'], this.country, this.city, this.street, this.streetNumber)
+        .updateAddress(currentUser.addressId, this.country, this.city, this.street, this.streetNumber)
         .subscribe(result => {
           if (result['result'] === 'success') {
             alert('Updated');
@@ -78,7 +76,7 @@ export class ProfileSettingsComponent implements OnInit {
 
   deleteProfile(): void {
     this.userService.getCurrentUser().subscribe(currentUser => {
-      this.userService.deleteUser(currentUser['email']).subscribe(
+      this.userService.deleteUser(currentUser.email).subscribe(
         result => {
           if (result['result'] === 'success') {
             alert('Profile deleted');

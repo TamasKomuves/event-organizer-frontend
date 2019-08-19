@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { IInvitation } from '../interface/IInvitation';
 
 @Component({
   selector: 'app-notification-block',
@@ -32,14 +33,14 @@ export class NotificationBlockComponent implements OnInit {
     this.spinnerName = 'mySpinner' + this.invitationId;
     this.spinner.show(this.spinnerName);
     this.userService.getInvitationById(this.invitationId).subscribe(invitation => {
-      this.isAccepted = invitation['isAccepted'];
-      this.isUserRequested = invitation['isUserRequested'];
-      this.sentDate = invitation['sentDate'];
-      this.decisionDate = invitation['decisionDate'];
+      this.isAccepted = invitation.isAccepted;
+      this.isUserRequested = invitation.isUserRequested;
+      this.sentDate = invitation.sentDate;
+      this.decisionDate = invitation.decisionDate;
       this.dateToShow = this.getDateToShowFromInvitation(invitation);
 
-      this.userService.getEventById(invitation['eventId']).subscribe(event => {
-        this.eventName = event['name'];
+      this.userService.getEventById(invitation.eventId).subscribe(event => {
+        this.eventName = event.name;
         this.text = this.initText();
         this.result = this.calculateResult();
         this.isShowButtons = this.shouldShowButtons();
@@ -48,8 +49,8 @@ export class NotificationBlockComponent implements OnInit {
     });
   }
 
-  getDateToShowFromInvitation(invitation: any): string {
-    return invitation['decisionDate'] !== null ? invitation['decisionDate'] : invitation['sentDate'];
+  getDateToShowFromInvitation(invitation: IInvitation): string {
+    return invitation.decisionDate !== null ? invitation.decisionDate : invitation.sentDate;
   }
 
   initText(): string {

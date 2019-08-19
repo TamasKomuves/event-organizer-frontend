@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
+import { IEvent } from '../interface/IEvent';
+import { IUser } from '../interface/IUser';
 
 @Component({
   selector: 'app-show-events',
@@ -7,8 +9,8 @@ import { UserService } from '../services/user.service';
   styleUrls: ['./show-events.component.css']
 })
 export class ShowEventsComponent implements OnInit {
-  events: any;
-  eventsToShow: any;
+  events: Array<IEvent>;
+  eventsToShow: Array<IEvent>;
   eventTypes: any;
   selectedEventType = 'all';
   lastSelectedEventType: string;
@@ -56,7 +58,7 @@ export class ShowEventsComponent implements OnInit {
 
     this.userService.getCurrentUser().subscribe(currentUser => {
       this.events.forEach(event => {
-        this.userService.isUserParticipateInEvent(event['id'], currentUser['email']).subscribe(result => {
+        this.userService.isUserParticipateInEvent(event.id, currentUser.email).subscribe(result => {
           if (this.isEventShowable(event, currentUser, result)) {
             this.eventsToShow.push(event);
           }
@@ -65,10 +67,10 @@ export class ShowEventsComponent implements OnInit {
     });
   }
 
-  isEventShowable(event: any, currentUser: any, isParticipateResult: any): boolean {
+  isEventShowable(event: IEvent, currentUser: IUser, isParticipateResult: any): boolean {
     return (
-      (!this.isShowOnlyOwnEvents || event['organizerEmail'] === currentUser['email']) &&
-      (!this.isShowOnlyPublicEvents || event['visibility'] === 'public') &&
+      (!this.isShowOnlyOwnEvents || event.organizerEmail === currentUser.email) &&
+      (!this.isShowOnlyPublicEvents || event.visibility === 'public') &&
       (!this.isShowOnlyEventsWhereParticipate || isParticipateResult['result'] === 'true')
     );
   }

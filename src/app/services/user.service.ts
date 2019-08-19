@@ -1,5 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { IComment } from '../interface/IComment';
+import { INews } from '../interface/INews';
+import { IAddress } from '../interface/IAddress';
+import { IInvitation } from '../interface/IInvitation';
+import { IPollAnswer } from '../interface/IPollAnswer';
+import { IPollQuestion } from '../interface/IPollQuestion';
+import { IPost } from '../interface/IPost';
+import { IUser } from '../interface/IUser';
+import { IEvent } from '../interface/IEvent';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +20,8 @@ export class UserService {
 
   constructor(private httpClient: HttpClient) {}
 
-  getMethod(url: string) {
-    return this.httpClient.get(this.SERVER_LINK + url, {
+  getMethod<T>(url: string) {
+    return this.httpClient.get<T>(this.SERVER_LINK + url, {
       headers: new HttpHeaders().set('authorization', 'Bearer ' + sessionStorage.getItem('token'))
     });
   }
@@ -47,32 +57,32 @@ export class UserService {
 
   getCurrentUser() {
     const url = 'users/current';
-    return this.getMethod(url);
+    return this.getMethod<IUser>(url);
   }
 
   getUserByEmail(email: string) {
     const url = 'users/' + email;
-    return this.getMethod(url);
+    return this.getMethod<IUser>(url);
   }
 
   getEventById(id: number) {
     const url = 'events/' + id;
-    return this.getMethod(url);
+    return this.getMethod<IEvent>(url);
   }
 
   getEventPosts(eventId: number) {
     const url = 'events/' + eventId + '/posts';
-    return this.getMethod(url);
+    return this.getMethod<Array<IPost>>(url);
   }
 
   getPostComments(postId: number) {
     const url = 'posts/' + postId + '/comments';
-    return this.getMethod(url);
+    return this.getMethod<Array<IComment>>(url);
   }
 
   getPostById(postId: number) {
     const url = 'posts/' + postId;
-    return this.getMethod(url);
+    return this.getMethod<IPost>(url);
   }
 
   getPostLikers(postId: number) {
@@ -82,7 +92,7 @@ export class UserService {
 
   getCommentById(commentId: number) {
     const url = 'comments/' + commentId;
-    return this.getMethod(url);
+    return this.getMethod<IComment>(url);
   }
 
   getCommentLikes(commentId: number) {
@@ -92,7 +102,7 @@ export class UserService {
 
   getEventParticipants(eventId: number) {
     const url = 'events/' + eventId + '/users';
-    return this.getMethod(url);
+    return this.getMethod<Array<IUser>>(url);
   }
 
   createPost(eventId: number, userEmail: string, text: string) {
@@ -201,7 +211,7 @@ export class UserService {
 
   getAllEvents() {
     const url = 'events';
-    return this.getMethod(url);
+    return this.getMethod<Array<IEvent>>(url);
   }
 
   isUserParticipateInEvent(eventId: number, userEmail: String) {
@@ -226,7 +236,7 @@ export class UserService {
 
   getInvitationById(invitationId: string) {
     const url = 'invitations/' + invitationId;
-    return this.getMethod(url);
+    return this.getMethod<IInvitation>(url);
   }
 
   createInvitation(eventId: number, userEmail: string, isUserRequested: number) {
@@ -242,7 +252,7 @@ export class UserService {
 
   getAddressById(addressId: number) {
     const url = 'addresses/' + addressId;
-    return this.getMethod(url);
+    return this.getMethod<IAddress>(url);
   }
 
   getAllEventType() {
@@ -252,7 +262,7 @@ export class UserService {
 
   getEventsByType(type: string) {
     const url = 'events/type/' + type;
-    return this.getMethod(url);
+    return this.getMethod<Array<IEvent>>(url);
   }
 
   isEventHasMorePlace(eventId: number) {
@@ -283,12 +293,12 @@ export class UserService {
 
   getInvitationRequestsForEvent(eventId: number) {
     const url = 'events/' + eventId + '/invitation-requests';
-    return this.getMethod(url);
+    return this.getMethod<Array<IInvitation>>(url);
   }
 
   getInvitationOffersForEvent(eventId: number) {
     const url = 'events/' + eventId + '/invitation-offers';
-    return this.getMethod(url);
+    return this.getMethod<Array<IInvitation>>(url);
   }
 
   deleteInvitation(invitationId: number) {
@@ -331,17 +341,17 @@ export class UserService {
 
   getPollQuiestionById(id: number) {
     const url = 'poll-questions/' + id;
-    return this.getMethod(url);
+    return this.getMethod<IPollQuestion>(url);
   }
 
   getPollAnswerById(id: number) {
     const url = 'poll-answers/' + id;
-    return this.getMethod(url);
+    return this.getMethod<IPollAnswer>(url);
   }
 
   getPollAnswerIdsByQuestionId(questionId: number) {
     const url = 'poll-questions/' + questionId + '/answerIds';
-    return this.getMethod(url);
+    return this.getMethod<Array<Number>>(url);
   }
 
   getVotesForAnswerById(id: number) {
@@ -391,11 +401,11 @@ export class UserService {
 
   getEventPolls(eventId: number) {
     const url = 'events/' + eventId + '/polls';
-    return this.getMethod(url);
+    return this.getMethod<Array<IPollQuestion>>(url);
   }
 
   getEventNews(eventId: number) {
     const url = 'events/' + eventId + '/news';
-    return this.getMethod(url);
+    return this.getMethod<Array<INews>>(url);
   }
 }

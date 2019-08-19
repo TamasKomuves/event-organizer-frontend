@@ -50,7 +50,7 @@ export class CreateEventComponent implements OnInit {
                 new Date(this.eventDate),
                 result['addressId'],
                 this.type,
-                user['email']
+                user.email
               )
               .subscribe(
                 respond => {

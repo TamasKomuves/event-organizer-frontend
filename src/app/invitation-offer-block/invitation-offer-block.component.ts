@@ -16,8 +16,8 @@ export class InvitationOfferBlockComponent implements OnInit {
 
   ngOnInit() {
     this.userService.getInvitationById(this.invitationId).subscribe(invitation => {
-      this.userService.getUserByEmail(invitation['userEmail']).subscribe(user => {
-        this.nameAndEmail = user['firstName'] + ' ' + user['lastName'] + ' (' + user['email'] + ')';
+      this.userService.getUserByEmail(invitation.userEmail).subscribe(user => {
+        this.nameAndEmail = user.firstName + ' ' + user.lastName + ' (' + user.email + ')';
         this.isLoaded = true;
       });
     });

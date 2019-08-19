@@ -36,7 +36,7 @@ export class PollAnswerComponent implements OnInit {
     this.userService.getPollAnswerById(this.answerId).subscribe(
       answer => {
         this.answer = answer;
-        this.text = answer['text'];
+        this.text = answer.text;
       },
       error => {
         console.log(error);

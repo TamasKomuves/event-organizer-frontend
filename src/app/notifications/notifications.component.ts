@@ -13,7 +13,7 @@ export class NotificationsComponent implements OnInit {
 
   ngOnInit() {
     this.userService.getCurrentUser().subscribe(currentUser => {
-      this.userService.getInvitationsForUser(currentUser['email']).subscribe(invitations => {
+      this.userService.getInvitationsForUser(currentUser.email).subscribe(invitations => {
         this.invitations = invitations;
         this.invitations.sort((a, b) => this.dateToShow(b).localeCompare(this.dateToShow(a)));
       });
