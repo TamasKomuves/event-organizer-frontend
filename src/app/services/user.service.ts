@@ -388,4 +388,14 @@ export class UserService {
 
     return this.postMethod(url, body);
   }
+
+  getEventPolls(eventId: number) {
+    const url = 'events/' + eventId + '/polls';
+    return this.getMethod(url);
+  }
+
+  getEventNews(eventId: number) {
+    const url = 'events/' + eventId + '/news';
+    return this.getMethod(url);
+  }
 }

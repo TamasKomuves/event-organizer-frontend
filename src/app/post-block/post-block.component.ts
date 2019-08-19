@@ -34,7 +34,7 @@ export class PostBlockComponent implements OnInit {
 
     this.userService.getPostById(this.postId).subscribe(post => {
       this.text = post['text'];
-      this.date = post['postDate'];
+      this.date = post['date'];
       this.userService.getUserByEmail(post['posterEmail']).subscribe(user => {
         this.posterName = user['firstName'] + ' ' + user['lastName'];
       });

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -7,6 +7,8 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./poll-creator-modal.component.css']
 })
 export class PollCreatorModalComponent implements OnInit {
+  @Input() eventId: number;
+
   questionText: string;
   answers: Array<any>;
 
@@ -26,7 +28,7 @@ export class PollCreatorModalComponent implements OnInit {
   }
 
   createPoll(): void {
-    this.userService.createPoll(1, this.questionText, this.answers).subscribe(result => {
+    this.userService.createPoll(this.eventId, this.questionText, this.answers).subscribe(result => {
       console.log(result);
     });
   }

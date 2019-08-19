@@ -1,7 +1,3 @@
-<app-view-request-modal [eventId]="eventId"></app-view-request-modal>
-<app-invitation-offers-modal [eventId]="eventId"></app-invitation-offers-modal>
-<app-event-participants-modal [eventId]="eventId"></app-event-participants-modal>
-<app-modify-event-info-modal [eventId]="eventId"></app-modify-event-info-modal>
 <h1 class="page-title" style="margin-bottom: 3%;">{{ name }}</h1>
 <div class="container">
   <div class="row">
@@ -59,10 +55,13 @@
           ></textarea>
         </div>
         <button type="button" class="btn btn-outline-light btn-sm" (click)="sendPost()">Send</button>
-        <button type="button" class="btn btn-outline-light btn-sm">Create poll</button>
+        <button type="button" class="btn btn-outline-light btn-sm" (click)="openPollCreatorModal()">
+          Create a poll
+        </button>
       </div>
-      <div *ngFor="let post of posts">
-        <app-post-block [postId]="post.id"></app-post-block>
+      <div *ngFor="let news of newsList">
+        <app-poll-block *ngIf="news.type === 'POLL'" [pollId]="news.id"></app-poll-block>
+        <app-post-block *ngIf="news.type === 'POST'" [postId]="news.id"></app-post-block>
       </div>
     </div>
 
@@ -87,3 +86,8 @@
     </div>
   </div>
 </div>
+<app-view-request-modal [eventId]="eventId"></app-view-request-modal>
+<app-invitation-offers-modal [eventId]="eventId"></app-invitation-offers-modal>
+<app-event-participants-modal [eventId]="eventId"></app-event-participants-modal>
+<app-modify-event-info-modal [eventId]="eventId"></app-modify-event-info-modal>
+<app-poll-creator-modal [eventId]="eventId"></app-poll-creator-modal>

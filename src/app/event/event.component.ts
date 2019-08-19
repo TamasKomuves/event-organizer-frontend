@@ -15,7 +15,9 @@ export class EventComponent implements OnInit, AfterViewInit {
   type: string;
   date: string;
   description: string;
+  newsList: any;
   posts: any;
+  polls: any;
   newPost: string;
   invitedUserEmail: string;
   isOrganizer = false;
@@ -34,13 +36,24 @@ export class EventComponent implements OnInit, AfterViewInit {
 
     this.loadEventInfo();
 
-    this.userService.getEventPosts(this.eventId).subscribe(data => {
-      this.posts = data;
-      this.posts = this.posts.sort((a, b) => b.postDate.localeCompare(a.postDate));
+    this.userService.getEventPosts(this.eventId).subscribe(posts => {
+      this.posts = posts;
+      this.posts = this.posts.sort((a, b) => b.date.localeCompare(a.date));
     });
 
     this.userService.getEventParticipants(this.eventId).subscribe(data => {
       this.participants = data;
+    });
+
+    this.userService.getEventPolls(this.eventId).subscribe(polls => {
+      this.polls = polls;
+      console.log(this.polls);
+    });
+
+    this.userService.getEventNews(this.eventId).subscribe(newsList => {
+      this.newsList = newsList;
+      this.newsList = this.newsList.sort((a, b) => b.date.localeCompare(a.date));
+      console.log(this.newsList);
     });
   }
 
@@ -88,7 +101,7 @@ export class EventComponent implements OnInit, AfterViewInit {
           this.newPost = '';
           this.userService.getEventPosts(this.eventId).subscribe(posts => {
             this.posts = posts;
-            this.posts = this.posts.sort((a, b) => b.postDate.localeCompare(a.postDate));
+            this.posts = this.posts.sort((a, b) => b.date.localeCompare(a.date));
           });
         });
       },
@@ -131,6 +144,10 @@ export class EventComponent implements OnInit, AfterViewInit {
   openModal(modalId: string): void {
     const modal = this.ngxSmartModalService.getModal(modalId);
     modal.open();
+  }
+
+  openPollCreatorModal(): void {
+    this.openModal('pollCreatorModal');
   }
 
   openInvitationOffersModal(): void {
