@@ -59,9 +59,18 @@
           Create a poll
         </button>
       </div>
-      <div *ngFor="let news of newsList">
+      <div *ngFor="let news of newsList | slice: 0:numberOfNewsToShow">
         <app-poll-block *ngIf="news.type === 'POLL'" [pollId]="news.id"></app-poll-block>
         <app-post-block *ngIf="news.type === 'POST'" [postId]="news.id"></app-post-block>
+      </div>
+      <div style="background-color: rgba(0,0,0,0.9); margin-bottom: 3%;">
+        <input
+          *ngIf="newsLength > this.numberOfNewsToShow"
+          type="button"
+          class="btn btn-outline-light btn-block"
+          (click)="showMoreNews()"
+          value="Load more..."
+        />
       </div>
     </div>
 

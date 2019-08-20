@@ -23,6 +23,9 @@ export class EventComponent implements OnInit, AfterViewInit {
   isOrganizer = false;
   address: string;
   visibility: string;
+  showNewsStep = 6;
+  numberOfNewsToShow = this.showNewsStep;
+  newsLength = 0;
 
   constructor(
     private userService: UserService,
@@ -40,10 +43,7 @@ export class EventComponent implements OnInit, AfterViewInit {
       this.participants = participants;
     });
 
-    this.userService.getEventNews(this.eventId).subscribe(newsList => {
-      this.newsList = newsList;
-      this.newsList = this.newsList.sort((a, b) => b.date.localeCompare(a.date));
-    });
+    this.updateNewsFeed();
   }
 
   ngAfterViewInit() {
@@ -100,6 +100,8 @@ export class EventComponent implements OnInit, AfterViewInit {
     this.userService.getEventNews(this.eventId).subscribe(newsList => {
       this.newsList = newsList;
       this.newsList = this.newsList.sort((a, b) => b.date.localeCompare(a.date));
+      this.numberOfNewsToShow = this.showNewsStep;
+      this.newsLength = this.newsList.length;
     });
   }
 
@@ -152,5 +154,10 @@ export class EventComponent implements OnInit, AfterViewInit {
 
   openModifyEventInfoModal(): void {
     this.openModal('modifyEventInfoModal');
+  }
+
+  showMoreNews(): void {
+    this.numberOfNewsToShow += this.showNewsStep;
+    this.numberOfNewsToShow = Math.min(this.numberOfNewsToShow, this.newsList.length);
   }
 }
