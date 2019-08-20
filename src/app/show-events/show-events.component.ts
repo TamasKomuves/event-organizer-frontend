@@ -17,6 +17,9 @@ export class ShowEventsComponent implements OnInit {
   isShowOnlyEventsWhereParticipate = false;
   isShowOnlyPublicEvents = false;
   isShowOnlyOwnEvents = false;
+  showEventsStep = 5;
+  numberOfEventsToShow = this.showEventsStep;
+  eventsToShowLength = 0;
 
   constructor(private userService: UserService) {}
 
@@ -26,6 +29,7 @@ export class ShowEventsComponent implements OnInit {
       this.events = events;
       this.events.sort((a, b) => b.eventDate.localeCompare(a.eventDate));
       this.eventsToShow = events;
+      this.eventsToShowLength = this.eventsToShow.length;
     });
 
     this.userService.getAllEventType().subscribe(eventTypes => {
@@ -33,12 +37,13 @@ export class ShowEventsComponent implements OnInit {
     });
   }
 
-  showEventsByType(): void {
+  searchEvents(): void {
     if (this.lastSelectedEventType === this.selectedEventType) {
       this.changeShowedEventsList();
       return;
     }
 
+    this.numberOfEventsToShow = this.showEventsStep;
     if (this.selectedEventType === 'all') {
       this.userService.getAllEvents().subscribe(events => {
         this.events = events;
@@ -64,6 +69,7 @@ export class ShowEventsComponent implements OnInit {
           }
         });
       });
+      this.eventsToShowLength = this.eventsToShow.length;
     });
   }
 
@@ -73,5 +79,10 @@ export class ShowEventsComponent implements OnInit {
       (!this.isShowOnlyPublicEvents || event.visibility === 'public') &&
       (!this.isShowOnlyEventsWhereParticipate || isParticipateResult['result'] === 'true')
     );
+  }
+
+  showMoreEvents(): void {
+    this.numberOfEventsToShow += this.showEventsStep;
+    this.numberOfEventsToShow = Math.min(this.numberOfEventsToShow, this.events.length);
   }
 }

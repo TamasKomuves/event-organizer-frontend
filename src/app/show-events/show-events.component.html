@@ -38,15 +38,24 @@
             />
             <label class="custom-control-label" for="customCheck3">Only own events</label>
           </div>
-          <button type="button" class="btn btn-outline-light" id="search-button" (click)="showEventsByType()">
+          <button type="button" class="btn btn-outline-light" id="search-button" (click)="searchEvents()">
             Search
           </button>
         </div>
       </div>
     </div>
     <div class="col-sm">
-      <div *ngFor="let event of eventsToShow">
+      <div *ngFor="let event of eventsToShow | slice: 0:numberOfEventsToShow">
         <app-event-block [eventId]="event.id"></app-event-block>
+      </div>
+      <div style="background-color: rgba(0,0,0,0.9); margin-bottom: 3%;">
+        <input
+          *ngIf="eventsToShowLength > numberOfEventsToShow"
+          type="button"
+          class="btn btn-outline-light btn-block"
+          value="Show more..."
+          (click)="showMoreEvents()"
+        />
       </div>
     </div>
   </div>
