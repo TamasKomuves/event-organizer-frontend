@@ -6,10 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./messages-container.component.css']
 })
 export class MessagesContainerComponent implements OnInit {
+  messages: any;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  asd(): void {
+    console.log('asd clicked');
   }
-
 }

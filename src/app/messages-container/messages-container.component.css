@@ -1,0 +1,29 @@
+.messages-container {
+  text-align: left;
+  color: black;
+  border: 5px solid darkgray;
+  margin-bottom: 3%;
+}
+
+.message-block {
+  background-color: rgba(255, 255, 255, 0.7);
+  border: 1px solid gray;
+  padding: 2%;
+  cursor: pointer;
+}
+
+.name-div {
+  font-weight: bold;
+}
+
+.message-text {
+  color: rgba(0, 0, 0, 0.8);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.message-date {
+  font-size: small;
+  margin-top: 1%;
+}
