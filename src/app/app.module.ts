@@ -32,6 +32,8 @@ import { DatePipe } from '@angular/common';
 import { PollBlockComponent } from './poll-block/poll-block.component';
 import { PollAnswerComponent } from './poll-answer/poll-answer.component';
 import { PollCreatorModalComponent } from './modals/poll-creator-modal/poll-creator-modal.component';
+import { MessagesContainerComponent } from './messages-container/messages-container.component';
+import { MessageBlockComponent } from './message-block/message-block.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +59,9 @@ import { PollCreatorModalComponent } from './modals/poll-creator-modal/poll-crea
     ModifyEventInfoModalComponent,
     PollBlockComponent,
     PollAnswerComponent,
-    PollCreatorModalComponent
+    PollCreatorModalComponent,
+    MessagesContainerComponent,
+    MessageBlockComponent
   ],
   imports: [
     BrowserModule,

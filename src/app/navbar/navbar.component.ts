@@ -57,4 +57,8 @@ export class NavbarComponent implements OnInit {
   showSettings(): void {
     this.router.navigateByUrl('/profile-settings');
   }
+
+  showMessagesContainer(): void {
+    this.router.navigateByUrl('/messages-container');
+  }
 }

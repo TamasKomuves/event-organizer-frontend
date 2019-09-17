@@ -9,6 +9,7 @@ import { ShowEventsComponent } from '../show-events/show-events.component';
 import { ProfileSettingsComponent } from '../profile-settings/profile-settings.component';
 import { NotificationsComponent } from '../notifications/notifications.component';
 import { HomeComponent } from '../home/home.component';
+import {MessagesContainerComponent} from '../messages-container/messages-container.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -19,7 +20,8 @@ const routes: Routes = [
   { path: 'show-events', component: ShowEventsComponent },
   { path: 'profile-settings', component: ProfileSettingsComponent },
   { path: 'notifications', component: NotificationsComponent },
-  { path: 'home', component: HomeComponent }
+  { path: 'home', component: HomeComponent },
+  { path: 'messages-container', component: MessagesContainerComponent }
 ];
 
 @NgModule({
