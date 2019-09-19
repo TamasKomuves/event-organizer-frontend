@@ -34,6 +34,7 @@ import { PollAnswerComponent } from './poll-answer/poll-answer.component';
 import { PollCreatorModalComponent } from './modals/poll-creator-modal/poll-creator-modal.component';
 import { MessagesContainerComponent } from './messages-container/messages-container.component';
 import { MessageBlockComponent } from './message-block/message-block.component';
+import { FindUserToMessageModalComponent } from './modals/find-user-to-message-modal/find-user-to-message-modal.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { MessageBlockComponent } from './message-block/message-block.component';
     PollAnswerComponent,
     PollCreatorModalComponent,
     MessagesContainerComponent,
-    MessageBlockComponent
+    MessageBlockComponent,
+    FindUserToMessageModalComponent
   ],
   imports: [
     BrowserModule,

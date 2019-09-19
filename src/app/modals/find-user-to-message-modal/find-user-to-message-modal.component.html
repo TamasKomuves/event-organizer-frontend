@@ -1,0 +1,16 @@
+<ngx-smart-modal #findUserToMessageModal identifier="findUserToMessageModal" style="color: black;">
+  <div class="container">
+    <input
+      type="text"
+      placeholder="Enter the user's name"
+      style="margin-bottom: 3%;"
+      [(ngModel)]="searchedName"
+      (keyup)="searchedNameChanged()"
+    />
+    <div *ngFor="let suggestedUser of suggestedUsers">
+      <div class="lol" (click)="navigateToMessageBlock(suggestedUser.email)">
+        {{ suggestedUser.firstname }} {{ suggestedUser.lastname }} ({{ suggestedUser.email }} )
+      </div>
+    </div>
+  </div>
+</ngx-smart-modal>

@@ -1,0 +1,13 @@
+.container {
+  text-align: left;
+}
+
+.lol {
+  cursor: pointer;
+  padding-top: 2%;
+  padding-bottom: 2%;
+}
+
+.lol:hover {
+  background-color: lightgray;
+}

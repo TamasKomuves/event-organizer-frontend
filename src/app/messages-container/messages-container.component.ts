@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgxSmartModalService } from 'ngx-smart-modal';
 
 @Component({
   selector: 'app-messages-container',
@@ -8,11 +9,16 @@ import { Component, OnInit } from '@angular/core';
 export class MessagesContainerComponent implements OnInit {
   messages: any;
 
-  constructor() {}
+  constructor(private ngxSmartModalService: NgxSmartModalService) {}
 
   ngOnInit() {}
 
   asd(): void {
     console.log('asd clicked');
+  }
+
+  openFindUserToMessageModal(): void {
+    const modal = this.ngxSmartModalService.getModal('findUserToMessageModal');
+    modal.open();
   }
 }
