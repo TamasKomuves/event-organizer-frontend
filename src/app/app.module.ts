@@ -33,8 +33,8 @@ import { PollBlockComponent } from './poll-block/poll-block.component';
 import { PollAnswerComponent } from './poll-answer/poll-answer.component';
 import { PollCreatorModalComponent } from './modals/poll-creator-modal/poll-creator-modal.component';
 import { MessagesContainerComponent } from './messages-container/messages-container.component';
-import { MessageBlockComponent } from './message-block/message-block.component';
 import { FindUserToMessageModalComponent } from './modals/find-user-to-message-modal/find-user-to-message-modal.component';
+import { ChatPageComponent } from './chat-page/chat-page.component';
 
 @NgModule({
   declarations: [
@@ -62,8 +62,8 @@ import { FindUserToMessageModalComponent } from './modals/find-user-to-message-m
     PollAnswerComponent,
     PollCreatorModalComponent,
     MessagesContainerComponent,
-    MessageBlockComponent,
-    FindUserToMessageModalComponent
+    FindUserToMessageModalComponent,
+    ChatPageComponent
   ],
   imports: [
     BrowserModule,
