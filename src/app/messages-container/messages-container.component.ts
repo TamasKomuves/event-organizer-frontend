@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgxSmartModalService } from 'ngx-smart-modal';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-messages-container',
@@ -9,12 +10,12 @@ import { NgxSmartModalService } from 'ngx-smart-modal';
 export class MessagesContainerComponent implements OnInit {
   messages: any;
 
-  constructor(private ngxSmartModalService: NgxSmartModalService) {}
+  constructor(private ngxSmartModalService: NgxSmartModalService, private router: Router) {}
 
   ngOnInit() {}
 
-  asd(): void {
-    console.log('asd clicked');
+  openChatpage(email: string): void {
+    this.router.navigate(['/chat-page'], { queryParams: { email: email } });
   }
 
   openFindUserToMessageModal(): void {

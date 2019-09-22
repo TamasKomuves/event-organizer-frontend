@@ -1,0 +1,43 @@
+.container {
+  background-color: rgba(0, 0, 0, 0.9);
+  padding: 1% 2% 2% 3%;
+  text-align: left;
+}
+
+.message-box {
+  padding: 0.5%;
+  border-radius: 20px;
+}
+
+.own-message > .message-box {
+  margin-right: 55%;
+  background-color: blue;
+}
+
+.own-message > .date {
+  margin-right: 55%;
+}
+
+.other-message > .message-box {
+  margin-left: 55%;
+  background-color: gray;
+}
+
+.other-message > .date {
+  margin-left: 55%;
+}
+
+.name {
+  text-align: center;
+  margin-bottom: 4%;
+}
+
+.date {
+  margin-bottom: 2%;
+}
+
+.message-input {
+  width: 100%;
+  padding: 1%;
+  margin-bottom: 1%;
+}
