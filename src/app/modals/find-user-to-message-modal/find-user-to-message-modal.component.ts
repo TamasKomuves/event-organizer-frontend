@@ -1,5 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { NgxSmartModalService, NgxSmartModalComponent } from 'ngx-smart-modal';
+import { IUser } from 'src/app/interface/IUser';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-find-user-to-message-modal',
@@ -9,11 +11,15 @@ import { NgxSmartModalService, NgxSmartModalComponent } from 'ngx-smart-modal';
 export class FindUserToMessageModalComponent implements OnInit, AfterViewInit {
   searchedName = '';
   suggestedUsers: Array<any>;
+  allUsers: Array<IUser>;
 
-  constructor(private ngxSmartModalService: NgxSmartModalService) {}
+  constructor(private ngxSmartModalService: NgxSmartModalService, private userService: UserService) {}
 
   ngOnInit() {
     this.suggestedUsers = new Array();
+    this.userService.getAllUsers().subscribe(users => {
+      this.allUsers = users;
+    });
   }
 
   ngAfterViewInit() {
@@ -35,31 +41,26 @@ export class FindUserToMessageModalComponent implements OnInit, AfterViewInit {
       return;
     }
 
-    const allUsersMock = new Array(
-      { email: 'komuves.tomi@gmail.com', firstname: 'Ferkoka', lastname: 'Komuves' },
-      { email: 'barna.viktor@gmail.com', firstname: 'Ferasz', lastname: 'Barna' },
-      { email: 'gubik.gabor@gmail.com', firstname: 'Ferrr', lastname: 'Gubik' },
-      { email: 'nagya.gergo@gmail.com', firstname: 'Gergo', lastname: 'Nagy A' },
-      { email: 'nagya.gerdo@gmail.com', firstname: 'Gerdo', lastname: 'Nagy A' }
-    );
-
     const unifiedSearchedName = this.getUnifiedUsername(this.searchedName);
-
-    allUsersMock.forEach(user => {
-      const unifiedFirstname = this.getUnifiedUsername(user.firstname);
-      const unifiedLastname = this.getUnifiedUsername(user.lastname);
-      const unifiedFullname1 = unifiedFirstname + unifiedLastname;
-      const unifiedFullname2 = unifiedLastname + unifiedFirstname;
-
-      if (
-        unifiedFirstname.includes(unifiedSearchedName) ||
-        unifiedLastname.includes(unifiedSearchedName) ||
-        unifiedFullname1.includes(unifiedSearchedName) ||
-        unifiedFullname2.includes(unifiedSearchedName)
-      ) {
+    this.allUsers.forEach(user => {
+      if (this.isUserRelevantForSearch(user, unifiedSearchedName)) {
         this.suggestedUsers.push(user);
       }
     });
+  }
+
+  isUserRelevantForSearch(user: IUser, unifiedSearchedName: string): boolean {
+    const unifiedFirstname = this.getUnifiedUsername(user.firstName);
+    const unifiedLastname = this.getUnifiedUsername(user.lastName);
+    const unifiedFullname1 = unifiedFirstname + unifiedLastname;
+    const unifiedFullname2 = unifiedLastname + unifiedFirstname;
+
+    return (
+      unifiedFirstname.includes(unifiedSearchedName) ||
+      unifiedLastname.includes(unifiedSearchedName) ||
+      unifiedFullname1.includes(unifiedSearchedName) ||
+      unifiedFullname2.includes(unifiedSearchedName)
+    );
   }
 
   getUnifiedUsername(username: string) {

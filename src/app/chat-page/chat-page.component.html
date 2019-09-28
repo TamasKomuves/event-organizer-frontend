@@ -10,7 +10,7 @@
       {{ message.text }}
     </div>
     <div class="date">
-      {{ message.dateSent }}
+      {{ message.date | date: 'yyyy-MM-dd HH:mm:ss' }}
     </div>
   </div>
   <div class="row">

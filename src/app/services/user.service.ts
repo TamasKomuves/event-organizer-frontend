@@ -408,4 +408,14 @@ export class UserService {
     const url = 'events/' + eventId + '/news';
     return this.getMethod<Array<INews>>(url);
   }
+
+  getAllChatMessages(senderEmail: string, receiverEmail: string) {
+    const url = 'chat-messages/all-messages/' + senderEmail + '/' + receiverEmail;
+    return this.getMethod<Array<any>>(url);
+  }
+
+  getAllUsers() {
+    const url = 'users/all';
+    return this.getMethod<Array<IUser>>(url);
+  }
 }
