@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgxSmartModalService } from 'ngx-smart-modal';
 import { Router } from '@angular/router';
+import { UserService } from '../services/user.service';
+import { IUser } from '../interface/IUser';
 
 @Component({
   selector: 'app-messages-container',
@@ -8,13 +10,27 @@ import { Router } from '@angular/router';
   styleUrls: ['./messages-container.component.css']
 })
 export class MessagesContainerComponent implements OnInit {
-  messages: any;
+  chatMessages: any;
+  // partner: IUser;
 
-  constructor(private ngxSmartModalService: NgxSmartModalService, private router: Router) {}
+  constructor(
+    private ngxSmartModalService: NgxSmartModalService,
+    private router: Router,
+    private userService: UserService
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.userService.getLastMessages().subscribe(chatMessages => {
+      this.chatMessages = chatMessages;
+      this.chatMessages.array.forEach(chatMessage => {
+        this.userService.getUserByEmail(chatMessage.partnerEmail).subscribe(user => {
+          // this.partner = user;
+        });
+      });
+    });
+  }
 
-  openChatpage(email: string): void {
+  openChatPage(email: string): void {
     this.router.navigate(['/chat-page'], { queryParams: { email: email } });
   }
 

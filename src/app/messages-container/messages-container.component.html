@@ -9,21 +9,18 @@
       style="margin: 1% 0 2% 1%;"
     />
   </div>
-  <div class="row message-block" (click)="openChatpage('komuves.tomi@gmail.com')">
-    <div class="name-div">Komuves Tamas (komuves.tomi@gmail.com)</div>
-    <div class="message-text">
-      Csa tesam mi a h veled, elmondhewfwefwef wefwef ewf wef atatlanul fewefw mint gr gefwwefwefwefwefwefw ef
-      wef wef wefr ggr gr ge regerg erger gerg ea cccd dilomilomalom! gondolkodj el ezen :* :*
+  <div
+    class="row message-block"
+    (click)="openChatPage('komuves.tomi@gmail.com')"
+    *ngFor="let chatMessage of chatMessages"
+  >
+    <div class="name-div" *ngIf="partner">
+      {{ partner.firstName }} {{ partner.lastName }} {{ partner.email }}
     </div>
-    <div class="message-date">2019-08-09 15:20:12</div>
-  </div>
-  <div class="row message-block" (click)="openChatpage('komuves.tomi@gmail.com')">
-    <div class="name-div">Komuves Tamas (komuves.tomi@gmail.com)</div>
     <div class="message-text">
-      Csa tesam mi a h veled, elmondhewfwefwef wefwef ewf wef atatlanul fewefw mint gr gefwwefwefwefwefwefw ef
-      wef wef wefr ggr gr ge regerg erger gerg ea cccd dilomilomalom! gondolkodj el ezen :* :*
+      {{ chatMessage.text }}
     </div>
-    <div class="message-date">2019-08-09 15:20:12</div>
+    <div class="message-date">{{ chatMessage.date | date: 'yyyy-MM-dd HH:mm:ss' }}</div>
   </div>
 </div>
 <app-find-user-to-message-modal></app-find-user-to-message-modal>

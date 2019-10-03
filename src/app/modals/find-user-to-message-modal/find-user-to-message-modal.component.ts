@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { NgxSmartModalService, NgxSmartModalComponent } from 'ngx-smart-modal';
 import { IUser } from 'src/app/interface/IUser';
 import { UserService } from 'src/app/services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-find-user-to-message-modal',
@@ -13,7 +14,11 @@ export class FindUserToMessageModalComponent implements OnInit, AfterViewInit {
   suggestedUsers: Array<any>;
   allUsers: Array<IUser>;
 
-  constructor(private ngxSmartModalService: NgxSmartModalService, private userService: UserService) {}
+  constructor(
+    private ngxSmartModalService: NgxSmartModalService,
+    private userService: UserService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.suggestedUsers = new Array();
@@ -30,8 +35,8 @@ export class FindUserToMessageModalComponent implements OnInit, AfterViewInit {
     });
   }
 
-  navigateToMessageBlock(email: String): void {
-    console.log(email);
+  openChatpage(email: String): void {
+    this.router.navigate(['/chat-page'], { queryParams: { email: email } });
   }
 
   searchedNameChanged(): void {

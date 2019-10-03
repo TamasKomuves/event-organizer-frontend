@@ -8,7 +8,7 @@
       (keyup)="searchedNameChanged()"
     />
     <div *ngFor="let suggestedUser of suggestedUsers">
-      <div class="lol" (click)="navigateToMessageBlock(suggestedUser.email)">
+      <div class="user-block" (click)="openChatpage(suggestedUser.email)">
         {{ suggestedUser.firstName }} {{ suggestedUser.lastName }} ({{ suggestedUser.email }} )
       </div>
     </div>

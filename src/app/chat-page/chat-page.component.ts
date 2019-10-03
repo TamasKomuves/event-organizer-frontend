@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-chat-page',
@@ -10,17 +11,19 @@ export class ChatPageComponent implements OnInit {
   messages: Array<any>;
   chatPartnerEmail: string;
   newMessageText: string;
+  partnerName: string;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private route: ActivatedRoute) {}
 
   ngOnInit() {
-    this.chatPartnerEmail = 'a@gmail.com';
+    this.chatPartnerEmail = this.route.snapshot.queryParamMap.get('email');
 
-    this.userService.getCurrentUser().subscribe(user => {
-      this.userService.getAllChatMessages(user.email, this.chatPartnerEmail).subscribe(messages => {
-        this.messages = messages;
-        this.messages.sort((a, b) => a.date.localeCompare(b.date));
-      });
+    this.userService.getAllChatMessages(this.chatPartnerEmail).subscribe(messages => {
+      this.messages = messages;
+      this.messages.sort((a, b) => a.date.localeCompare(b.date));
+    });
+    this.userService.getUserByEmail(this.chatPartnerEmail).subscribe(user => {
+      this.partnerName = user.firstName + ' ' + user.lastName;
     });
   }
 
