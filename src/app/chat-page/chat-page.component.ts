@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { ActivatedRoute } from '@angular/router';
+import { IUser } from '../interface/IUser';
 
 @Component({
   selector: 'app-chat-page',
@@ -8,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./chat-page.component.css']
 })
 export class ChatPageComponent implements OnInit {
-  messages: Array<any>;
+  messages: Array<any> = new Array();
   chatPartnerEmail: string;
   newMessageText: string;
   partnerName: string;
@@ -23,7 +24,7 @@ export class ChatPageComponent implements OnInit {
       this.messages.sort((a, b) => a.date.localeCompare(b.date));
     });
     this.userService.getUserByEmail(this.chatPartnerEmail).subscribe(user => {
-      this.partnerName = user.firstName + ' ' + user.lastName;
+      this.partnerName = this.getUserDisplayName(user);
     });
   }
 
@@ -39,5 +40,9 @@ export class ChatPageComponent implements OnInit {
       date: '2019-09-19 17:01:24'
     });
     this.newMessageText = '';
+  }
+
+  private getUserDisplayName(user: IUser): string {
+    return user.firstName + ' ' + user.lastName + ' (' + user.email + ')';
   }
 }

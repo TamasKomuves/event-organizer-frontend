@@ -9,18 +9,8 @@
       style="margin: 1% 0 2% 1%;"
     />
   </div>
-  <div
-    class="row message-block"
-    (click)="openChatPage('komuves.tomi@gmail.com')"
-    *ngFor="let chatMessage of chatMessages"
-  >
-    <div class="name-div" *ngIf="partner">
-      {{ partner.firstName }} {{ partner.lastName }} {{ partner.email }}
-    </div>
-    <div class="message-text">
-      {{ chatMessage.text }}
-    </div>
-    <div class="message-date">{{ chatMessage.date | date: 'yyyy-MM-dd HH:mm:ss' }}</div>
+  <div class="message-block" *ngFor="let chatMessage of chatMessages">
+    <app-messages-container-block [chatMessage]="chatMessage"></app-messages-container-block>
   </div>
 </div>
 <app-find-user-to-message-modal></app-find-user-to-message-modal>

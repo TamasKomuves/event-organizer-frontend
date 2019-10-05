@@ -420,7 +420,7 @@ export class UserService {
   }
 
   getLastMessages() {
-    const url = 'chat-messages/last-messages/';
-    return this.getMethod<Array<any>>(url);
+    const url = 'chat-messages/last-messages';
+    return this.getMethod<Array<Number>>(url);
   }
 }

@@ -35,6 +35,7 @@ import { PollCreatorModalComponent } from './modals/poll-creator-modal/poll-crea
 import { MessagesContainerComponent } from './messages-container/messages-container.component';
 import { FindUserToMessageModalComponent } from './modals/find-user-to-message-modal/find-user-to-message-modal.component';
 import { ChatPageComponent } from './chat-page/chat-page.component';
+import { MessagesContainerBlockComponent } from './messages-container-block/messages-container-block.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { ChatPageComponent } from './chat-page/chat-page.component';
     PollCreatorModalComponent,
     MessagesContainerComponent,
     FindUserToMessageModalComponent,
-    ChatPageComponent
+    ChatPageComponent,
+    MessagesContainerBlockComponent
   ],
   imports: [
     BrowserModule,
