@@ -4,6 +4,11 @@
   text-align: left;
 }
 
+.scrollbar-div {
+  overflow-y: scroll;
+  height: 50vh;
+}
+
 .message-box {
   padding: 0.5%;
   border-radius: 20px;
@@ -30,6 +35,8 @@
 .name {
   text-align: center;
   margin-bottom: 4%;
+  border-bottom: 1px solid white;
+  padding-bottom: 2%;
 }
 
 .date {

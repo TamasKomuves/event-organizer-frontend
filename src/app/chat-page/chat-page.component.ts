@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, AfterViewChecked } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { IUser } from '../interface/IUser';
@@ -8,7 +8,8 @@ import { IUser } from '../interface/IUser';
   templateUrl: './chat-page.component.html',
   styleUrls: ['./chat-page.component.css']
 })
-export class ChatPageComponent implements OnInit {
+export class ChatPageComponent implements OnInit, AfterViewChecked {
+  @ViewChild('scrollbarDiv') private myScrollContainer: ElementRef;
   messages: Array<any> = new Array();
   chatPartnerEmail: string;
   newMessageText: string;
@@ -28,6 +29,10 @@ export class ChatPageComponent implements OnInit {
     });
   }
 
+  ngAfterViewChecked() {
+    this.scrollToBottom();
+  }
+
   sendMessage(): void {
     this.newMessageText = this.newMessageText.trim();
     if (this.newMessageText === null || this.newMessageText === '' || this.newMessageText === undefined) {
@@ -40,6 +45,12 @@ export class ChatPageComponent implements OnInit {
       date: '2019-09-19 17:01:24'
     });
     this.newMessageText = '';
+  }
+
+  private scrollToBottom(): void {
+    try {
+      this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+    } catch (err) {}
   }
 
   private getUserDisplayName(user: IUser): string {
