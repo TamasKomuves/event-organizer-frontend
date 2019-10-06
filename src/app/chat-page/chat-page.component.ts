@@ -40,12 +40,16 @@ export class ChatPageComponent implements OnInit, AfterViewChecked {
       alert('Empty message!');
       return;
     }
-    this.messages.push({
+
+    const chatMessage: IChatMessage = {
       text: this.newMessageText,
-      isCurrentUserSent: true,
-      date: '2019-09-19 17:01:24',
       partnerEmail: this.chatPartnerEmail
+    };
+
+    this.userService.createChatMessage(chatMessage).subscribe(chatMessage => {
+      this.messages.push(chatMessage);
     });
+
     this.newMessageText = '';
   }
 

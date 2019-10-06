@@ -27,8 +27,8 @@ export class UserService {
     });
   }
 
-  postMethod(url: string, body: any) {
-    return this.httpClient.post(this.SERVER_LINK + url, body, {
+  postMethod<T>(url: string, body: any) {
+    return this.httpClient.post<T>(this.SERVER_LINK + url, body, {
       headers: new HttpHeaders()
         .set('content-type', 'application/json')
         .set('authorization', 'Bearer ' + sessionStorage.getItem('token'))
@@ -423,5 +423,10 @@ export class UserService {
   getLastMessages() {
     const url = 'chat-messages/last-messages';
     return this.getMethod<Array<IChatMessage>>(url);
+  }
+
+  createChatMessage(chatMessage: IChatMessage) {
+    const url = 'chat-messages/create';
+    return this.postMethod<IChatMessage>(url, chatMessage);
   }
 }

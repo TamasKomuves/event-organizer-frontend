@@ -1,7 +1,7 @@
 export interface IChatMessage {
   id?: number;
-  date: string;
+  date?: string;
   text: string;
-  isCurrentUserSent: boolean;
+  isCurrentUserSent?: boolean;
   partnerEmail: string;
 }
