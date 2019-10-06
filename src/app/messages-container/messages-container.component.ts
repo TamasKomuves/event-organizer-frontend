@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgxSmartModalService } from 'ngx-smart-modal';
 import { UserService } from '../services/user.service';
+import { IChatMessage } from '../interface/IChatMessage';
 
 @Component({
   selector: 'app-messages-container',
@@ -8,7 +9,7 @@ import { UserService } from '../services/user.service';
   styleUrls: ['./messages-container.component.css']
 })
 export class MessagesContainerComponent implements OnInit {
-  chatMessages: Array<any> = new Array();
+  chatMessages: Array<IChatMessage> = new Array();
 
   constructor(private ngxSmartModalService: NgxSmartModalService, private userService: UserService) {}
 

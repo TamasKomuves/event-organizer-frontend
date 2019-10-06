@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { NgxSmartModalService } from 'ngx-smart-modal';
+import { IPollAnswer } from 'src/app/interface/IPollAnswer';
 
 @Component({
   selector: 'app-poll-creator-modal',
@@ -11,7 +12,7 @@ export class PollCreatorModalComponent implements OnInit {
   @Input() eventId: number;
 
   questionText: string;
-  answers: Array<any>;
+  answers: Array<IPollAnswer>;
 
   constructor(private userService: UserService, private ngxSmartModalService: NgxSmartModalService) {}
 
@@ -21,7 +22,7 @@ export class PollCreatorModalComponent implements OnInit {
 
   addAnswer(): void {
     const id = this.answers.length + 1;
-    this.answers.push({ answerId: 'Answer' + id, text: '' });
+    this.answers.push({ id: id, text: '' });
   }
 
   removeAnswer(): void {

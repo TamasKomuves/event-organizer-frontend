@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, AfterViewCheck
 import { UserService } from '../services/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { IUser } from '../interface/IUser';
+import { IChatMessage } from '../interface/IChatMessage';
 
 @Component({
   selector: 'app-chat-page',
@@ -10,7 +11,7 @@ import { IUser } from '../interface/IUser';
 })
 export class ChatPageComponent implements OnInit, AfterViewChecked {
   @ViewChild('scrollbarDiv') private myScrollContainer: ElementRef;
-  messages: Array<any> = new Array();
+  messages: Array<IChatMessage> = new Array();
   chatPartnerEmail: string;
   newMessageText: string;
   partnerName: string;
@@ -42,7 +43,8 @@ export class ChatPageComponent implements OnInit, AfterViewChecked {
     this.messages.push({
       text: this.newMessageText,
       isCurrentUserSent: true,
-      date: '2019-09-19 17:01:24'
+      date: '2019-09-19 17:01:24',
+      partnerEmail: this.chatPartnerEmail
     });
     this.newMessageText = '';
   }

@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class FindUserToMessageModalComponent implements OnInit, AfterViewInit {
   searchedName = '';
-  suggestedUsers: Array<any>;
+  suggestedUsers: Array<IUser>;
   allUsers: Array<IUser>;
 
   constructor(

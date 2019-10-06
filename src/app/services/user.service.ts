@@ -10,6 +10,7 @@ import { IPollQuestion } from '../interface/IPollQuestion';
 import { IPost } from '../interface/IPost';
 import { IUser } from '../interface/IUser';
 import { IEvent } from '../interface/IEvent';
+import { IChatMessage } from '../interface/IChatMessage';
 
 @Injectable({
   providedIn: 'root'
@@ -388,7 +389,7 @@ export class UserService {
     return this.postMethod(url, body);
   }
 
-  createPoll(eventId: number, questionText: string, pollAnswers: Array<any>) {
+  createPoll(eventId: number, questionText: string, pollAnswers: Array<IPollAnswer>) {
     const url = 'poll-questions/createPoll';
     const body = {
       eventId: eventId,
@@ -411,7 +412,7 @@ export class UserService {
 
   getAllChatMessages(partnerEmail: string) {
     const url = 'chat-messages/all-messages/' + partnerEmail;
-    return this.getMethod<Array<any>>(url);
+    return this.getMethod<Array<IChatMessage>>(url);
   }
 
   getAllUsers() {
@@ -421,6 +422,6 @@ export class UserService {
 
   getLastMessages() {
     const url = 'chat-messages/last-messages';
-    return this.getMethod<Array<Number>>(url);
+    return this.getMethod<Array<IChatMessage>>(url);
   }
 }

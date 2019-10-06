@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { IUser } from '../interface/IUser';
+import { IChatMessage } from '../interface/IChatMessage';
 
 @Component({
   selector: 'app-messages-container-block',
@@ -9,7 +10,7 @@ import { IUser } from '../interface/IUser';
   styleUrls: ['./messages-container-block.component.css']
 })
 export class MessagesContainerBlockComponent implements OnInit {
-  @Input() chatMessage: any;
+  @Input() chatMessage: IChatMessage;
 
   partner: IUser;
 
