@@ -17,7 +17,7 @@ export class PollAnswerComponent implements OnInit {
   numberOfVotes = 0;
   isLoaded = false;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
     this.checkboxId = 'checkbox' + this.answerId;
@@ -68,7 +68,7 @@ export class PollAnswerComponent implements OnInit {
   }
 
   removeVoteFromAnswer(): void {
-    this.userService.deleteAnswersToPoll(this.answerId).subscribe(
+    this.userService.removeRespondentFromAnswer(this.answerId).subscribe(
       result => {
         this.updateVotes();
       },
@@ -80,7 +80,7 @@ export class PollAnswerComponent implements OnInit {
   }
 
   voteForAnswer(): void {
-    this.userService.createAnswersToPoll(this.answerId).subscribe(
+    this.userService.addRespondentToAnswer(this.answerId).subscribe(
       result => {
         this.updateVotes();
       },

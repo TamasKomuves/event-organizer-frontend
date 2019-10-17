@@ -19,7 +19,7 @@ export class UserService {
   // SERVER_LINK = 'https://powerful-shelf-66888.herokuapp.com/';
   SERVER_LINK = 'http://localhost:8080/';
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
   getMethod<T>(url: string) {
     return this.httpClient.get<T>(this.SERVER_LINK + url, {
@@ -360,22 +360,18 @@ export class UserService {
     return this.getMethod(url);
   }
 
-  createAnswersToPoll(pollAnswerId: number) {
-    const url = 'answers-to-polls/create';
-    const body = {
-      pollAnswerId: pollAnswerId
-    };
+  addRespondentToAnswer(pollAnswerId: number) {
+    const url = 'poll-answers/' + pollAnswerId + '/add-respondent';
+    return this.getMethod(url);
+  }
 
-    return this.postMethod(url, body);
+  removeRespondentFromAnswer(pollAnswerId: number) {
+    const url = 'poll-answers/' + pollAnswerId + '/remove-respondent';
+    return this.getMethod(url);
   }
 
   isAnswerAlreadySelected(pollAnswerId: number) {
     const url = 'poll-answers/' + pollAnswerId + '/is-already-selected';
-    return this.getMethod(url);
-  }
-
-  deleteAnswersToPoll(id: number) {
-    const url = 'answers-to-polls/' + id + '/delete';
     return this.getMethod(url);
   }
 
