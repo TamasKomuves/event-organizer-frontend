@@ -211,7 +211,7 @@ export class UserService {
   }
 
   getAllEvents() {
-    const url = 'events';
+    const url = 'events/all';
     return this.getMethod<Array<IEvent>>(url);
   }
 
