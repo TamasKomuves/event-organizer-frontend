@@ -1,5 +1,5 @@
 export interface IPollAnswer {
-  id?: number;
+  answerId?: string;
   pollQuestionId?: number;
   text: string;
 }

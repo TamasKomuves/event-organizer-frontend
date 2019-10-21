@@ -5,28 +5,13 @@
       <div class="form-group row">
         <div class="col-sm">
           <label for="question">Question text</label>
-          <input
-            type="text"
-            class="form-control"
-            [(ngModel)]="questionText"
-            name="question"
-            id="question"
-            placeholder="Question text"
-          />
+          <input type="text" class="form-control" [(ngModel)]="questionText" name="question" id="question" placeholder="Question text" />
         </div>
       </div>
       <div *ngFor="let answer of answers">
         <div class="form-group row">
           <div class="col-sm">
-            <label [for]="answer.answerId"> {{ answer.id }} </label>
-            <input
-              type="text"
-              class="form-control"
-              [(ngModel)]="answer.text"
-              [name]="answer.answerId"
-              [id]="answer.answerId"
-              placeholder="Answer text"
-            />
+            <input type="text" class="form-control" [(ngModel)]="answer.text" name="answer.answerId" placeholder="Answer text" />
           </div>
         </div>
       </div>

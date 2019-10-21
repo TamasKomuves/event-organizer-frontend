@@ -14,15 +14,15 @@ export class PollCreatorModalComponent implements OnInit {
   questionText: string;
   answers: Array<IPollAnswer>;
 
-  constructor(private userService: UserService, private ngxSmartModalService: NgxSmartModalService) {}
+  constructor(private userService: UserService, private ngxSmartModalService: NgxSmartModalService) { }
 
   ngOnInit() {
-    this.answers = new Array();
+    this.answers = new Array<IPollAnswer>();
   }
 
   addAnswer(): void {
-    const id = this.answers.length + 1;
-    this.answers.push({ id: id, text: '' });
+    const answerId = 'Answer' + (this.answers.length + 1);
+    this.answers.push({ text: '', answerId: answerId });
   }
 
   removeAnswer(): void {
