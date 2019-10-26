@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { UserService } from '../services/user.service';
-import { IComment } from '../interface/IComment';
 
 @Component({
   selector: 'app-comment-block',
@@ -16,7 +15,7 @@ export class CommentBlockComponent implements OnInit {
   numberOfLikes: number;
   isCurrentUserLiked = true;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
     this.numberOfLikes = 0;
@@ -45,10 +44,8 @@ export class CommentBlockComponent implements OnInit {
 
   likeComment(): void {
     this.isCurrentUserLiked = true;
-    this.userService.getCurrentUser().subscribe(user => {
-      this.userService.createLikesComment(user.email, this.commentId).subscribe(result => {
-        this.numberOfLikes++;
-      });
+    this.userService.addLiker(this.commentId).subscribe(result => {
+      this.numberOfLikes++;
     });
   }
 }

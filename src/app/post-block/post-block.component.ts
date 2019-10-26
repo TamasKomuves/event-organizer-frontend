@@ -24,7 +24,7 @@ export class PostBlockComponent implements OnInit {
   showCommentsText: string;
   commentText: string;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
     this.showCommentsText = 'Show comments';
@@ -67,10 +67,8 @@ export class PostBlockComponent implements OnInit {
 
   likePost(): void {
     this.isCurrentUserLiked = true;
-    this.userService.getCurrentUser().subscribe(user => {
-      this.userService.createLikesPost(user.email, this.postId).subscribe(result => {
-        this.numberOfLikes++;
-      });
+    this.userService.createLikesPost(this.postId).subscribe(result => {
+      this.numberOfLikes++;
     });
   }
 

@@ -155,24 +155,14 @@ export class UserService {
     return this.postMethod(url, body);
   }
 
-  createLikesComment(userEmail: string, commentId: number) {
-    const url = 'likes-comments/create';
-    const body = {
-      userEmail: userEmail,
-      commentId: commentId
-    };
-
-    return this.postMethod(url, body);
+  addLiker(commentId: number) {
+    const url = 'comments/' + commentId + '/add-liker';
+    return this.getMethod(url);
   }
 
-  createLikesPost(userEmail: string, postId: number) {
-    const url = 'likes-posts/create';
-    const body = {
-      userEmail: userEmail,
-      postId: postId
-    };
-
-    return this.postMethod(url, body);
+  createLikesPost(postId: number) {
+    const url = 'posts/' + postId + '/add-liker';
+    return this.getMethod(url);
   }
 
   isLikedComment(commentId: number, email: string) {
