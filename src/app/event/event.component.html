@@ -14,13 +14,7 @@
         <br />
         <div *ngIf="visibility === 'restricted' || visibility === 'private'">
           <div style="margin-bottom: 8%; font-weight: bold;">Invitations</div>
-          <input
-            type="text"
-            class="form-control"
-            [(ngModel)]="invitedUserEmail"
-            placeholder="Invitee's email"
-            style="margin-bottom: 7%;"
-          />
+          <input type="text" class="form-control" [(ngModel)]="invitedUserEmail" placeholder="Invitee's email" style="margin-bottom: 7%;" />
           <button type="button" class="btn btn-outline-light btn-sm" (click)="inviteUser()">
             Invite user
           </button>
@@ -31,12 +25,7 @@
           </button>
           <br />
           <br />
-          <button
-            type="button"
-            class="btn btn-outline-light btn-sm"
-            *ngIf="visibility === 'restricted'"
-            (click)="openViewRequestsModal()"
-          >
+          <button type="button" class="btn btn-outline-light btn-sm" *ngIf="visibility === 'restricted'" (click)="openViewRequestsModal()">
             View requests
           </button>
         </div>
@@ -46,13 +35,7 @@
     <div class="col-sm-6" style="background-color: rgba(0,0,0,0.8); padding-top: 2%;">
       <div style="margin-bottom: 12%;">
         <div class="md-form" style="margin-bottom: 3%;">
-          <textarea
-            type="text"
-            [(ngModel)]="newPost"
-            class="md-textarea form-control"
-            rows="3"
-            placeholder="Write a post..."
-          ></textarea>
+          <textarea type="text" [(ngModel)]="newPostText" class="md-textarea form-control" rows="3" placeholder="Write a post..."></textarea>
         </div>
         <button type="button" class="btn btn-outline-light btn-sm" (click)="sendPost()">Send</button>
         <button type="button" class="btn btn-outline-light btn-sm" (click)="openPollCreatorModal()">
@@ -64,13 +47,8 @@
         <app-post-block *ngIf="news.type === 'POST'" [postId]="news.id"></app-post-block>
       </div>
       <div style="background-color: rgba(0,0,0,0.9); margin-bottom: 3%;">
-        <input
-          *ngIf="newsLength > this.numberOfNewsToShow"
-          type="button"
-          class="btn btn-outline-light btn-block"
-          (click)="showMoreNews()"
-          value="Load more..."
-        />
+        <input *ngIf="newsLength > this.numberOfNewsToShow" type="button" class="btn btn-outline-light btn-block"
+          (click)="showMoreNews()" value="Load more..." />
       </div>
     </div>
 
@@ -82,12 +60,7 @@
         <p><span>Date:</span> {{ date | date: 'yyyy-MM-dd HH:mm' }}</p>
         <p><span>Address:</span> {{ address }}</p>
         <p><span>Description:</span> {{ description }}</p>
-        <button
-          type="button"
-          class="btn btn-outline-light btn-sm"
-          *ngIf="isOrganizer"
-          (click)="openModifyEventInfoModal()"
-        >
+        <button type="button" class="btn btn-outline-light btn-sm" *ngIf="isOrganizer" (click)="openModifyEventInfoModal()">
           Modify
         </button>
         <button type="button" class="btn btn-danger btn-sm" *ngIf="isOrganizer">Delete event</button>

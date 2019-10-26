@@ -78,20 +78,20 @@ export class PostBlockComponent implements OnInit {
       return;
     }
 
-    this.userService.getCurrentUser().subscribe(user => {
-      this.userService.createComment(this.postId, user.email, this.commentText).subscribe(
-        result => {
-          this.commentText = '';
-          this.userService.getPostComments(this.postId).subscribe(comments => {
-            this.comments = comments;
-            this.isAnyComment = this.comments !== undefined && this.comments.length > 0;
-          });
-        },
-        error => {
-          this.commentText = '';
-          console.log(error);
-        }
-      );
-    });
+    const newComment: IComment = { postId: this.postId, text: this.commentText };
+
+    this.userService.createComment(newComment).subscribe(
+      result => {
+        this.commentText = '';
+        this.userService.getPostComments(this.postId).subscribe(comments => {
+          this.comments = comments;
+          this.isAnyComment = this.comments !== undefined && this.comments.length > 0;
+        });
+      },
+      error => {
+        this.commentText = '';
+        console.log(error);
+      }
+    );
   }
 }

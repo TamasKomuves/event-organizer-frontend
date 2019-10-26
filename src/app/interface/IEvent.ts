@@ -1,12 +1,12 @@
 export interface IEvent {
-  id: number;
+  id?: number;
   addressId: number;
-  organizerEmail: string;
+  organizerEmail?: string;
   eventType: string;
   name: string;
   description: string;
   maxParticipant: number;
   visibility: string;
-  eventDate: string;
+  eventDate: Date;
   totalCost: number;
 }

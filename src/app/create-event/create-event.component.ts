@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { isNullOrUndefined } from 'util';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { IEvent } from '../interface/IEvent';
 
 @Component({
   selector: 'app-create-event',
@@ -23,9 +24,9 @@ export class CreateEventComponent implements OnInit {
   visibility = this.visibilities[0];
   isCreateButtonClickable = true;
 
-  constructor(private userService: UserService, private spinner: NgxSpinnerService) {}
+  constructor(private userService: UserService, private spinner: NgxSpinnerService) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   createEvent(): void {
     if (!this.isAllInputValid()) {
@@ -35,46 +36,32 @@ export class CreateEventComponent implements OnInit {
 
     this.isCreateButtonClickable = false;
     this.spinner.show();
-    this.userService.getCurrentUser().subscribe(
-      user => {
-        this.userService
-          .createAddress(this.country, this.city, this.street, this.streetNumber)
-          .subscribe(result => {
-            this.userService
-              .createEvent(
-                this.name,
-                this.description,
-                this.maxParticipants,
-                this.visibility,
-                this.estimatedCost,
-                new Date(this.eventDate),
-                result['addressId'],
-                this.type,
-                user.email
-              )
-              .subscribe(
-                respond => {
-                  alert('Event created!');
-                  this.resetInputFields();
-                  this.isCreateButtonClickable = true;
-                  this.spinner.hide();
-                },
-                error => {
-                  console.log(error);
-                  alert('Event creation failed!');
-                  this.isCreateButtonClickable = true;
-                  this.spinner.hide();
-                }
-              );
-          });
-      },
-      error => {
-        console.log(error);
-        alert('Event creation failed!');
+    this.userService.createAddress(this.country, this.city, this.street, this.streetNumber).subscribe(result => {
+      const event: IEvent = {
+        name: this.name,
+        description: this.description,
+        maxParticipant: this.maxParticipants,
+        visibility: this.visibility,
+        totalCost: this.estimatedCost,
+        eventDate: new Date(this.eventDate),
+        addressId: result['addressId'],
+        eventType: this.type
+      };
+
+      this.userService.createEvent(event).subscribe(result => {
+        alert('Event created!');
+        this.resetInputFields();
         this.isCreateButtonClickable = true;
         this.spinner.hide();
-      }
-    );
+      },
+        error => {
+          console.log(error);
+          alert('Event creation failed!');
+          this.isCreateButtonClickable = true;
+          this.spinner.hide();
+        }
+      );
+    });
   }
 
   isAllInputValid(): boolean {

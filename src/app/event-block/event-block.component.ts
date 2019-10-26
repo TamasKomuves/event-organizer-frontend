@@ -25,14 +25,14 @@ export class EventBlockComponent implements OnInit {
   isHasRequest = true;
   isParticipateLoaded = false;
 
-  constructor(private userService: UserService, private router: Router, private spinner: NgxSpinnerService) {}
+  constructor(private userService: UserService, private router: Router, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
     this.spinnerName = 'mySpinner' + this.eventId;
     this.spinner.show(this.spinnerName);
     this.userService.getEventById(this.eventId).subscribe(event => {
       this.name = event.name;
-      this.date = event.eventDate;
+      this.date = event.eventDate.toString();
       this.type = event.eventType;
       this.visibility = event.visibility;
 

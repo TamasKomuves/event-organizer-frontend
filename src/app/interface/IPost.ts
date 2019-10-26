@@ -1,8 +1,7 @@
 export interface IPost {
-  id: number;
+  id?: number;
   eventId: number;
-  posterEmail: string;
+  posterEmail?: string;
   text: string;
-  date: string;
-  type: string;
+  date?: string;
 }

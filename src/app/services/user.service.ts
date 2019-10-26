@@ -106,41 +106,19 @@ export class UserService {
     return this.getMethod<Array<IUser>>(url);
   }
 
-  createPost(eventId: number, userEmail: string, text: string) {
-    const url = 'posts/create/' + eventId + '/' + userEmail + '/' + text;
-    return this.getMethod(url);
+  createPost(post: IPost) {
+    const url = 'posts/create';
+    return this.postMethod(url, post);
   }
 
-  createComment(postId: number, commenter_email: string, text: string) {
-    const url = 'comments/create/' + postId + '/' + commenter_email + '/' + text;
-    return this.getMethod(url);
+  createComment(comment: IComment) {
+    const url = 'comments/create';
+    return this.postMethod(url, comment);
   }
 
-  createEvent(
-    name: string,
-    description: string,
-    maxParticipant: number,
-    visibility: string,
-    totalCost: number,
-    eventDate: Date,
-    addressId: number,
-    eventTypeType: String,
-    organizerEmail: string
-  ) {
+  createEvent(event: IEvent) {
     const url = 'events/create';
-    const body = {
-      name: name,
-      description: description,
-      maxParticipant: maxParticipant,
-      visibility: visibility,
-      totalCost: totalCost,
-      eventDate: eventDate,
-      addressId: addressId,
-      eventTypeType: eventTypeType,
-      organizerEmail: organizerEmail
-    };
-
-    return this.postMethod(url, body);
+    return this.postMethod(url, event);
   }
 
   createAddress(country: string, city: string, street: string, streetNumber: string) {

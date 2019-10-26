@@ -4,6 +4,7 @@ import { UserService } from '../services/user.service';
 import { NgxSmartModalService, NgxSmartModalComponent } from 'ngx-smart-modal';
 import { INews } from '../interface/INews';
 import { IUser } from '../interface/IUser';
+import { IPost } from '../interface/IPost';
 
 @Component({
   selector: 'app-event',
@@ -18,7 +19,7 @@ export class EventComponent implements OnInit, AfterViewInit {
   date: string;
   description: string;
   newsList: Array<INews>;
-  newPost: string;
+  newPostText: string;
   invitedUserEmail: string;
   isOrganizer = false;
   address: string;
@@ -31,7 +32,7 @@ export class EventComponent implements OnInit, AfterViewInit {
     private userService: UserService,
     private route: ActivatedRoute,
     private ngxSmartModalService: NgxSmartModalService
-  ) {}
+  ) { }
 
   ngOnInit() {
     const eventIdJson = this.route.snapshot.queryParamMap.get('eventId');
@@ -62,7 +63,7 @@ export class EventComponent implements OnInit, AfterViewInit {
     this.userService.getEventById(this.eventId).subscribe(event => {
       this.name = event.name;
       this.type = event.eventType;
-      this.date = event.eventDate;
+      this.date = event.eventDate.toString();
       this.description = event.description;
       this.visibility = event.visibility;
       this.userService.getCurrentUser().subscribe(user => {
@@ -76,24 +77,17 @@ export class EventComponent implements OnInit, AfterViewInit {
   }
 
   sendPost(): void {
-    if (this.newPost === '' || this.newPost === null || this.newPost === undefined) {
+    if (this.newPostText === '' || this.newPostText === null || this.newPostText === undefined) {
       alert('Empty post');
       return;
     }
 
-    this.userService.getCurrentUser().subscribe(
-      user => {
-        const userEmail = user.email;
+    const post: IPost = { eventId: this.eventId, text: this.newPostText }
 
-        this.userService.createPost(this.eventId, userEmail, this.newPost).subscribe(result => {
-          this.newPost = '';
-          this.updateNewsFeed();
-        });
-      },
-      error => {
-        console.log(error);
-      }
-    );
+    this.userService.createPost(post).subscribe(result => {
+      this.newPostText = '';
+      this.updateNewsFeed();
+    });
   }
 
   updateNewsFeed(): void {
