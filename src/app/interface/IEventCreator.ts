@@ -1,12 +1,15 @@
-export interface IEvent {
+import { IAddress } from "./IAddress";
+
+export interface IEventCreator {
   id?: number;
-  addressId?: number;
   organizerEmail?: string;
   eventType: string;
   name: string;
   description: string;
   maxParticipant: number;
   visibility: string;
-  eventDate: string;
+  eventDate: Date;
   totalCost: number;
+  address?: IAddress;
+  addressId?: number;
 }

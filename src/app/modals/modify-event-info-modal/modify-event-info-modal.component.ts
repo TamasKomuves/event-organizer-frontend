@@ -4,8 +4,8 @@ import { UserService } from '../../services/user.service';
 import { formatDate } from '@angular/common';
 import { NgxSmartModalComponent, NgxSmartModalService } from 'ngx-smart-modal';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { IEvent } from 'src/app/interface/IEvent';
 import { IAddress } from 'src/app/interface/IAddress';
+import { IEventCreator } from 'src/app/interface/IEventCreator';
 
 @Component({
   selector: 'app-modify-event-info-modal',
@@ -74,7 +74,7 @@ export class ModifyEventInfoModalComponent implements AfterViewInit {
       city: this.city, country: this.country, street: this.street, streetNumber: this.streetNumber
     };
 
-    const event: IEvent = {
+    const event: IEventCreator = {
       name: this.name, description: this.description, maxParticipant: this.maxParticipants, totalCost: this.estimatedCost,
       eventDate: new Date(this.eventDate + ':00'), visibility: this.visibility, eventType: this.type, address: address
     };

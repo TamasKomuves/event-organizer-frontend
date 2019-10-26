@@ -11,6 +11,7 @@ import { IPost } from '../interface/IPost';
 import { IUser } from '../interface/IUser';
 import { IEvent } from '../interface/IEvent';
 import { IChatMessage } from '../interface/IChatMessage';
+import { IEventCreator } from '../interface/IEventCreator';
 
 @Injectable({
   providedIn: 'root'
@@ -119,7 +120,7 @@ export class UserService {
     return this.postMethod(url, comment);
   }
 
-  createEvent(event: IEvent) {
+  createEvent(event: IEventCreator) {
     const url = 'events/create';
     return this.postMethod(url, event);
   }
@@ -278,7 +279,7 @@ export class UserService {
     return this.getMethod(url);
   }
 
-  updateEventInfo(eventId: number, event: IEvent) {
+  updateEventInfo(eventId: number, event: IEventCreator) {
     const url = 'events/update-info/' + eventId;
     return this.putMethod(url, event);
   }

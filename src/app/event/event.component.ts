@@ -63,7 +63,7 @@ export class EventComponent implements OnInit, AfterViewInit {
     this.userService.getEventById(this.eventId).subscribe(event => {
       this.name = event.name;
       this.type = event.eventType;
-      this.date = event.eventDate.toString();
+      this.date = event.eventDate;
       this.description = event.description;
       this.visibility = event.visibility;
       this.userService.getCurrentUser().subscribe(user => {

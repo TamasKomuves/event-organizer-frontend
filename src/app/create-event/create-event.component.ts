@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { isNullOrUndefined } from 'util';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { IEvent } from '../interface/IEvent';
+import { IEventCreator } from '../interface/IEventCreator';
 
 @Component({
   selector: 'app-create-event',
@@ -37,7 +37,7 @@ export class CreateEventComponent implements OnInit {
     this.isCreateButtonClickable = false;
     this.spinner.show();
     this.userService.createAddress(this.country, this.city, this.street, this.streetNumber).subscribe(result => {
-      const event: IEvent = {
+      const event: IEventCreator = {
         name: this.name,
         description: this.description,
         maxParticipant: this.maxParticipants,

@@ -27,7 +27,7 @@ export class ShowEventsComponent implements OnInit {
     this.lastSelectedEventType = this.selectedEventType;
     this.userService.getAllEvents().subscribe(events => {
       this.events = events;
-      this.events.sort((a, b) => b.eventDate.toString().localeCompare(a.eventDate.toString()));
+      this.events.sort((a, b) => b.eventDate.localeCompare(a.eventDate));
       this.eventsToShow = events;
       this.eventsToShowLength = this.eventsToShow.length;
     });

@@ -32,7 +32,7 @@ export class EventBlockComponent implements OnInit {
     this.spinner.show(this.spinnerName);
     this.userService.getEventById(this.eventId).subscribe(event => {
       this.name = event.name;
-      this.date = event.eventDate.toString();
+      this.date = event.eventDate;
       this.type = event.eventType;
       this.visibility = event.visibility;
 
