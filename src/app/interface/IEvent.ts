@@ -1,6 +1,8 @@
+import { IAddress } from "./IAddress";
+
 export interface IEvent {
   id?: number;
-  addressId: number;
+  addressId?: number;
   organizerEmail?: string;
   eventType: string;
   name: string;
@@ -9,4 +11,5 @@ export interface IEvent {
   visibility: string;
   eventDate: Date;
   totalCost: number;
+  address?: IAddress;
 }

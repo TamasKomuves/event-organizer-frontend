@@ -35,6 +35,14 @@ export class UserService {
     });
   }
 
+  putMethod<T>(url: string, body: any) {
+    return this.httpClient.put<T>(this.SERVER_LINK + url, body, {
+      headers: new HttpHeaders()
+        .set('content-type', 'application/json')
+        .set('authorization', 'Bearer ' + sessionStorage.getItem('token'))
+    });
+  }
+
   postMethodWithoutAuth(url: string, body: any) {
     return this.httpClient.post(this.SERVER_LINK + url, body, {
       headers: new HttpHeaders().set('content-type', 'application/json')
@@ -69,11 +77,6 @@ export class UserService {
   getEventById(id: number) {
     const url = 'events/' + id;
     return this.getMethod<IEvent>(url);
-  }
-
-  getEventPosts(eventId: number) {
-    const url = 'events/' + eventId + '/posts';
-    return this.getMethod<Array<IPost>>(url);
   }
 
   getPostComments(postId: number) {
@@ -275,37 +278,9 @@ export class UserService {
     return this.getMethod(url);
   }
 
-  updateEventInfo(
-    eventId: number,
-    name: string,
-    description: string,
-    max_participant: number,
-    total_cost: number,
-    event_date: string,
-    visibility: string,
-    address_id: number,
-    event_type_type: string
-  ) {
-    const url =
-      'events/' +
-      eventId +
-      '/update-info/' +
-      name +
-      '/' +
-      description +
-      '/' +
-      max_participant +
-      '/' +
-      total_cost +
-      '/' +
-      event_date +
-      '/' +
-      visibility +
-      '/' +
-      address_id +
-      '/' +
-      event_type_type;
-    return this.getMethod(url);
+  updateEventInfo(eventId: number, event: IEvent) {
+    const url = 'events/update-info/' + eventId;
+    return this.putMethod(url, event);
   }
 
   getPollQuiestionById(id: number) {

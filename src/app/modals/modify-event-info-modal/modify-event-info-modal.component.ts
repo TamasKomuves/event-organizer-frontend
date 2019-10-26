@@ -4,6 +4,8 @@ import { UserService } from '../../services/user.service';
 import { formatDate } from '@angular/common';
 import { NgxSmartModalComponent, NgxSmartModalService } from 'ngx-smart-modal';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { IEvent } from 'src/app/interface/IEvent';
+import { IAddress } from 'src/app/interface/IAddress';
 
 @Component({
   selector: 'app-modify-event-info-modal',
@@ -31,7 +33,7 @@ export class ModifyEventInfoModalComponent implements AfterViewInit {
     private userService: UserService,
     private ngxSmartModalService: NgxSmartModalService,
     private spinner: NgxSpinnerService
-  ) {}
+  ) { }
 
   ngAfterViewInit() {
     const modifyEventInfoModal = this.ngxSmartModalService.getModal('modifyEventInfoModal');
@@ -68,45 +70,28 @@ export class ModifyEventInfoModalComponent implements AfterViewInit {
       return;
     }
 
-    this.userService.getEventById(this.eventId).subscribe(event => {
-      this.userService
-        .updateEventInfo(
-          this.eventId,
-          this.name,
-          this.description,
-          this.maxParticipants,
-          this.estimatedCost,
-          this.eventDate + ':00',
-          this.visibility,
-          event.addressId,
-          this.type
-        )
-        .subscribe(
-          result => {
-            this.userService
-              .updateAddress(event.addressId, this.country, this.city, this.street, this.streetNumber)
-              .subscribe(
-                result2 => {
-                  this.resetInputFields();
-                  const modifyEventInfoModal = this.ngxSmartModalService.getModal('modifyEventInfoModal');
-                  modifyEventInfoModal.close();
-                  alert('Event info updated');
-                  this.spinner.hide();
-                },
-                error => {
-                  console.log(error);
-                  alert('Modification failed!');
-                  this.spinner.hide();
-                }
-              );
-          },
-          error => {
-            console.log(error);
-            alert('Modification failed!');
-            this.spinner.hide();
-          }
-        );
-    });
+    const address: IAddress = {
+      city: this.city, country: this.country, street: this.street, streetNumber: this.streetNumber
+    };
+
+    const event: IEvent = {
+      name: this.name, description: this.description, maxParticipant: this.maxParticipants, totalCost: this.estimatedCost,
+      eventDate: new Date(this.eventDate + ':00'), visibility: this.visibility, eventType: this.type, address: address
+    };
+
+    this.userService.updateEventInfo(this.eventId, event).subscribe(result => {
+      this.resetInputFields();
+      const modifyEventInfoModal = this.ngxSmartModalService.getModal('modifyEventInfoModal');
+      modifyEventInfoModal.close();
+      alert('Event info updated');
+      this.spinner.hide();
+    },
+      error => {
+        console.log(error);
+        alert('Modification failed!');
+        this.spinner.hide();
+      }
+    );
   }
 
   isAllInputValid(): boolean {
