@@ -63,7 +63,7 @@
         <button type="button" class="btn btn-outline-light btn-sm" *ngIf="isOrganizer" (click)="openModifyEventInfoModal()">
           Modify
         </button>
-        <button type="button" class="btn btn-danger btn-sm" *ngIf="isOrganizer">Delete event</button>
+        <button type="button" class="btn btn-danger btn-sm" *ngIf="isOrganizer" (click)="deleteEvent()">Delete event</button>
       </div>
     </div>
   </div>

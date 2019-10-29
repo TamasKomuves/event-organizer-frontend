@@ -125,6 +125,10 @@ export class EventComponent implements OnInit, AfterViewInit {
     );
   }
 
+  deleteEvent(): void {
+    this.userService.deleteEvent(this.eventId).subscribe(() => { });
+  }
+
   openViewRequestsModal(): void {
     this.openModal('invitationRequestModal');
   }

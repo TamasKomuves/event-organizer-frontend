@@ -36,6 +36,12 @@ export class UserService {
     });
   }
 
+  deleteMethod(url: string) {
+    return this.httpClient.delete(this.SERVER_LINK + url, {
+      headers: new HttpHeaders().set('authorization', 'Bearer ' + sessionStorage.getItem('token'))
+    });
+  }
+
   putMethod<T>(url: string, body: any) {
     return this.httpClient.put<T>(this.SERVER_LINK + url, body, {
       headers: new HttpHeaders()
@@ -368,5 +374,10 @@ export class UserService {
   createChatMessage(chatMessage: IChatMessage) {
     const url = 'chat-messages/create';
     return this.postMethod<IChatMessage>(url, chatMessage);
+  }
+
+  deleteEvent(eventId: number) {
+    const url = 'events/delete/' + eventId;
+    return this.deleteMethod(url);
   }
 }
