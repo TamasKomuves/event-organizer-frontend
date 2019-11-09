@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './core/app-routing.module';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgxSmartModalModule } from 'ngx-smart-modal';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
@@ -36,6 +36,8 @@ import { MessagesContainerComponent } from './messages-container/messages-contai
 import { FindUserToMessageModalComponent } from './modals/find-user-to-message-modal/find-user-to-message-modal.component';
 import { ChatPageComponent } from './chat-page/chat-page.component';
 import { MessagesContainerBlockComponent } from './messages-container-block/messages-container-block.component';
+import { Router } from '@angular/router';
+import { AuthInterceptor } from './AuthInterceptor';
 
 @NgModule({
   declarations: [
@@ -75,7 +77,19 @@ import { MessagesContainerBlockComponent } from './messages-container-block/mess
     NgxSmartModalModule.forRoot(),
     NgxSpinnerModule
   ],
-  providers: [UserService, MessageService, DatePipe],
+  providers: [
+    UserService,
+    MessageService,
+    DatePipe,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useFactory: function(router: Router, messageService: MessageService) {
+        return new AuthInterceptor(router, messageService);
+      },
+      multi: true,
+      deps: [Router, MessageService]
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

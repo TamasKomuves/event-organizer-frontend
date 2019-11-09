@@ -32,10 +32,9 @@ export class NavbarComponent implements OnInit {
   }
 
   logout(): void {
-    this.userService.logout().subscribe(data => {
-      this.router.navigateByUrl('/login');
-      this.messageService.sendLoggedInMessage(false);
-    });
+    this.router.navigateByUrl('/login');
+    sessionStorage.setItem('token', '');
+    this.messageService.sendLoggedInMessage(false);
   }
 
   showHome(): void {
