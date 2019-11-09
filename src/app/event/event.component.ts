@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { NgxSmartModalService, NgxSmartModalComponent } from 'ngx-smart-modal';
 import { INews } from '../interface/INews';
@@ -31,8 +31,9 @@ export class EventComponent implements OnInit, AfterViewInit {
   constructor(
     private userService: UserService,
     private route: ActivatedRoute,
-    private ngxSmartModalService: NgxSmartModalService
-  ) { }
+    private ngxSmartModalService: NgxSmartModalService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     const eventIdJson = this.route.snapshot.queryParamMap.get('eventId');
@@ -71,7 +72,13 @@ export class EventComponent implements OnInit, AfterViewInit {
       });
       this.userService.getAddressById(event.addressId).subscribe(address => {
         this.address =
-          address.street + ' ' + address.streetNumber + ', ' + address.city + ', ' + address.country;
+          address.street +
+          ' ' +
+          address.streetNumber +
+          ', ' +
+          address.city +
+          ', ' +
+          address.country;
       });
     });
   }
@@ -82,7 +89,7 @@ export class EventComponent implements OnInit, AfterViewInit {
       return;
     }
 
-    const post: IPost = { eventId: this.eventId, text: this.newPostText }
+    const post: IPost = { eventId: this.eventId, text: this.newPostText };
 
     this.userService.createPost(post).subscribe(result => {
       this.newPostText = '';
@@ -126,7 +133,11 @@ export class EventComponent implements OnInit, AfterViewInit {
   }
 
   deleteEvent(): void {
-    this.userService.deleteEvent(this.eventId).subscribe(() => { });
+    if (confirm('Are you sure you want to delete this event?\nThis action cannot be undone!')) {
+      this.userService.deleteEvent(this.eventId).subscribe(() => {
+        this.router.navigateByUrl('/show-events');
+      });
+    }
   }
 
   openViewRequestsModal(): void {
