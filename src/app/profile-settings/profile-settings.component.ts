@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { isNullOrUndefined } from 'util';
 import { Router } from '@angular/router';
+import { IPasswordChange } from '../interface/IPasswordChange';
 
 @Component({
   selector: 'app-profile-settings',
@@ -72,7 +73,36 @@ export class ProfileSettingsComponent implements OnInit {
     });
   }
 
-  savePassword(): void {}
+  changePassword(): void {
+    if (
+      !this.isNonEmptyString(this.oldPassword) ||
+      !this.isNonEmptyString(this.newPassword) ||
+      !this.isNonEmptyString(this.newPasswordAgain)
+    ) {
+      alert('Empty field');
+      return;
+    }
+    if (this.newPassword !== this.newPasswordAgain) {
+      alert('Passwords are mismatching');
+      return;
+    }
+
+    const passwordChange: IPasswordChange = {
+      oldPassword: this.oldPassword,
+      password: this.newPassword,
+      passwordAgain: this.newPasswordAgain
+    };
+    this.userService.changePassword(passwordChange).subscribe(
+      result => {
+        alert('Password changed');
+        this.clearPasswordFields();
+      },
+      error => {
+        alert('Cannot change the password');
+        this.clearPasswordFields();
+      }
+    );
+  }
 
   deleteProfile(): void {
     this.userService.getCurrentUser().subscribe(currentUser => {
@@ -92,5 +122,11 @@ export class ProfileSettingsComponent implements OnInit {
 
   isNonEmptyString(text: string): boolean {
     return !isNullOrUndefined(text) && text !== '';
+  }
+
+  clearPasswordFields() {
+    this.oldPassword = '';
+    this.newPassword = '';
+    this.newPasswordAgain = '';
   }
 }

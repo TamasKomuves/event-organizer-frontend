@@ -12,6 +12,7 @@ import { IUser } from '../interface/IUser';
 import { IEvent } from '../interface/IEvent';
 import { IChatMessage } from '../interface/IChatMessage';
 import { IEventCreator } from '../interface/IEventCreator';
+import { IPasswordChange } from '../interface/IPasswordChange';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class UserService {
   // SERVER_LINK = 'https://powerful-shelf-66888.herokuapp.com/';
   SERVER_LINK = 'http://localhost:8080/';
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
   getMethod<T>(url: string) {
     return this.httpClient.get<T>(this.SERVER_LINK + url, {
@@ -379,5 +380,10 @@ export class UserService {
   deleteEvent(eventId: number) {
     const url = 'events/delete/' + eventId;
     return this.deleteMethod(url);
+  }
+
+  changePassword(passwordChange: IPasswordChange) {
+    const url = 'users/change-password';
+    return this.putMethod(url, passwordChange);
   }
 }

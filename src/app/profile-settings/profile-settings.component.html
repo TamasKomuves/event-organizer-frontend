@@ -88,25 +88,25 @@
           <div class="form-group row">
             <div class="col-sm-12">
               Old password
-              <input type="text" class="form-control" [(ngModel)]="oldPassword" name="oldPassword" placeholder="Old password" />
+              <input type="password" class="form-control" [(ngModel)]="oldPassword" name="oldPassword" placeholder="Old password" />
             </div>
           </div>
           <div class="form-group row">
             <div class="col-sm-12">
               New password
-              <input type="text" class="form-control" [(ngModel)]="newPassword" name="newPassword" placeholder="New password" />
+              <input type="password" class="form-control" [(ngModel)]="newPassword" name="newPassword" placeholder="New password" />
             </div>
           </div>
           <div class="form-group row">
             <div class="col-sm-12">
               New password again
-              <input type="text" class="form-control" [(ngModel)]="newPasswordAgain" name="newPasswordAgain"
+              <input type="password" class="form-control" [(ngModel)]="newPasswordAgain" name="newPasswordAgain"
                 placeholder="New password again" />
             </div>
           </div>
           <div class="form-group row">
             <div class="col-sm-12">
-              <button type="submit" class="btn btn-outline-light btn" (click)="savePassword()">
+              <button type="submit" class="btn btn-outline-light btn" (click)="changePassword()">
                 Save changes
               </button>
             </div>
