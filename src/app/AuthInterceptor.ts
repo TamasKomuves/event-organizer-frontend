@@ -20,7 +20,7 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   private handleAuthError(err: HttpErrorResponse): Observable<any> {
-    if (err.status === 401 || err.status === 403) {
+    if ((err.status === 401 || err.status === 403) && this.router.url !== '/registration') {
       sessionStorage.setItem('token', '');
       this.router.navigateByUrl(`/login`);
       this.messageService.sendLoggedInMessage(false);
