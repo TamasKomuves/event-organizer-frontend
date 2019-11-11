@@ -255,9 +255,24 @@ export class UserService {
     return this.getMethod(url);
   }
 
-  updateAddress(addressId: number, country: string, city: string, street: string, streetNumber: string) {
+  updateAddress(
+    addressId: number,
+    country: string,
+    city: string,
+    street: string,
+    streetNumber: string
+  ) {
     const url =
-      'addresses/update/' + addressId + '/' + country + '/' + city + '/' + street + '/' + streetNumber;
+      'addresses/update/' +
+      addressId +
+      '/' +
+      country +
+      '/' +
+      city +
+      '/' +
+      street +
+      '/' +
+      streetNumber;
     return this.getMethod(url);
   }
 
@@ -267,8 +282,8 @@ export class UserService {
   }
 
   deleteUser(email: string) {
-    const url = 'users/delete/' + email;
-    return this.getMethod(url);
+    const url = 'users/delete';
+    return this.deleteMethod(url);
   }
 
   getInvitationRequestsForEvent(eventId: number) {

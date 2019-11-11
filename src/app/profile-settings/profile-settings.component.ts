@@ -43,11 +43,13 @@ export class ProfileSettingsComponent implements OnInit {
     }
 
     this.userService.getCurrentUser().subscribe(currentUser => {
-      this.userService.updateUserName(currentUser.email, this.firstname, this.lastname).subscribe(result => {
-        if (result['result'] === 'success') {
-          alert('Updated');
-        }
-      });
+      this.userService
+        .updateUserName(currentUser.email, this.firstname, this.lastname)
+        .subscribe(result => {
+          if (result['result'] === 'success') {
+            alert('Updated');
+          }
+        });
     });
   }
 
@@ -64,7 +66,13 @@ export class ProfileSettingsComponent implements OnInit {
 
     this.userService.getCurrentUser().subscribe(currentUser => {
       this.userService
-        .updateAddress(currentUser.addressId, this.country, this.city, this.street, this.streetNumber)
+        .updateAddress(
+          currentUser.addressId,
+          this.country,
+          this.city,
+          this.street,
+          this.streetNumber
+        )
         .subscribe(result => {
           if (result['result'] === 'success') {
             alert('Updated');
@@ -105,19 +113,9 @@ export class ProfileSettingsComponent implements OnInit {
   }
 
   deleteProfile(): void {
-    this.userService.getCurrentUser().subscribe(currentUser => {
-      this.userService.deleteUser(currentUser.email).subscribe(
-        result => {
-          if (result['result'] === 'success') {
-            alert('Profile deleted');
-            this.router.navigateByUrl('/login');
-          }
-        },
-        error => {
-          alert('Error occured');
-        }
-      );
-    });
+    if (confirm('Are you sure')) {
+      console.log('asd');
+    }
   }
 
   isNonEmptyString(text: string): boolean {
