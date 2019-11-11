@@ -1,4 +1,4 @@
-import { IAddress } from "./IAddress";
+import { IAddress } from './IAddress';
 
 export interface IEventCreator {
   id?: number;
@@ -11,5 +11,4 @@ export interface IEventCreator {
   eventDate: Date;
   totalCost: number;
   address?: IAddress;
-  addressId?: number;
 }
