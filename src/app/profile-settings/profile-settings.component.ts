@@ -3,6 +3,7 @@ import { UserService } from '../services/user.service';
 import { isNullOrUndefined } from 'util';
 import { Router } from '@angular/router';
 import { IPasswordChange } from '../interface/IPasswordChange';
+import { MessageService } from '../services/message.service';
 
 @Component({
   selector: 'app-profile-settings',
@@ -20,7 +21,11 @@ export class ProfileSettingsComponent implements OnInit {
   newPassword: string;
   newPasswordAgain: string;
 
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private messageService: MessageService
+  ) {}
 
   ngOnInit() {
     this.userService.getCurrentUser().subscribe(currentUser => {
@@ -113,8 +118,17 @@ export class ProfileSettingsComponent implements OnInit {
   }
 
   deleteProfile(): void {
-    if (confirm('Are you sure')) {
-      console.log('asd');
+    if (
+      confirm(
+        'Are you sure you want to delete your profile?\nThis cannot be undone!\n' +
+          'Your events will be deleted as well!'
+      )
+    ) {
+      this.userService.deleteUser().subscribe(result => {
+        sessionStorage.setItem('token', '');
+        this.router.navigateByUrl(`/login`);
+        this.messageService.sendLoggedInMessage(false);
+      });
     }
   }
 

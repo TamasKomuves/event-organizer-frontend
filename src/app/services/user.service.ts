@@ -281,7 +281,7 @@ export class UserService {
     return this.getMethod(url);
   }
 
-  deleteUser(email: string) {
+  deleteUser() {
     const url = 'users/delete';
     return this.deleteMethod(url);
   }
