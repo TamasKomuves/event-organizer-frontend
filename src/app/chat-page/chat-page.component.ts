@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewChecked } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { IUser } from '../interface/IUser';
@@ -10,7 +10,7 @@ import { IChatMessage } from '../interface/IChatMessage';
   styleUrls: ['./chat-page.component.css']
 })
 export class ChatPageComponent implements OnInit, AfterViewChecked {
-  @ViewChild('scrollbarDiv') private myScrollContainer: ElementRef;
+  @ViewChild('scrollbarDiv', { static: true }) private myScrollContainer: ElementRef;
   messages: Array<IChatMessage> = new Array();
   chatPartnerEmail: string;
   newMessageText: string;
@@ -36,7 +36,11 @@ export class ChatPageComponent implements OnInit, AfterViewChecked {
 
   sendMessage(): void {
     this.newMessageText = this.newMessageText.trim();
-    if (this.newMessageText === null || this.newMessageText === '' || this.newMessageText === undefined) {
+    if (
+      this.newMessageText === null ||
+      this.newMessageText === '' ||
+      this.newMessageText === undefined
+    ) {
       alert('Empty message!');
       return;
     }
