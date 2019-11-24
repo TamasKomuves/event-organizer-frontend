@@ -126,6 +126,7 @@ export class ProfileSettingsComponent implements OnInit {
     ) {
       this.userService.deleteUser().subscribe(result => {
         sessionStorage.setItem('token', '');
+        sessionStorage.setItem('userEmail', '');
         this.router.navigateByUrl(`/login`);
         this.messageService.sendLoggedInMessage(false);
       });

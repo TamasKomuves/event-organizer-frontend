@@ -34,6 +34,7 @@ export class NavbarComponent implements OnInit {
   logout(): void {
     this.router.navigateByUrl('/login');
     sessionStorage.setItem('token', '');
+    sessionStorage.setItem('userEmail', '');
     this.messageService.sendLoggedInMessage(false);
   }
 

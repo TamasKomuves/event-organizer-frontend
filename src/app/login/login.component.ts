@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
     this.userService.login(this.email, this.password).subscribe(
       result => {
         sessionStorage.setItem('token', result['token']);
+        sessionStorage.setItem('userEmail', this.email);
         this.router.navigateByUrl('/home');
         this.messageService.sendLoggedInMessage(true);
         this.isLoading = false;
