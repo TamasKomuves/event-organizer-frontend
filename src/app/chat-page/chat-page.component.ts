@@ -3,6 +3,9 @@ import { UserService } from '../services/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { IUser } from '../interface/IUser';
 import { IChatMessage } from '../interface/IChatMessage';
+import * as Stomp from 'stompjs';
+import * as SockJS from 'sockjs-client';
+import { Message } from '../interface/Message';
 
 @Component({
   selector: 'app-chat-page',
@@ -15,11 +18,18 @@ export class ChatPageComponent implements OnInit, AfterViewChecked {
   chatPartnerEmail: string;
   newMessageText: string;
   partnerName: string;
+  stompClient: any;
+  isLoaded = false;
+  subscription: any;
+  userEmail: string;
 
   constructor(private userService: UserService, private route: ActivatedRoute) {}
 
   ngOnInit() {
+    this.userEmail = sessionStorage.getItem('userEmail');
     this.chatPartnerEmail = this.route.snapshot.queryParamMap.get('email');
+
+    this.initWebSocket();
 
     this.userService.getAllChatMessages(this.chatPartnerEmail).subscribe(messages => {
       this.messages = messages;
@@ -30,11 +40,47 @@ export class ChatPageComponent implements OnInit, AfterViewChecked {
     });
   }
 
+  initWebSocket() {
+    const ws = new SockJS('http://localhost:8080/socket/?t=' + sessionStorage.getItem('token'));
+    this.stompClient = Stomp.over(ws);
+    this.stompClient.debug = () => {};
+    const that = this;
+    this.stompClient.connect({}, function(frame) {
+      that.isLoaded = true;
+      that.openSocket();
+    });
+  }
+
+  openSocket() {
+    if (this.isLoaded) {
+      console.log(this.calculateSocketTopicName());
+      this.subscription = this.stompClient.subscribe(
+        '/socket-publisher/' + this.calculateSocketTopicName(),
+        socketMessage => {
+          const chatMessage: IChatMessage = JSON.parse(socketMessage.body);
+          console.log(chatMessage);
+
+          this.messages.push(chatMessage);
+        }
+      );
+    }
+  }
+
+  calculateSocketTopicName(): string {
+    return this.userEmail.localeCompare(this.chatPartnerEmail) > 0
+      ? this.chatPartnerEmail + '-' + this.userEmail
+      : this.userEmail + '-' + this.chatPartnerEmail;
+  }
+
+  isCurrentUserSent(chatMessage: IChatMessage): boolean {
+    return chatMessage.senderEmail === this.userEmail;
+  }
+
   ngAfterViewChecked() {
     this.scrollToBottom();
   }
 
-  sendMessage(): void {
+  sendMessage() {
     this.newMessageText = this.newMessageText.trim();
     if (
       this.newMessageText === null ||
@@ -45,15 +91,12 @@ export class ChatPageComponent implements OnInit, AfterViewChecked {
       return;
     }
 
-    const chatMessage: IChatMessage = {
+    const message: Message = {
       text: this.newMessageText,
-      partnerEmail: this.chatPartnerEmail
+      senderEmail: this.userEmail,
+      receiverEmail: this.chatPartnerEmail
     };
-
-    this.userService.createChatMessage(chatMessage).subscribe(chatMessage => {
-      this.messages.push(chatMessage);
-    });
-
+    this.stompClient.send('/socket-subscriber/send/message', {}, JSON.stringify(message));
     this.newMessageText = '';
   }
 

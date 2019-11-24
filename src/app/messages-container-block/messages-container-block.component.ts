@@ -17,9 +17,16 @@ export class MessagesContainerBlockComponent implements OnInit {
   constructor(private router: Router, private userService: UserService) {}
 
   ngOnInit() {
-    this.userService.getUserByEmail(this.chatMessage.partnerEmail).subscribe(user => {
+    const partnerEmail = this.getPartnerEmail();
+    this.userService.getUserByEmail(partnerEmail).subscribe(user => {
       this.partner = user;
     });
+  }
+
+  getPartnerEmail() {
+    return sessionStorage.getItem('userEmail') !== this.chatMessage.senderEmail
+      ? this.chatMessage.senderEmail
+      : this.chatMessage.receiverEmail;
   }
 
   openChatPage(email: string): void {
