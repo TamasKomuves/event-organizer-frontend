@@ -5,7 +5,6 @@ import { IUser } from '../interface/IUser';
 import { IChatMessage } from '../interface/IChatMessage';
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
-import { Message } from '../interface/Message';
 
 @Component({
   selector: 'app-chat-page',
@@ -91,7 +90,7 @@ export class ChatPageComponent implements OnInit, AfterViewChecked {
       return;
     }
 
-    const message: Message = {
+    const message: IChatMessage = {
       text: this.newMessageText,
       senderEmail: this.userEmail,
       receiverEmail: this.chatPartnerEmail
