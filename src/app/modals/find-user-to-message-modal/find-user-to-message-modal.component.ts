@@ -21,7 +21,7 @@ export class FindUserToMessageModalComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit() {
-    this.suggestedUsers = new Array();
+    this.suggestedUsers = new Array<IUser>();
     this.userService.getAllUsers().subscribe(users => {
       this.allUsers = users;
     });
@@ -32,6 +32,7 @@ export class FindUserToMessageModalComponent implements OnInit, AfterViewInit {
 
     findUserToMessageModal.onOpen.subscribe((modal: NgxSmartModalComponent) => {
       this.searchedName = '';
+      this.suggestedUsers = new Array<IUser>();
     });
   }
 
