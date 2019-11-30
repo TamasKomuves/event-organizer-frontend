@@ -1,28 +1,35 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewChecked } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  AfterViewChecked,
+  OnDestroy
+} from '@angular/core';
 import { UserService } from '../services/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { IUser } from '../interface/IUser';
 import { IChatMessage } from '../interface/IChatMessage';
-import * as Stomp from 'stompjs';
-import * as SockJS from 'sockjs-client';
+import { WebsocketService } from '../services/websocket.service';
 
 @Component({
   selector: 'app-chat-page',
   templateUrl: './chat-page.component.html',
   styleUrls: ['./chat-page.component.css']
 })
-export class ChatPageComponent implements OnInit, AfterViewChecked {
+export class ChatPageComponent implements OnInit, AfterViewChecked, OnDestroy {
   @ViewChild('scrollbarDiv', { static: true }) private myScrollContainer: ElementRef;
   messages: Array<IChatMessage> = new Array();
   chatPartnerEmail: string;
   newMessageText: string;
   partnerName: string;
-  stompClient: any;
-  isLoaded = false;
-  subscription: any;
   userEmail: string;
 
-  constructor(private userService: UserService, private route: ActivatedRoute) {}
+  constructor(
+    private userService: UserService,
+    private route: ActivatedRoute,
+    private websocketService: WebsocketService
+  ) {}
 
   ngOnInit() {
     this.userEmail = sessionStorage.getItem('userEmail');
@@ -39,36 +46,23 @@ export class ChatPageComponent implements OnInit, AfterViewChecked {
     });
   }
 
+  ngOnDestroy() {
+    this.websocketService.unsubscribe(this.calculateTopicName());
+  }
+
   initWebSocket() {
-    const ws = new SockJS('http://localhost:8080/socket/?t=' + sessionStorage.getItem('token'));
-    this.stompClient = Stomp.over(ws);
-    this.stompClient.debug = () => {};
-    const that = this;
-    this.stompClient.connect({}, function(frame) {
-      that.isLoaded = true;
-      that.openSocket();
+    this.websocketService.connect(this.calculateTopicName(), socketMessage => {
+      const chatMessage: IChatMessage = JSON.parse(socketMessage.body);
+      this.messages.push(chatMessage);
     });
   }
 
-  openSocket() {
-    if (this.isLoaded) {
-      console.log(this.calculateSocketTopicName());
-      this.subscription = this.stompClient.subscribe(
-        '/socket-publisher/' + this.calculateSocketTopicName(),
-        socketMessage => {
-          const chatMessage: IChatMessage = JSON.parse(socketMessage.body);
-          console.log(chatMessage);
-
-          this.messages.push(chatMessage);
-        }
-      );
-    }
-  }
-
-  calculateSocketTopicName(): string {
-    return this.userEmail.localeCompare(this.chatPartnerEmail) > 0
-      ? this.chatPartnerEmail + '-' + this.userEmail
-      : this.userEmail + '-' + this.chatPartnerEmail;
+  calculateTopicName(): string {
+    const chatroomName: string =
+      this.userEmail.localeCompare(this.chatPartnerEmail) > 0
+        ? this.chatPartnerEmail + '-' + this.userEmail
+        : this.userEmail + '-' + this.chatPartnerEmail;
+    return '/socket-publisher/' + chatroomName;
   }
 
   isCurrentUserSent(chatMessage: IChatMessage): boolean {
@@ -95,7 +89,7 @@ export class ChatPageComponent implements OnInit, AfterViewChecked {
       senderEmail: this.userEmail,
       receiverEmail: this.chatPartnerEmail
     };
-    this.stompClient.send('/socket-subscriber/send/message', {}, JSON.stringify(message));
+    this.websocketService.send('/socket-subscriber/send/message', JSON.stringify(message));
     this.newMessageText = '';
   }
 

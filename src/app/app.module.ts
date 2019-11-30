@@ -38,6 +38,7 @@ import { ChatPageComponent } from './chat-page/chat-page.component';
 import { MessagesContainerBlockComponent } from './messages-container-block/messages-container-block.component';
 import { Router } from '@angular/router';
 import { AuthInterceptor } from './AuthInterceptor';
+import { WebsocketService } from './services/websocket.service';
 
 @NgModule({
   declarations: [
@@ -88,7 +89,8 @@ import { AuthInterceptor } from './AuthInterceptor';
       },
       multi: true,
       deps: [Router, MessageService]
-    }
+    },
+    WebsocketService
   ],
   bootstrap: [AppComponent]
 })
