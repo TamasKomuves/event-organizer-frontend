@@ -31,6 +31,9 @@ export class NavbarComponent implements OnInit {
     this.messageService.getLoggedInMessage().subscribe(message => {
       this.isLoggedIn = message.isLoggedIn;
     });
+    this.userService.getNotSeenNotificationCount().subscribe((result: number) => {
+      this.notificationCounter = result;
+    });
   }
 
   logout(): void {

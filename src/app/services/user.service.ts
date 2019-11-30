@@ -401,4 +401,9 @@ export class UserService {
     const url = 'users/change-password';
     return this.putMethod(url, passwordChange);
   }
+
+  getNotSeenNotificationCount() {
+    const url = 'invitations/not-seen';
+    return this.getMethod(url);
+  }
 }
