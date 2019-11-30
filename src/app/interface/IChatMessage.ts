@@ -2,6 +2,6 @@ export interface IChatMessage {
   id?: number;
   date?: string;
   text: string;
-  senderEmail: string;
+  senderEmail?: string;
   receiverEmail: string;
 }

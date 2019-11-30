@@ -86,7 +86,6 @@ export class ChatPageComponent implements OnInit, AfterViewChecked, OnDestroy {
 
     const message: IChatMessage = {
       text: this.newMessageText,
-      senderEmail: this.userEmail,
       receiverEmail: this.chatPartnerEmail
     };
     this.websocketService.send('/socket-subscriber/send/message', JSON.stringify(message));
