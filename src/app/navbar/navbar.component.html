@@ -21,14 +21,32 @@
         <button class="btn btn-link nav-link" type="button" (click)="showEvents()">Events</button>
       </li>
       <li class="nav-item">
-        <button class="btn btn-link nav-link" type="button" (click)="showMessagesContainer()">Messages</button>
+        <button class="btn btn-link nav-link" type="button" (click)="showMessagesContainer()">
+          Messages
+          <span
+            class="badge badge-pill badge-light"
+            *ngIf="messageCounter !== 0"
+            style="float:right;"
+          >
+            {{ messageCounter }}</span
+          >
+        </button>
       </li>
       <li class="nav-item">
-        <button class="btn btn-link nav-link" type="button" (click)="showCreateEvent()">Create event</button>
+        <button class="btn btn-link nav-link" type="button" (click)="showCreateEvent()">
+          Create event
+        </button>
       </li>
       <li class="nav-item">
         <button class="btn btn-link nav-link" type="button" (click)="showNotifications()">
           Notifications
+          <span
+            class="badge badge-pill badge-light"
+            *ngIf="notificationCounter !== 0"
+            style="float:right;"
+          >
+            {{ notificationCounter }}</span
+          >
         </button>
       </li>
       <li class="nav-item dropdown my-2 my-lg-0">

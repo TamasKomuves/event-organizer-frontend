@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
   isLoggedIn: boolean;
+  messageCounter = 0;
+  notificationCounter = 0;
 
   constructor(
     private messageService: MessageService,
