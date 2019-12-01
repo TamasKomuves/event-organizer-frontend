@@ -14,8 +14,10 @@ export class WebsocketService {
 
     this.stompClient.connect({}, function(frame) {
       that.isLoaded = true;
-      const subscription = that.stompClient.subscribe(topicName, onMessage);
-      that.subscriptionsMap.set(topicName, subscription);
+      if (topicName) {
+        const subscription = that.stompClient.subscribe(topicName, onMessage);
+        that.subscriptionsMap.set(topicName, subscription);
+      }
       if (messageToSend) {
         that.send(messageToSend['messageTarget'], messageToSend['message']);
       }

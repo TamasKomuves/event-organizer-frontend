@@ -127,10 +127,10 @@ export class EventComponent implements OnInit, AfterViewInit {
 
     this.userService.createInvitation(invitation).subscribe(
       (savedInvitation: IInvitation) => {
-        this.websocketService.send(
-          '/socket-subscriber/send/invitation',
-          JSON.stringify(savedInvitation)
-        );
+        this.websocketService.connect(null, () => {}, {
+          messageTarget: '/socket-subscriber/send/invitation',
+          message: JSON.stringify(savedInvitation)
+        });
         alert('Invitation sent');
         this.invitedUserEmail = '';
       },
