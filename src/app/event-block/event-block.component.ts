@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { IInvitation } from '../interface/IInvitation';
 
 @Component({
   selector: 'app-event-block',
@@ -25,7 +26,11 @@ export class EventBlockComponent implements OnInit {
   isHasRequest = true;
   isParticipateLoaded = false;
 
-  constructor(private userService: UserService, private router: Router, private spinner: NgxSpinnerService) { }
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private spinner: NgxSpinnerService
+  ) {}
 
   ngOnInit() {
     this.spinnerName = 'mySpinner' + this.eventId;
@@ -38,7 +43,13 @@ export class EventBlockComponent implements OnInit {
 
       this.userService.getAddressById(event.addressId).subscribe(address => {
         this.location =
-          address.street + ' ' + address.streetNumber + ', ' + address.city + ', ' + address.country;
+          address.street +
+          ' ' +
+          address.streetNumber +
+          ', ' +
+          address.city +
+          ', ' +
+          address.country;
       });
 
       this.userService.getUserByEmail(event.organizerEmail).subscribe(user => {
@@ -50,11 +61,13 @@ export class EventBlockComponent implements OnInit {
           this.isHasRequest = result['result'] === 'true';
         });
 
-        this.userService.isUserParticipateInEvent(this.eventId, currentUser.email).subscribe(result => {
-          this.isParticipate = result['result'] === 'true';
-          this.isParticipateLoaded = true;
-          this.spinner.hide(this.spinnerName);
-        });
+        this.userService
+          .isUserParticipateInEvent(this.eventId, currentUser.email)
+          .subscribe(result => {
+            this.isParticipate = result['result'] === 'true';
+            this.isParticipateLoaded = true;
+            this.spinner.hide(this.spinnerName);
+          });
       });
 
       this.isPublic = this.visibility === 'public';
@@ -92,7 +105,12 @@ export class EventBlockComponent implements OnInit {
   requestInvitation(): void {
     this.isHasRequest = true;
     this.userService.getCurrentUser().subscribe(user => {
-      this.userService.createInvitation(this.eventId, user.email, 1).subscribe(
+      const invitation: IInvitation = {
+        eventId: this.eventId,
+        userEmail: user.email,
+        isUserRequested: 1
+      };
+      this.userService.createInvitation(invitation).subscribe(
         result => {
           alert('Request sent');
         },
