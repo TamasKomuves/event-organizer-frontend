@@ -5,6 +5,8 @@ import { NgxSmartModalService, NgxSmartModalComponent } from 'ngx-smart-modal';
 import { INews } from '../interface/INews';
 import { IUser } from '../interface/IUser';
 import { IPost } from '../interface/IPost';
+import { IInvitation } from '../interface/IInvitation';
+import { WebsocketService } from '../services/websocket.service';
 
 @Component({
   selector: 'app-event',
@@ -32,7 +34,8 @@ export class EventComponent implements OnInit, AfterViewInit {
     private userService: UserService,
     private route: ActivatedRoute,
     private ngxSmartModalService: NgxSmartModalService,
-    private router: Router
+    private router: Router,
+    private websocketService: WebsocketService
   ) {}
 
   ngOnInit() {
@@ -116,18 +119,21 @@ export class EventComponent implements OnInit, AfterViewInit {
       return;
     }
 
-    this.userService.createInvitation(this.eventId, this.invitedUserEmail, 0).subscribe(
-      result => {
-        if (result['result'] === 'success') {
-          alert('Invitation sent');
-        } else if (result['result'] === 'already invited') {
-          alert('already invited');
-        }
+    const invitation: IInvitation = {
+      eventId: this.eventId,
+      userEmail: this.invitedUserEmail,
+      isUserRequested: 0
+    };
+
+    this.userService.createInvitation(invitation).subscribe(
+      (savedInvitation: IInvitation) => {
+        console.log(savedInvitation);
+        alert('Invitation sent');
         this.invitedUserEmail = '';
       },
       error => {
         console.log(error);
-        alert('Invalid email');
+        alert('Cannot invite');
       }
     );
   }

@@ -219,15 +219,9 @@ export class UserService {
     return this.getMethod<IInvitation>(url);
   }
 
-  createInvitation(eventId: number, userEmail: string, isUserRequested: number) {
+  createInvitation(invitation: IInvitation) {
     const url = 'invitations/create';
-    const body = {
-      eventId: eventId,
-      userEmail: userEmail,
-      isUserRequested: isUserRequested
-    };
-
-    return this.postMethod(url, body);
+    return this.postMethod(url, invitation);
   }
 
   getAddressById(addressId: number) {
