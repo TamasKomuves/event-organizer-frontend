@@ -29,7 +29,7 @@ export class NavbarComponent implements OnInit {
         this.websocketService.connect(
           '/socket-publisher/invitation-counter/' + user.email,
           socketMessage => {
-            this.notificationCounter++;
+            this.notificationCounter = Number(socketMessage.body);
           }
         );
       },
@@ -40,6 +40,7 @@ export class NavbarComponent implements OnInit {
     this.userService.getNotSeenNotificationCount().subscribe((result: number) => {
       this.notificationCounter = result;
     });
+
     this.messageService.getLoggedInMessage().subscribe(message => {
       this.isLoggedIn = message.isLoggedIn;
       if (message.isLoggedIn) {

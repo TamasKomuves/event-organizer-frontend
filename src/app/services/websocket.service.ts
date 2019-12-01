@@ -6,7 +6,7 @@ export class WebsocketService {
   isLoaded = false;
   subscriptionsMap: Map<string, any> = new Map();
 
-  connect(topicName: string, onMessage: (socketMessage: any) => void): void {
+  connect(topicName: string, onMessage: (socketMessage: any) => void, messageToSend?: any): void {
     const ws = new SockJS('http://localhost:8080/socket/?t=' + sessionStorage.getItem('token'));
     this.stompClient = Stomp.over(ws);
     this.stompClient.debug = () => {};
@@ -16,6 +16,9 @@ export class WebsocketService {
       that.isLoaded = true;
       const subscription = that.stompClient.subscribe(topicName, onMessage);
       that.subscriptionsMap.set(topicName, subscription);
+      if (messageToSend) {
+        that.send(messageToSend['messageTarget'], messageToSend['message']);
+      }
     });
   }
 

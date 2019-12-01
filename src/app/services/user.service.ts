@@ -400,4 +400,9 @@ export class UserService {
     const url = 'invitations/not-seen';
     return this.getMethod(url);
   }
+
+  updateAllInvitationToAlreadySeen() {
+    const url = 'invitations/mark-all-as-seen';
+    return this.putMethod(url, null);
+  }
 }
