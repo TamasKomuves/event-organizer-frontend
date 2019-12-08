@@ -405,4 +405,9 @@ export class UserService {
     const url = 'invitations/mark-all-as-seen';
     return this.putMethod(url, null);
   }
+
+  getNotSeenChatMessageCount() {
+    const url = 'chat-messages/not-seen';
+    return this.getMethod(url);
+  }
 }
