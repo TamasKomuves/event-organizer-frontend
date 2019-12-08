@@ -27,30 +27,35 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.userService.getCurrentUser().subscribe(
       (user: IUser) => {
         this.isLoggedIn = true;
-        this.registerWebsockets(user.email);
+        this.initLogin(user.email);
       },
       error => {
         this.isLoggedIn = false;
       }
     );
-    this.userService.getNotSeenNotificationCount().subscribe((result: number) => {
-      this.notificationCounter = result;
-    });
 
     this.messageService.getLoggedInMessage().subscribe(message => {
       this.isLoggedIn = message.isLoggedIn;
       if (message.isLoggedIn) {
-        this.userService.getNotSeenNotificationCount().subscribe((result: number) => {
-          this.notificationCounter = result;
-        });
         const userEmail = sessionStorage.getItem('userEmail');
-        this.registerWebsockets(userEmail);
+        this.initLogin(userEmail);
       }
     });
   }
 
   ngOnDestroy() {
     this.websocketService.unsubscribeAll();
+  }
+
+  initLogin(userEmail: string) {
+    this.userService.getNotSeenNotificationCount().subscribe((result: number) => {
+      this.notificationCounter = result;
+    });
+    this.userService.getNotSeenChatMessageCount().subscribe((result: number) => {
+      this.messageCounter = result;
+    });
+    this.websocketService.unsubscribeAll();
+    this.registerWebsockets(userEmail);
   }
 
   registerWebsockets(userEmail: string): void {
