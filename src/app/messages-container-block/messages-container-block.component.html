@@ -1,7 +1,8 @@
-<div class="message-block" (click)="openChatPage(partner.email)">
+<div *ngIf="chatMessage" class="message-block" (click)="openChatPage(partner.email)">
   <div class="name-div" *ngIf="partner">
     {{ partner.firstName }} {{ partner.lastName }} ({{ partner.email }})
   </div>
+  <div *ngIf="chatMessage.isAlreadySeen === 0">Nem latta meg</div>
   <div class="message-text">
     {{ chatMessage.text }}
   </div>

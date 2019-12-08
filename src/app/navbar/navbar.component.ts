@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MessageService } from '../services/message.service';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
 import { WebsocketService } from '../services/websocket.service';
 import { IUser } from '../interface/IUser';
+import { ISubscription } from '../interface/ISubscription';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, OnDestroy {
   isLoggedIn: boolean;
   messageCounter = 0;
   notificationCounter = 0;
@@ -26,12 +27,7 @@ export class NavbarComponent implements OnInit {
     this.userService.getCurrentUser().subscribe(
       (user: IUser) => {
         this.isLoggedIn = true;
-        this.websocketService.connect(
-          '/socket-publisher/invitation-counter/' + user.email,
-          socketMessage => {
-            this.notificationCounter = Number(socketMessage.body);
-          }
-        );
+        this.registerWebsockets(user.email);
       },
       error => {
         this.isLoggedIn = false;
@@ -47,14 +43,38 @@ export class NavbarComponent implements OnInit {
         this.userService.getNotSeenNotificationCount().subscribe((result: number) => {
           this.notificationCounter = result;
         });
+        const userEmail = sessionStorage.getItem('userEmail');
+        this.registerWebsockets(userEmail);
       }
     });
+  }
+
+  ngOnDestroy() {
+    this.websocketService.unsubscribeAll();
+  }
+
+  registerWebsockets(userEmail: string): void {
+    const sub1: ISubscription = {
+      topicName: '/socket-publisher/invitation-counter/' + userEmail,
+      onMessage: socketMessage => {
+        this.notificationCounter = Number(socketMessage.body);
+      }
+    };
+    const sub2: ISubscription = {
+      topicName: '/socket-publisher/chat-message/counter/' + userEmail,
+      onMessage: socketMessage => {
+        this.messageCounter = Number(socketMessage.body);
+      }
+    };
+    this.websocketService.subscribe(sub1);
+    this.websocketService.subscribe(sub2);
   }
 
   logout(): void {
     this.router.navigateByUrl('/login');
     sessionStorage.setItem('token', '');
     sessionStorage.setItem('userEmail', '');
+    this.websocketService.unsubscribeAll();
     this.messageService.sendLoggedInMessage(false);
   }
 

@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { WebsocketService } from '../services/websocket.service';
 import { IInvitation } from '../interface/IInvitation';
+import { ISubscription } from '../interface/ISubscription';
 
 @Component({
   selector: 'app-notifications',
@@ -23,14 +24,16 @@ export class NotificationsComponent implements OnInit, OnDestroy {
       });
 
     this.userService.updateAllInvitationToAlreadySeen().subscribe(() => {
-      this.websocketService.connect(
-        '/socket-publisher/new-invitations/' + userEmail,
-        socketMessage => {
+      const sub0: ISubscription = {
+        topicName: '/socket-publisher/new-invitations/' + userEmail,
+        onMessage: socketMessage => {
           const invitation: IInvitation = JSON.parse(socketMessage.body);
           this.invitations.unshift(invitation);
-        },
-        { messageTarget: '/socket-subscriber/send/invitation/update-counter', message: userEmail }
-      );
+        }
+      };
+
+      this.websocketService.subscribe(sub0);
+      this.websocketService.send('/socket-subscriber/send/invitation/update-counter', userEmail);
     });
   }
 

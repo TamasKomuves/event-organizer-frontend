@@ -11,6 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 import { IUser } from '../interface/IUser';
 import { IChatMessage } from '../interface/IChatMessage';
 import { WebsocketService } from '../services/websocket.service';
+import { ISubscription } from '../interface/ISubscription';
 
 @Component({
   selector: 'app-chat-page',
@@ -51,10 +52,14 @@ export class ChatPageComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
 
   initWebSocket() {
-    this.websocketService.connect(this.calculateTopicName(), socketMessage => {
-      const chatMessage: IChatMessage = JSON.parse(socketMessage.body);
-      this.messages.push(chatMessage);
-    });
+    const sub0: ISubscription = {
+      topicName: this.calculateTopicName(),
+      onMessage: socketMessage => {
+        const chatMessage: IChatMessage = JSON.parse(socketMessage.body);
+        this.messages.push(chatMessage);
+      }
+    };
+    this.websocketService.subscribe(sub0);
   }
 
   calculateTopicName(): string {
