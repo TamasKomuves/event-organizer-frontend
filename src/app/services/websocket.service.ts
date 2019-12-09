@@ -6,6 +6,7 @@ export class WebsocketService {
   stompClient: any;
   subscriptionMap: Map<string, ISubscription> = new Map();
   messagesToSend: Map<string, any> = new Map();
+  isConnecting = false;
 
   subscribe(subscription: ISubscription): void {
     if (this.stompClient !== undefined && this.stompClient.connected) {
@@ -17,18 +18,20 @@ export class WebsocketService {
     } else {
       subscription.subscriptionHolder = null;
       this.subscriptionMap.set(subscription.topicName, subscription);
-      if (this.stompClient === undefined) {
-        this.connect();
-      }
+      this.connect();
     }
   }
 
   connect(): void {
-    const ws = new SockJS('http://localhost:8080/socket/?t=' + sessionStorage.getItem('token'));
-    this.stompClient = Stomp.over(ws);
-    this.stompClient.debug = () => {};
+    if (this.stompClient === undefined && !this.isConnecting) {
+      this.isConnecting = true;
+      const ws = new SockJS('http://localhost:8080/socket/?t=' + sessionStorage.getItem('token'));
+      this.stompClient = Stomp.over(ws);
+      this.stompClient.debug = () => {};
+    }
     const that = this;
     this.stompClient.connect({}, function(frame) {
+      that.isConnecting = false;
       that.subscriptionMap.forEach(subscription => {
         if (subscription.subscriptionHolder === null) {
           subscription.subscriptionHolder = that.stompClient.subscribe(
@@ -49,9 +52,7 @@ export class WebsocketService {
       this.stompClient.send(messageTarget, {}, message);
     } else {
       this.messagesToSend.set(messageTarget, { messageTarget: messageTarget, message: message });
-      if (this.stompClient === undefined) {
-        this.connect();
-      }
+      this.connect();
     }
   }
 
