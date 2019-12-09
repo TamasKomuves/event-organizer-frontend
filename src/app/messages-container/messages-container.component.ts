@@ -29,7 +29,7 @@ export class MessagesContainerComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     const userEmail = sessionStorage.getItem('userEmail');
-    this.websocketService.unsubscribe('/socket-publisher/chatmessage/' + userEmail);
+    this.websocketService.unsubscribe('/socket-publisher/chat-message/' + userEmail);
   }
 
   openFindUserToMessageModal(): void {
@@ -40,7 +40,7 @@ export class MessagesContainerComponent implements OnInit, OnDestroy {
   initWebsocket(): void {
     const userEmail = sessionStorage.getItem('userEmail');
     const sub0: ISubscription = {
-      topicName: '/socket-publisher/chatmessage/' + userEmail,
+      topicName: '/socket-publisher/chat-message/' + userEmail,
       onMessage: socketMessage => {
         const receivedChatMessage: IChatMessage = JSON.parse(socketMessage.body);
         const receivedPartnerEmail = this.getChatPartnerEmail(receivedChatMessage);

@@ -45,6 +45,9 @@ export class ChatPageComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.userService.getUserByEmail(this.chatPartnerEmail).subscribe(user => {
       this.partnerName = this.getUserDisplayName(user);
     });
+    this.userService.updateMessagesWithPartnerToAlreadySeen(this.chatPartnerEmail).subscribe(() => {
+      this.websocketService.send('/socket-subscriber/send/chat-message/update-counter', 'update');
+    });
   }
 
   ngOnDestroy() {

@@ -32,4 +32,9 @@ export class MessagesContainerBlockComponent implements OnInit {
   openChatPage(email: string): void {
     this.router.navigate(['/chat-page'], { queryParams: { email: email } });
   }
+
+  isAlreadySeen(): boolean {
+    const userEmail = sessionStorage.getItem('userEmail');
+    return this.chatMessage.isAlreadySeen === 1 || this.chatMessage.senderEmail === userEmail;
+  }
 }

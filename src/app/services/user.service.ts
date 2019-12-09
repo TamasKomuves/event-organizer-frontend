@@ -410,4 +410,9 @@ export class UserService {
     const url = 'chat-messages/not-seen';
     return this.getMethod(url);
   }
+
+  updateMessagesWithPartnerToAlreadySeen(partnerEmail: string) {
+    const url = 'chat-messages/mark-all-as-seen/' + partnerEmail;
+    return this.putMethod(url, null);
+  }
 }

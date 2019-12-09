@@ -5,6 +5,11 @@
   cursor: pointer;
 }
 
+.not-seen {
+  background-color: rgba(100, 100, 100, 0.9);
+  font-weight: bold;
+}
+
 .message-block:hover {
   background-color: white;
 }

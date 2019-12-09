@@ -4,5 +4,5 @@ export interface IChatMessage {
   text: string;
   senderEmail?: string;
   receiverEmail: string;
-  isAlreadySeen?: string;
+  isAlreadySeen?: number;
 }
