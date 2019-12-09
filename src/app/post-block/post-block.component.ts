@@ -24,7 +24,7 @@ export class PostBlockComponent implements OnInit {
   showCommentsText: string;
   commentText: string;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService) {}
 
   ngOnInit() {
     this.showCommentsText = 'Show comments';
@@ -62,7 +62,9 @@ export class PostBlockComponent implements OnInit {
   toggleCommentVisibility(): void {
     this.isShowComments = !this.isShowComments;
     this.showCommentsText =
-      this.showCommentsText === this.showCommentsConst ? this.hideCommentsConst : this.showCommentsConst;
+      this.showCommentsText === this.showCommentsConst
+        ? this.hideCommentsConst
+        : this.showCommentsConst;
   }
 
   likePost(): void {
@@ -86,6 +88,9 @@ export class PostBlockComponent implements OnInit {
         this.userService.getPostComments(this.postId).subscribe(comments => {
           this.comments = comments;
           this.isAnyComment = this.comments !== undefined && this.comments.length > 0;
+          if (!this.isShowComments) {
+            this.toggleCommentVisibility();
+          }
         });
       },
       error => {
