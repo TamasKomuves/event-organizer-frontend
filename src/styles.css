@@ -17,3 +17,7 @@ body {
   font-weight: bold;
   margin-bottom: 3%;
 }
+
+body {
+  padding-top: 80px;
+}
