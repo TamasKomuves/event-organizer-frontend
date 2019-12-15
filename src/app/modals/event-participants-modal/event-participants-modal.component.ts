@@ -17,6 +17,7 @@ export class EventParticipantsModalComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     const eventParticipantsModal = this.ngxSmartModalService.getModal('eventParticipantsModal');
+    eventParticipantsModal.dismissable = false;
 
     eventParticipantsModal.onOpen.subscribe((modal: NgxSmartModalComponent) => {
       this.userService.getEventParticipants(this.eventId).subscribe(participants => {

@@ -34,6 +34,7 @@ export class MessagesContainerComponent implements OnInit, OnDestroy {
 
   openFindUserToMessageModal(): void {
     const modal = this.ngxSmartModalService.getModal('findUserToMessageModal');
+    modal.dismissable = false;
     modal.open();
   }
 

@@ -17,6 +17,7 @@ export class InvitationOffersModalComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     const invitationOfferModal = this.ngxSmartModalService.getModal('invitationOffersModal');
+    invitationOfferModal.dismissable = false;
 
     invitationOfferModal.onOpen.subscribe((modal: NgxSmartModalComponent) => {
       this.userService.getInvitationOffersForEvent(this.eventId).subscribe(invitations => {

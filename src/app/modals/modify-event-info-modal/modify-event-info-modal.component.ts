@@ -32,6 +32,7 @@ export class ModifyEventInfoModalComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     const modifyEventInfoModal = this.ngxSmartModalService.getModal('modifyEventInfoModal');
+    modifyEventInfoModal.dismissable = false;
 
     modifyEventInfoModal.onOpen.subscribe((modal: NgxSmartModalComponent) => {
       this.isLoaded = false;

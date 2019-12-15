@@ -29,6 +29,7 @@ export class FindUserToMessageModalComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     const findUserToMessageModal = this.ngxSmartModalService.getModal('findUserToMessageModal');
+    findUserToMessageModal.dismissable = false;
 
     findUserToMessageModal.onOpen.subscribe((modal: NgxSmartModalComponent) => {
       this.searchedName = '';

@@ -155,6 +155,7 @@ export class EventComponent implements OnInit, AfterViewInit {
 
   openModal(modalId: string): void {
     const modal = this.ngxSmartModalService.getModal(modalId);
+    modal.dismissable = false;
     modal.open();
   }
 
