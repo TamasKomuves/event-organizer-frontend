@@ -1,62 +1,141 @@
 <ngx-smart-modal #modifyEventInfoModal identifier="modifyEventInfoModal" style="color: black;">
   <h3 style="margin-bottom: 10%;">Modify event info</h3>
-  <div class="container" *ngIf="event && address">
+  <div class="container" *ngIf="event && address" style="text-align: left;">
     <form class="main-container">
       <div class="form-group row">
         <div class="col-sm-6">
           <label for="name">Name</label>
-          <input type="text" class="form-control" [(ngModel)]="event.name" name="name" id="name" placeholder="Event name" />
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="event.name"
+            name="name"
+            id="name"
+            placeholder="Event name"
+          />
         </div>
         <div class="col-sm-6">
           <label for="eventType">Event type</label>
-          <input type="text" class="form-control" [(ngModel)]="event.eventType" name="eventType" id="eventType"
-            placeholder="Event type" />
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="event.eventType"
+            name="eventType"
+            id="eventType"
+            placeholder="Event type"
+          />
         </div>
       </div>
       <div class="form-group row">
         <div class="col-sm-6">
           <label for="maxParticipant">Max participant</label>
-          <input type="text" class="form-control" [(ngModel)]="event.maxParticipant" id="maxParticipant" name="maxParticipant"
-            placeholder="Max participants" />
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="event.maxParticipant"
+            id="maxParticipant"
+            name="maxParticipant"
+            placeholder="Max participants"
+          />
         </div>
         <div class="col-sm-6">
           <label for="totalCost">Total cost</label>
-          <input type="text" class="form-control" [(ngModel)]="event.totalCost" id="totalCost" name="totalCost"
-            placeholder="Total cost" />
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="event.totalCost"
+            id="totalCost"
+            name="totalCost"
+            placeholder="Total cost"
+          />
         </div>
       </div>
       <div class="form-group row">
         <div class="col-sm-6">
           <label for="country">Country</label>
-          <input type="text" class="form-control" [(ngModel)]="address.country" id="country" name="country" placeholder="Country" />
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="address.country"
+            id="country"
+            name="country"
+            placeholder="Country"
+          />
         </div>
         <div class="col-sm-6">
           <label for="city">City</label>
-          <input type="text" class="form-control" [(ngModel)]="address.city" name="city" id="city" placeholder="City" />
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="address.city"
+            name="city"
+            id="city"
+            placeholder="City"
+          />
         </div>
       </div>
       <div class="form-group row">
         <div class="col-sm-6">
           <label for="street">Street</label>
-          <input type="text" class="form-control" name="street" id="street" [(ngModel)]="address.street" placeholder="Street" />
+          <input
+            type="text"
+            class="form-control"
+            name="street"
+            id="street"
+            [(ngModel)]="address.street"
+            placeholder="Street"
+          />
         </div>
         <div class="col-sm-6">
           <label for="streetNumber">Street number</label>
-          <input type="text" class="form-control" [(ngModel)]="address.streetNumber" id="streetNumber" name="streetNumber"
-            placeholder="Street number" />
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="address.streetNumber"
+            id="streetNumber"
+            name="streetNumber"
+            placeholder="Street number"
+          />
         </div>
       </div>
       <div class="form-group row">
         <div class="col-sm-6">
           <label for="eventDate">Event date</label>
-          <input type="text" class="form-control" [(ngModel)]="event.eventDate" id="eventDate" name="eventDate"
-            placeholder="Event date (eg. 2018-04-02 14:00)" />
+          <div class="form-control">
+            {{ event.eventDate | date: 'yyyy-MM-dd HH:mm:ss' }}
+          </div>
+          <button
+            class="btn btn-outline-dark dropdown-toggle date-dropdown"
+            type="button"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <i class="oi oi-calendar"></i>
+          </button>
+          <div class="dropdown-menu" (click)="keepDropDownOpen($event)">
+            <div style="background-color: white;">
+              <dl-date-time-picker
+                [(ngModel)]="event.eventDate"
+                (change)="dateSelected($event)"
+                startView="year"
+                name="eventDate"
+              ></dl-date-time-picker>
+            </div>
+          </div>
         </div>
         <div class="col-sm-6">
           <label for="visibility">Visibility</label>
-          <select class="form-control" [(ngModel)]="event.visibility" name="visibility" id="visibility">
+          <select
+            class="form-control"
+            [(ngModel)]="event.visibility"
+            name="visibility"
+            id="visibility"
+          >
             <option [value]="" disabled>Visibility</option>
-            <option [value]="visibility" *ngFor="let visibility of visibilities">{{ visibility }}</option>
+            <option [value]="visibility" *ngFor="let visibility of visibilities">{{
+              visibility
+            }}</option>
           </select>
         </div>
       </div>
@@ -64,14 +143,26 @@
         <div class="col-sm-6">
           <div class="md-form">
             <label for="description">Description</label>
-            <textarea type="text" class="md-textarea form-control" rows="3" [(ngModel)]="event.description" name="description"
-              id="description" placeholder="Description"></textarea>
+            <textarea
+              type="text"
+              class="md-textarea form-control"
+              rows="3"
+              [(ngModel)]="event.description"
+              name="description"
+              id="description"
+              placeholder="Description"
+            ></textarea>
           </div>
         </div>
       </div>
       <div class="form-group row">
         <div class="col-sm-12">
-          <button type="submit" [disabled]="!isLoaded" class="btn btn-outline-dark btn-lg" (click)="modifyEventInfo()">
+          <button
+            type="submit"
+            [disabled]="!isLoaded"
+            class="btn btn-outline-dark btn-lg"
+            (click)="modifyEventInfo()"
+          >
             Modify
           </button>
         </div>
@@ -79,7 +170,13 @@
     </form>
   </div>
 </ngx-smart-modal>
-<ngx-spinner bdOpacity="0.2" bdColor="rgba(0,0,0,0.52)" size="medium" color="#010101" type="ball-scale-multiple"
-  [fullScreen]="false">
+<ngx-spinner
+  bdOpacity="0.2"
+  bdColor="rgba(0,0,0,0.52)"
+  size="medium"
+  color="#010101"
+  type="ball-scale-multiple"
+  [fullScreen]="false"
+>
   <p style="color: white">Loading...</p>
 </ngx-spinner>

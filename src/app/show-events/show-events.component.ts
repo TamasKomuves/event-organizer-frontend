@@ -21,13 +21,13 @@ export class ShowEventsComponent implements OnInit {
   numberOfEventsToShow = this.showEventsStep;
   eventsToShowLength = 0;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService) {}
 
   ngOnInit() {
     this.lastSelectedEventType = this.selectedEventType;
     this.userService.getAllEvents().subscribe(events => {
       this.events = events;
-      this.events.sort((a, b) => b.eventDate.localeCompare(a.eventDate));
+      this.events.sort((a, b) => b.eventDate.toString().localeCompare(a.eventDate.toString()));
       this.eventsToShow = events;
       this.eventsToShowLength = this.eventsToShow.length;
     });

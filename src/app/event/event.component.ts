@@ -18,7 +18,7 @@ export class EventComponent implements OnInit, AfterViewInit {
   participants: Array<IUser>;
   name: string;
   type: string;
-  date: string;
+  date: Date;
   description: string;
   newsList: Array<INews>;
   newPostText: string;

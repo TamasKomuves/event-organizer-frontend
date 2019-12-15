@@ -7,6 +7,6 @@ export interface IEvent {
   description: string;
   maxParticipant: number;
   visibility: string;
-  eventDate: string;
+  eventDate: Date;
   totalCost: number;
 }

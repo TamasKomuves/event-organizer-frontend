@@ -13,7 +13,7 @@ export class EventBlockComponent implements OnInit {
   @Input() eventId: number;
 
   name: string;
-  date: string;
+  date: Date;
   organizerName: string;
   numberOfParticipants: any;
   type: string;
