@@ -8,21 +8,22 @@ import { IPollAnswer } from 'src/app/interface/IPollAnswer';
   templateUrl: './poll-creator-modal.component.html',
   styleUrls: ['./poll-creator-modal.component.css']
 })
-export class PollCreatorModalComponent implements OnInit {
+export class PollCreatorModalComponent {
   @Input() eventId: number;
 
   questionText: string;
   answers: Array<IPollAnswer>;
 
-  constructor(private userService: UserService, private ngxSmartModalService: NgxSmartModalService) { }
-
-  ngOnInit() {
+  constructor(
+    private userService: UserService,
+    private ngxSmartModalService: NgxSmartModalService
+  ) {
     this.answers = new Array<IPollAnswer>();
+    this.answers.push({ text: '' });
   }
 
   addAnswer(): void {
-    const answerId = 'Answer' + (this.answers.length + 1);
-    this.answers.push({ text: '', answerId: answerId });
+    this.answers.push({ text: '' });
   }
 
   removeAnswer(): void {

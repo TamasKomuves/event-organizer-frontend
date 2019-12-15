@@ -1,24 +1,46 @@
-<ngx-smart-modal #pollCreatorModal identifier="pollCreatorModal" style="color: black; text-align: left;">
+<ngx-smart-modal
+  #pollCreatorModal
+  identifier="pollCreatorModal"
+  style="color: black; text-align: left;"
+>
   <h3 style="margin-bottom: 10%;">Create new poll</h3>
   <div class="container">
     <form class="main-container">
       <div class="form-group row">
         <div class="col-sm">
           <label for="question">Question text</label>
-          <input type="text" class="form-control" [(ngModel)]="questionText" name="question" id="question" placeholder="Question text" />
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="questionText"
+            name="question"
+            id="question"
+            placeholder="Question text"
+          />
         </div>
       </div>
-      <div *ngFor="let answer of answers">
+      <div *ngFor="let answer of answers; let index = index">
         <div class="form-group row">
           <div class="col-sm">
-            <input type="text" class="form-control" [(ngModel)]="answer.text" name="answer.answerId" placeholder="Answer text" />
+            <input
+              name="{{ 'name' + index }}"
+              type="text"
+              class="form-control"
+              [(ngModel)]="answer.text"
+              placeholder="Answer text"
+            />
           </div>
         </div>
       </div>
       <div class="form-group row">
         <div class="col-sm">
           <input type="button" value="Add answer" (click)="addAnswer()" />
-          <input type="button" *ngIf="answers.length > 0" value="Remove answer" (click)="removeAnswer()" />
+          <input
+            type="button"
+            *ngIf="answers.length > 0"
+            value="Remove answer"
+            (click)="removeAnswer()"
+          />
         </div>
       </div>
       <div class="form-group row" style="text-align: center;">
