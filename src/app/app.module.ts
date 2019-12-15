@@ -39,6 +39,7 @@ import { MessagesContainerBlockComponent } from './messages-container-block/mess
 import { Router } from '@angular/router';
 import { AuthInterceptor } from './AuthInterceptor';
 import { WebsocketService } from './services/websocket.service';
+import { DlDateTimeDateModule, DlDateTimePickerModule } from 'angular-bootstrap-datetimepicker';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,9 @@ import { WebsocketService } from './services/websocket.service';
     FormsModule,
     HttpClientModule,
     NgxSmartModalModule.forRoot(),
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    DlDateTimeDateModule,
+    DlDateTimePickerModule
   ],
   providers: [
     UserService,

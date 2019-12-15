@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, AfterViewInit, ElementRef } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { isNullOrUndefined } from 'util';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { IEventCreator } from '../interface/IEventCreator';
 import { IAddress } from '../interface/IAddress';
 
+declare const $: any;
+
 @Component({
   selector: 'app-create-event',
   templateUrl: './create-event.component.html',
   styleUrls: ['./create-event.component.css']
 })
-export class CreateEventComponent implements OnInit {
+export class CreateEventComponent implements AfterViewInit {
   name: string;
   type: string;
   maxParticipants: any;
@@ -20,14 +22,19 @@ export class CreateEventComponent implements OnInit {
   street: string;
   streetNumber: string;
   description: string;
-  eventDate: string;
+  eventDate: Date = new Date();
   visibilities = ['public', 'restricted', 'private'];
   visibility = this.visibilities[0];
   isCreateButtonClickable = true;
+  private isPickerOpen = false;
 
-  constructor(private userService: UserService, private spinner: NgxSpinnerService) {}
-
-  ngOnInit() {}
+  constructor(
+    private userService: UserService,
+    private spinner: NgxSpinnerService,
+    private elementRef: ElementRef
+  ) {
+    this.eventDate.setSeconds(0, 0);
+  }
 
   createEvent(): void {
     if (!this.isAllInputValid()) {
@@ -51,7 +58,7 @@ export class CreateEventComponent implements OnInit {
       maxParticipant: this.maxParticipants,
       visibility: this.visibility,
       totalCost: this.estimatedCost,
-      eventDate: new Date(this.eventDate),
+      eventDate: this.eventDate,
       eventType: this.type,
       address: address
     };
@@ -82,8 +89,7 @@ export class CreateEventComponent implements OnInit {
       this.isNonEmptyString(this.streetNumber) &&
       this.isNonEmptyString(this.description) &&
       this.isValidInteger(this.maxParticipants) &&
-      this.isValidInteger(this.estimatedCost) &&
-      this.isDateValid()
+      this.isValidInteger(this.estimatedCost)
     );
   }
 
@@ -93,13 +99,6 @@ export class CreateEventComponent implements OnInit {
 
   isValidInteger(num: any): boolean {
     return this.isNonEmptyString(num) && Number.isInteger(+num);
-  }
-
-  // TODO full date validation
-  isDateValid(): boolean {
-    const regexp: RegExp = /^(\d{4}-[01]\d-[0-3]\d [0-2]\d:[0-5]\d)$/;
-
-    return this.isNonEmptyString(this.eventDate) && regexp.test(this.eventDate);
   }
 
   resetInputFields(): void {
@@ -112,6 +111,25 @@ export class CreateEventComponent implements OnInit {
     this.street = '';
     this.streetNumber = '';
     this.description = '';
-    this.eventDate = '';
+  }
+
+  ngAfterViewInit(): void {
+    const dropdownToggle = $('[data-toggle="dropdown"]', this.elementRef.nativeElement);
+    dropdownToggle.parent().on('show.bs.dropdown', () => {
+      this.isPickerOpen = true;
+    });
+    dropdownToggle.parent().on('hide.bs.dropdown', () => {
+      this.isPickerOpen = false;
+    });
+  }
+
+  keepDropDownOpen(event: Event) {
+    event.stopPropagation();
+  }
+
+  dateSelected(event) {
+    if (this.isPickerOpen && event.value) {
+      $('.date-dropdown').dropdown('toggle');
+    }
   }
 }
