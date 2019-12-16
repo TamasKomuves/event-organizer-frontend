@@ -1,10 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MessageService } from '../services/message.service';
-import { UserService } from '../services/user.service';
+import { UserService } from '../services/rest/user.service';
 import { Router } from '@angular/router';
 import { WebsocketService } from '../services/websocket.service';
 import { IUser } from '../interface/IUser';
 import { ISubscription } from '../interface/ISubscription';
+import { ChatMessageService } from '../services/rest/chat-message.service';
+import { InvitationService } from '../services/rest/invitation.service';
 
 @Component({
   selector: 'app-navbar',
@@ -20,7 +22,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private messageService: MessageService,
     private userService: UserService,
     private router: Router,
-    private websocketService: WebsocketService
+    private websocketService: WebsocketService,
+    private chatMessageService: ChatMessageService,
+    private invitationService: InvitationService
   ) {}
 
   ngOnInit() {
@@ -48,10 +52,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   initLogin(userEmail: string) {
-    this.userService.getNotSeenNotificationCount().subscribe((result: number) => {
+    this.invitationService.getNotSeenNotificationCount().subscribe((result: number) => {
       this.notificationCounter = result;
     });
-    this.userService.getNotSeenChatMessageCount().subscribe((result: number) => {
+    this.chatMessageService.getNotSeenChatMessageCount().subscribe((result: number) => {
       this.messageCounter = result;
     });
     this.websocketService.unsubscribeAll();

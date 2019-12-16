@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { UserService } from '../services/user.service';
+import { UserService } from '../services/rest/user.service';
+import { PollAnswerService } from '../services/rest/poll-answer.service';
 
 @Component({
   selector: 'app-poll-answer',
@@ -17,7 +18,7 @@ export class PollAnswerComponent implements OnInit {
   numberOfVotes = 0;
   isLoaded = false;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private pollAnswerService: PollAnswerService) {}
 
   ngOnInit() {
     this.checkboxId = 'checkbox' + this.answerId;
@@ -27,13 +28,13 @@ export class PollAnswerComponent implements OnInit {
   }
 
   initCheckbox(): void {
-    this.userService.isAnswerAlreadySelected(this.answerId).subscribe(result => {
+    this.pollAnswerService.isAnswerAlreadySelected(this.answerId).subscribe(result => {
       this.isAlreadySelected = result['isAlreadySelected'] === 'true';
     });
   }
 
   initAnswer(): void {
-    this.userService.getPollAnswerById(this.answerId).subscribe(
+    this.pollAnswerService.getPollAnswerById(this.answerId).subscribe(
       answer => {
         this.answer = answer;
         this.text = answer.text;
@@ -45,7 +46,7 @@ export class PollAnswerComponent implements OnInit {
   }
 
   updateVotes(): void {
-    this.userService.getVotesForAnswerById(this.answerId).subscribe(
+    this.pollAnswerService.getVotesForAnswerById(this.answerId).subscribe(
       votes => {
         this.votes = votes;
         this.numberOfVotes = Object.keys(votes).length;
@@ -68,7 +69,7 @@ export class PollAnswerComponent implements OnInit {
   }
 
   removeVoteFromAnswer(): void {
-    this.userService.removeRespondentFromAnswer(this.answerId).subscribe(
+    this.pollAnswerService.removeRespondentFromAnswer(this.answerId).subscribe(
       result => {
         this.updateVotes();
       },
@@ -80,7 +81,7 @@ export class PollAnswerComponent implements OnInit {
   }
 
   voteForAnswer(): void {
-    this.userService.addRespondentToAnswer(this.answerId).subscribe(
+    this.pollAnswerService.addRespondentToAnswer(this.answerId).subscribe(
       result => {
         this.updateVotes();
       },

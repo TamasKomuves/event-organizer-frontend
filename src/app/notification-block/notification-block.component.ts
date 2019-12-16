@@ -1,7 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { UserService } from '../services/user.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { IInvitation } from '../interface/IInvitation';
+import { EventService } from '../services/rest/event.service';
+import { InvitationService } from '../services/rest/invitation.service';
 
 @Component({
   selector: 'app-notification-block',
@@ -23,7 +24,11 @@ export class NotificationBlockComponent implements OnInit {
   eventName: string;
   spinnerName: string;
 
-  constructor(private userService: UserService, private spinner: NgxSpinnerService) {}
+  constructor(
+    private spinner: NgxSpinnerService,
+    private eventService: EventService,
+    private invitationService: InvitationService
+  ) {}
 
   ngOnInit() {
     this.initNotification();
@@ -32,14 +37,14 @@ export class NotificationBlockComponent implements OnInit {
   initNotification(): void {
     this.spinnerName = 'mySpinner' + this.invitationId;
     this.spinner.show(this.spinnerName);
-    this.userService.getInvitationById(this.invitationId).subscribe(invitation => {
+    this.invitationService.getInvitationById(this.invitationId).subscribe(invitation => {
       this.isAccepted = invitation.isAccepted;
       this.isUserRequested = invitation.isUserRequested;
       this.sentDate = invitation.sentDate;
       this.decisionDate = invitation.decisionDate;
       this.dateToShow = this.getDateToShowFromInvitation(invitation);
 
-      this.userService.getEventById(invitation.eventId).subscribe(event => {
+      this.eventService.getEventById(invitation.eventId).subscribe(event => {
         this.eventName = event.name;
         this.text = this.initText();
         this.result = this.calculateResult();
@@ -84,14 +89,14 @@ export class NotificationBlockComponent implements OnInit {
 
   acceptInvitation(): void {
     this.isShowButtons = false;
-    this.userService.answerToInvitation(this.invitationId, 1).subscribe(data => {
+    this.invitationService.answerToInvitation(this.invitationId, 1).subscribe(data => {
       this.initNotification();
     });
   }
 
   declineInvitation(): void {
     this.isShowButtons = false;
-    this.userService.answerToInvitation(this.invitationId, 0).subscribe(data => {
+    this.invitationService.answerToInvitation(this.invitationId, 0).subscribe(data => {
       this.initNotification();
     });
   }

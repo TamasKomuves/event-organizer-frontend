@@ -1,12 +1,16 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserService } from '../services/user.service';
+import { UserService } from '../services/rest/user.service';
 import { NgxSmartModalService, NgxSmartModalComponent } from 'ngx-smart-modal';
 import { INews } from '../interface/INews';
 import { IUser } from '../interface/IUser';
 import { IPost } from '../interface/IPost';
 import { IInvitation } from '../interface/IInvitation';
 import { WebsocketService } from '../services/websocket.service';
+import { AddressService } from '../services/rest/address.service';
+import { EventService } from '../services/rest/event.service';
+import { InvitationService } from '../services/rest/invitation.service';
+import { PostService } from '../services/rest/post.service';
 
 @Component({
   selector: 'app-event',
@@ -35,7 +39,11 @@ export class EventComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private ngxSmartModalService: NgxSmartModalService,
     private router: Router,
-    private websocketService: WebsocketService
+    private websocketService: WebsocketService,
+    private addressService: AddressService,
+    private eventService: EventService,
+    private invitationService: InvitationService,
+    private postService: PostService
   ) {}
 
   ngOnInit() {
@@ -44,7 +52,7 @@ export class EventComponent implements OnInit, AfterViewInit {
 
     this.loadEventInfo();
 
-    this.userService.getEventParticipants(this.eventId).subscribe(participants => {
+    this.eventService.getEventParticipants(this.eventId).subscribe(participants => {
       this.participants = participants;
     });
 
@@ -64,7 +72,7 @@ export class EventComponent implements OnInit, AfterViewInit {
   }
 
   loadEventInfo(): void {
-    this.userService.getEventById(this.eventId).subscribe(event => {
+    this.eventService.getEventById(this.eventId).subscribe(event => {
       this.name = event.name;
       this.type = event.eventType;
       this.date = event.eventDate;
@@ -73,7 +81,7 @@ export class EventComponent implements OnInit, AfterViewInit {
       this.userService.getCurrentUser().subscribe(user => {
         this.isOrganizer = event.organizerEmail === user.email;
       });
-      this.userService.getAddressById(event.addressId).subscribe(address => {
+      this.addressService.getAddressById(event.addressId).subscribe(address => {
         this.address =
           address.street +
           ' ' +
@@ -94,14 +102,14 @@ export class EventComponent implements OnInit, AfterViewInit {
 
     const post: IPost = { eventId: this.eventId, text: this.newPostText };
 
-    this.userService.createPost(post).subscribe(result => {
+    this.postService.createPost(post).subscribe(result => {
       this.newPostText = '';
       this.updateNewsFeed();
     });
   }
 
   updateNewsFeed(): void {
-    this.userService.getEventNews(this.eventId).subscribe(newsList => {
+    this.eventService.getEventNews(this.eventId).subscribe(newsList => {
       this.newsList = newsList;
       this.newsList = this.newsList.sort((a, b) => b.date.localeCompare(a.date));
       this.numberOfNewsToShow = this.showNewsStep;
@@ -125,7 +133,7 @@ export class EventComponent implements OnInit, AfterViewInit {
       isUserRequested: 0
     };
 
-    this.userService.createInvitation(invitation).subscribe(
+    this.invitationService.createInvitation(invitation).subscribe(
       (savedInvitation: IInvitation) => {
         this.websocketService.send(
           '/socket-subscriber/send/invitation',
@@ -143,7 +151,7 @@ export class EventComponent implements OnInit, AfterViewInit {
 
   deleteEvent(): void {
     if (confirm('Are you sure you want to delete this event?\nThis action cannot be undone!')) {
-      this.userService.deleteEvent(this.eventId).subscribe(() => {
+      this.eventService.deleteEvent(this.eventId).subscribe(() => {
         this.router.navigateByUrl('/show-events');
       });
     }

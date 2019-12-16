@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { UserService } from '../../services/user.service';
 import { NgxSmartModalService } from 'ngx-smart-modal';
 import { IPollAnswer } from 'src/app/interface/IPollAnswer';
+import { PollQuestionService } from 'src/app/services/rest/poll-question.service';
 
 @Component({
   selector: 'app-poll-creator-modal',
@@ -15,8 +15,8 @@ export class PollCreatorModalComponent {
   answers: Array<IPollAnswer>;
 
   constructor(
-    private userService: UserService,
-    private ngxSmartModalService: NgxSmartModalService
+    private ngxSmartModalService: NgxSmartModalService,
+    private pollQuestionService: PollQuestionService
   ) {
     this.answers = new Array<IPollAnswer>();
     this.answers.push({ text: '' });
@@ -31,7 +31,7 @@ export class PollCreatorModalComponent {
   }
 
   createPoll(): void {
-    this.userService.createPoll(this.eventId, this.questionText, this.answers).subscribe(
+    this.pollQuestionService.createPoll(this.eventId, this.questionText, this.answers).subscribe(
       result => {
         this.questionText = '';
         this.answers = new Array();

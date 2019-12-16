@@ -1,9 +1,9 @@
 import { Component, AfterViewInit, ElementRef } from '@angular/core';
-import { UserService } from '../services/user.service';
 import { isNullOrUndefined } from 'util';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { IEventCreator } from '../interface/IEventCreator';
 import { IAddress } from '../interface/IAddress';
+import { EventService } from '../services/rest/event.service';
 
 declare const $: any;
 
@@ -29,9 +29,9 @@ export class CreateEventComponent implements AfterViewInit {
   private isPickerOpen = false;
 
   constructor(
-    private userService: UserService,
     private spinner: NgxSpinnerService,
-    private elementRef: ElementRef
+    private elementRef: ElementRef,
+    private eventService: EventService
   ) {
     this.eventDate.setSeconds(0, 0);
   }
@@ -63,7 +63,7 @@ export class CreateEventComponent implements AfterViewInit {
       address: address
     };
 
-    this.userService.createEvent(event).subscribe(
+    this.eventService.createEvent(event).subscribe(
       result => {
         alert('Event created!');
         this.resetInputFields();

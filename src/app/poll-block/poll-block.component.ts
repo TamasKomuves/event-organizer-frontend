@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { UserService } from '../services/user.service';
+import { PollAnswerService } from '../services/rest/poll-answer.service';
+import { PollQuestionService } from '../services/rest/poll-question.service';
 
 @Component({
   selector: 'app-poll-block',
@@ -14,10 +15,13 @@ export class PollBlockComponent implements OnInit {
   date: string;
   newAnswerText: string;
 
-  constructor(private userService: UserService) {}
+  constructor(
+    private pollAnswerService: PollAnswerService,
+    private pollQuestionService: PollQuestionService
+  ) {}
 
   ngOnInit() {
-    this.userService.getPollQuiestionById(this.pollId).subscribe(pollQuestion => {
+    this.pollQuestionService.getPollQuiestionById(this.pollId).subscribe(pollQuestion => {
       this.text = pollQuestion.text;
       this.date = pollQuestion.date;
     });
@@ -25,17 +29,21 @@ export class PollBlockComponent implements OnInit {
   }
 
   updateAnswers(): void {
-    this.userService.getPollAnswerIdsByQuestionId(this.pollId).subscribe(answerIds => {
+    this.pollQuestionService.getPollAnswerIdsByQuestionId(this.pollId).subscribe(answerIds => {
       this.answerIds = answerIds;
     });
   }
 
   createNewAnswer(): void {
-    if (this.newAnswerText === null || this.newAnswerText === undefined || this.newAnswerText === '') {
+    if (
+      this.newAnswerText === null ||
+      this.newAnswerText === undefined ||
+      this.newAnswerText === ''
+    ) {
       alert("Answer can't be blank");
       return;
     }
-    this.userService.createPollAnswer(this.pollId, this.newAnswerText).subscribe(result => {
+    this.pollAnswerService.createPollAnswer(this.pollId, this.newAnswerText).subscribe(result => {
       this.updateAnswers();
       this.newAnswerText = '';
     });

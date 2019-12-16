@@ -19,7 +19,7 @@ import { PostBlockComponent } from './post-block/post-block.component';
 import { CommentBlockComponent } from './comment-block/comment-block.component';
 import { EventBlockComponent } from './event-block/event-block.component';
 import { NotificationBlockComponent } from './notification-block/notification-block.component';
-import { UserService } from './services/user.service';
+import { UserService } from './services/rest/user.service';
 import { MessageService } from './services/message.service';
 import { HomeComponent } from './home/home.component';
 import { ViewRequestModalComponent } from './modals/view-request-modal/view-request-modal.component';

@@ -6,12 +6,13 @@ import {
   AfterViewChecked,
   OnDestroy
 } from '@angular/core';
-import { UserService } from '../services/user.service';
+import { UserService } from '../services/rest/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { IUser } from '../interface/IUser';
 import { IChatMessage } from '../interface/IChatMessage';
 import { WebsocketService } from '../services/websocket.service';
 import { ISubscription } from '../interface/ISubscription';
+import { ChatMessageService } from '../services/rest/chat-message.service';
 
 @Component({
   selector: 'app-chat-page',
@@ -29,7 +30,8 @@ export class ChatPageComponent implements OnInit, AfterViewChecked, OnDestroy {
   constructor(
     private userService: UserService,
     private route: ActivatedRoute,
-    private websocketService: WebsocketService
+    private websocketService: WebsocketService,
+    private chatMessageService: ChatMessageService
   ) {}
 
   ngOnInit() {
@@ -38,16 +40,18 @@ export class ChatPageComponent implements OnInit, AfterViewChecked, OnDestroy {
 
     this.initWebSocket();
 
-    this.userService.getAllChatMessages(this.chatPartnerEmail).subscribe(messages => {
+    this.chatMessageService.getAllChatMessages(this.chatPartnerEmail).subscribe(messages => {
       this.messages = messages;
       this.messages.sort((a, b) => a.date.localeCompare(b.date));
     });
     this.userService.getUserByEmail(this.chatPartnerEmail).subscribe(user => {
       this.partnerName = this.getUserDisplayName(user);
     });
-    this.userService.updateMessagesWithPartnerToAlreadySeen(this.chatPartnerEmail).subscribe(() => {
-      this.websocketService.send('/socket-subscriber/send/chat-message/update-counter', 'update');
-    });
+    this.chatMessageService
+      .updateMessagesWithPartnerToAlreadySeen(this.chatPartnerEmail)
+      .subscribe(() => {
+        this.websocketService.send('/socket-subscriber/send/chat-message/update-counter', 'update');
+      });
   }
 
   ngOnDestroy() {

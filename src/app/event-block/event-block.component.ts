@@ -1,8 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from '../services/user.service';
+import { UserService } from '../services/rest/user.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { IInvitation } from '../interface/IInvitation';
+import { AddressService } from '../services/rest/address.service';
+import { EventService } from '../services/rest/event.service';
+import { InvitationService } from '../services/rest/invitation.service';
 
 @Component({
   selector: 'app-event-block',
@@ -29,19 +32,22 @@ export class EventBlockComponent implements OnInit {
   constructor(
     private userService: UserService,
     private router: Router,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private addressService: AddressService,
+    private eventService: EventService,
+    private invitationService: InvitationService
   ) {}
 
   ngOnInit() {
     this.spinnerName = 'mySpinner' + this.eventId;
     this.spinner.show(this.spinnerName);
-    this.userService.getEventById(this.eventId).subscribe(event => {
+    this.eventService.getEventById(this.eventId).subscribe(event => {
       this.name = event.name;
       this.date = event.eventDate;
       this.type = event.eventType;
       this.visibility = event.visibility;
 
-      this.userService.getAddressById(event.addressId).subscribe(address => {
+      this.addressService.getAddressById(event.addressId).subscribe(address => {
         this.location =
           address.street +
           ' ' +
@@ -57,11 +63,13 @@ export class EventBlockComponent implements OnInit {
       });
 
       this.userService.getCurrentUser().subscribe(currentUser => {
-        this.userService.isUserHasRequest(this.eventId, currentUser.email).subscribe(result => {
-          this.isHasRequest = result['result'] === 'true';
-        });
+        this.invitationService
+          .isUserHasRequest(this.eventId, currentUser.email)
+          .subscribe(result => {
+            this.isHasRequest = result['result'] === 'true';
+          });
 
-        this.userService
+        this.eventService
           .isUserParticipateInEvent(this.eventId, currentUser.email)
           .subscribe(result => {
             this.isParticipate = result['result'] === 'true';
@@ -73,11 +81,11 @@ export class EventBlockComponent implements OnInit {
       this.isPublic = this.visibility === 'public';
     });
 
-    this.userService.isEventHasMorePlace(this.eventId).subscribe(result => {
+    this.eventService.isEventHasMorePlace(this.eventId).subscribe(result => {
       this.isHasMorePlace = result['result'] === 'true';
     });
 
-    this.userService.getEventParticipants(this.eventId).subscribe(participants => {
+    this.eventService.getEventParticipants(this.eventId).subscribe(participants => {
       this.numberOfParticipants = participants.length;
     });
   }
@@ -85,7 +93,7 @@ export class EventBlockComponent implements OnInit {
   joinEvent(): void {
     this.isParticipate = true;
     this.userService.getCurrentUser().subscribe(currentUser => {
-      this.userService.addUserToEvent(this.eventId, currentUser.email).subscribe(
+      this.eventService.addUserToEvent(this.eventId, currentUser.email).subscribe(
         data2 => {
           if (data2['result'] === 'success') {
             this.router.navigate(['/event'], { queryParams: { eventId: this.eventId } });
@@ -110,7 +118,7 @@ export class EventBlockComponent implements OnInit {
         userEmail: user.email,
         isUserRequested: 1
       };
-      this.userService.createInvitation(invitation).subscribe(
+      this.invitationService.createInvitation(invitation).subscribe(
         result => {
           alert('Request sent');
         },

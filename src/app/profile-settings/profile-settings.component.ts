@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../services/user.service';
+import { UserService } from '../services/rest/user.service';
 import { isNullOrUndefined } from 'util';
 import { Router } from '@angular/router';
 import { IPasswordChange } from '../interface/IPasswordChange';
 import { MessageService } from '../services/message.service';
+import { AddressService } from '../services/rest/address.service';
 
 @Component({
   selector: 'app-profile-settings',
@@ -24,7 +25,8 @@ export class ProfileSettingsComponent implements OnInit {
   constructor(
     private userService: UserService,
     private router: Router,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private addressService: AddressService
   ) {}
 
   ngOnInit() {
@@ -32,7 +34,7 @@ export class ProfileSettingsComponent implements OnInit {
       this.firstname = currentUser.firstName;
       this.lastname = currentUser.lastName;
 
-      this.userService.getAddressById(currentUser.addressId).subscribe(address => {
+      this.addressService.getAddressById(currentUser.addressId).subscribe(address => {
         this.country = address.country;
         this.city = address.city;
         this.street = address.street;
@@ -70,7 +72,7 @@ export class ProfileSettingsComponent implements OnInit {
     }
 
     this.userService.getCurrentUser().subscribe(currentUser => {
-      this.userService
+      this.addressService
         .updateAddress(
           currentUser.addressId,
           this.country,

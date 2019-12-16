@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { NgxSmartModalService, NgxSmartModalComponent } from 'ngx-smart-modal';
 import { IUser } from 'src/app/interface/IUser';
-import { UserService } from 'src/app/services/user.service';
+import { UserService } from 'src/app/services/rest/user.service';
 import { Router } from '@angular/router';
 
 @Component({

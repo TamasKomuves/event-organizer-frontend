@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgxSmartModalService } from 'ngx-smart-modal';
-import { UserService } from '../services/user.service';
 import { IChatMessage } from '../interface/IChatMessage';
 import { WebsocketService } from '../services/websocket.service';
 import { ISubscription } from '../interface/ISubscription';
+import { ChatMessageService } from '../services/rest/chat-message.service';
 
 @Component({
   selector: 'app-messages-container',
@@ -15,12 +15,12 @@ export class MessagesContainerComponent implements OnInit, OnDestroy {
 
   constructor(
     private ngxSmartModalService: NgxSmartModalService,
-    private userService: UserService,
-    private websocketService: WebsocketService
+    private websocketService: WebsocketService,
+    private chatMessageService: ChatMessageService
   ) {}
 
   ngOnInit() {
-    this.userService.getLastMessages().subscribe(chatMessages => {
+    this.chatMessageService.getLastMessages().subscribe(chatMessages => {
       this.chatMessages = chatMessages;
       this.chatMessages.sort((a, b) => b.date.localeCompare(a.date));
     });

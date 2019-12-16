@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { UserService } from '../services/user.service';
 import { WebsocketService } from '../services/websocket.service';
 import { IInvitation } from '../interface/IInvitation';
 import { ISubscription } from '../interface/ISubscription';
+import { InvitationService } from '../services/rest/invitation.service';
 
 @Component({
   selector: 'app-notifications',
@@ -12,18 +12,21 @@ import { ISubscription } from '../interface/ISubscription';
 export class NotificationsComponent implements OnInit, OnDestroy {
   invitations: Array<IInvitation> = new Array();
 
-  constructor(private userService: UserService, private websocketService: WebsocketService) {}
+  constructor(
+    private websocketService: WebsocketService,
+    private invitationService: InvitationService
+  ) {}
 
   ngOnInit() {
     const userEmail: string = sessionStorage.getItem('userEmail');
-    this.userService
+    this.invitationService
       .getInvitationsForUser(userEmail)
       .subscribe((invitations: Array<IInvitation>) => {
         this.invitations = invitations;
         this.invitations.sort((a, b) => this.dateToShow(b).localeCompare(this.dateToShow(a)));
       });
 
-    this.userService.updateAllInvitationToAlreadySeen().subscribe(() => {
+    this.invitationService.updateAllInvitationToAlreadySeen().subscribe(() => {
       const sub0: ISubscription = {
         topicName: '/socket-publisher/new-invitations/' + userEmail,
         onMessage: socketMessage => {

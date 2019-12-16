@@ -1,7 +1,8 @@
 import { Component, Input, AfterViewInit } from '@angular/core';
-import { UserService } from 'src/app/services/user.service';
+import { UserService } from 'src/app/services/rest/user.service';
 import { NgxSmartModalComponent, NgxSmartModalService } from 'ngx-smart-modal';
 import { IInvitation } from 'src/app/interface/IInvitation';
+import { EventService } from 'src/app/services/rest/event.service';
 
 @Component({
   selector: 'app-view-request-modal',
@@ -13,14 +14,17 @@ export class ViewRequestModalComponent implements AfterViewInit {
 
   invitations: Array<IInvitation>;
 
-  constructor(private userService: UserService, private ngxSmartModalService: NgxSmartModalService) {}
+  constructor(
+    private ngxSmartModalService: NgxSmartModalService,
+    private eventService: EventService
+  ) {}
 
   ngAfterViewInit() {
     const invitationRequestModal = this.ngxSmartModalService.getModal('invitationRequestModal');
     invitationRequestModal.dismissable = false;
 
     invitationRequestModal.onOpen.subscribe((modal: NgxSmartModalComponent) => {
-      this.userService.getInvitationRequestsForEvent(this.eventId).subscribe(invitations => {
+      this.eventService.getInvitationRequestsForEvent(this.eventId).subscribe(invitations => {
         this.invitations = invitations;
       });
     });

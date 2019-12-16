@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { UserService } from '../services/user.service';
+import { UserService } from '../services/rest/user.service';
+import { InvitationService } from '../services/rest/invitation.service';
 
 @Component({
   selector: 'app-invitation-offer-block',
@@ -12,10 +13,10 @@ export class InvitationOfferBlockComponent implements OnInit {
   nameAndEmail: string;
   isLoaded = false;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private invitationService: InvitationService) {}
 
   ngOnInit() {
-    this.userService.getInvitationById(this.invitationId).subscribe(invitation => {
+    this.invitationService.getInvitationById(this.invitationId).subscribe(invitation => {
       this.userService.getUserByEmail(invitation.userEmail).subscribe(user => {
         this.nameAndEmail = user.firstName + ' ' + user.lastName + ' (' + user.email + ')';
         this.isLoaded = true;
@@ -25,6 +26,6 @@ export class InvitationOfferBlockComponent implements OnInit {
 
   undoInvitation(): void {
     this.isLoaded = false;
-    this.userService.deleteInvitation(this.invitationId).subscribe(result => {});
+    this.invitationService.deleteInvitation(this.invitationId).subscribe(result => {});
   }
 }

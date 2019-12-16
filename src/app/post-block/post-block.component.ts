@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { UserService } from '../services/user.service';
+import { UserService } from '../services/rest/user.service';
 import { IComment } from '../interface/IComment';
+import { CommentService } from '../services/rest/comment.service';
+import { PostService } from '../services/rest/post.service';
 
 @Component({
   selector: 'app-post-block',
@@ -24,7 +26,11 @@ export class PostBlockComponent implements OnInit {
   showCommentsText: string;
   commentText: string;
 
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private commentService: CommentService,
+    private postService: PostService
+  ) {}
 
   ngOnInit() {
     this.showCommentsText = 'Show comments';
@@ -33,18 +39,18 @@ export class PostBlockComponent implements OnInit {
     this.numberOfLikes = 0;
     this.isCurrentUserLiked = true;
 
-    this.userService.getPostById(this.postId).subscribe(post => {
+    this.postService.getPostById(this.postId).subscribe(post => {
       this.text = post.text;
       this.date = post.date;
       this.userService.getUserByEmail(post.posterEmail).subscribe(user => {
         this.posterName = user.firstName + ' ' + user.lastName;
       });
-      this.userService.getPostComments(this.postId).subscribe(comments => {
+      this.postService.getPostComments(this.postId).subscribe(comments => {
         this.comments = comments;
         this.isAnyComment = this.comments !== undefined && this.comments.length > 0;
         this.comments.sort((a, b) => a.commentDate.localeCompare(b.commentDate));
       });
-      this.userService.getPostLikers(this.postId).subscribe(postLikers => {
+      this.postService.getPostLikers(this.postId).subscribe(postLikers => {
         let likers: any;
         likers = postLikers;
         this.numberOfLikes = likers.length;
@@ -52,7 +58,7 @@ export class PostBlockComponent implements OnInit {
 
       this.userService.getCurrentUser().subscribe(user => {
         const email = user.email;
-        this.userService.isLikedPost(this.postId, email).subscribe(result => {
+        this.postService.isLikedPost(this.postId, email).subscribe(result => {
           this.isCurrentUserLiked = result['result'] === 'true';
         });
       });
@@ -69,7 +75,7 @@ export class PostBlockComponent implements OnInit {
 
   likePost(): void {
     this.isCurrentUserLiked = true;
-    this.userService.createLikesPost(this.postId).subscribe(result => {
+    this.postService.createLikesPost(this.postId).subscribe(result => {
       this.numberOfLikes++;
     });
   }
@@ -82,10 +88,10 @@ export class PostBlockComponent implements OnInit {
 
     const newComment: IComment = { postId: this.postId, text: this.commentText };
 
-    this.userService.createComment(newComment).subscribe(
+    this.commentService.createComment(newComment).subscribe(
       result => {
         this.commentText = '';
-        this.userService.getPostComments(this.postId).subscribe(comments => {
+        this.postService.getPostComments(this.postId).subscribe(comments => {
           this.comments = comments;
           this.isAnyComment = this.comments !== undefined && this.comments.length > 0;
           if (!this.isShowComments) {
