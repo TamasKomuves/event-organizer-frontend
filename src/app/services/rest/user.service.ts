@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { IUser } from '../../interface/IUser';
 import { IPasswordChange } from '../../interface/IPasswordChange';
 import { BaseRestService } from './base-rest.service';
+import { IUserRegistration } from 'src/app/interface/IUserRegistration';
 
 @Injectable({
   providedIn: 'root'
@@ -22,29 +23,9 @@ export class UserService extends BaseRestService {
     return this.postMethodWithoutAuth(url, body);
   }
 
-  register(
-    email: string,
-    password: string,
-    firstname: string,
-    lastname: string,
-    country: string,
-    city: string,
-    street: string,
-    streetNumber: string
-  ) {
+  register(user: IUserRegistration) {
     const url = 'public/users/registration';
-    const body = {
-      email: email,
-      password: password,
-      firstname: firstname,
-      lastname: lastname,
-      country: country,
-      city: city,
-      street: street,
-      streetNumber: streetNumber
-    };
-
-    return this.postMethodWithoutAuth(url, body);
+    return this.postMethodWithoutAuth(url, user);
   }
 
   logout() {
