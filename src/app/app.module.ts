@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './core/app-routing.module';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { NgxSmartModalModule } from 'ngx-smart-modal';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
@@ -40,6 +40,12 @@ import { Router } from '@angular/router';
 import { AuthInterceptor } from './AuthInterceptor';
 import { WebsocketService } from './services/websocket.service';
 import { DlDateTimeDateModule, DlDateTimePickerModule } from 'angular-bootstrap-datetimepicker';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+export const createTranslateLoader = (httpClient: HttpClient) => {
+  return new TranslateHttpLoader(httpClient, 'assets/i18n/', '.json');
+};
 
 @NgModule({
   declarations: [
@@ -79,7 +85,14 @@ import { DlDateTimeDateModule, DlDateTimePickerModule } from 'angular-bootstrap-
     NgxSmartModalModule.forRoot(),
     NgxSpinnerModule,
     DlDateTimeDateModule,
-    DlDateTimePickerModule
+    DlDateTimePickerModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: createTranslateLoader,
+        deps: [HttpClient]
+      }
+    })
   ],
   providers: [
     UserService,
