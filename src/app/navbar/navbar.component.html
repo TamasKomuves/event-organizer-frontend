@@ -49,23 +49,15 @@
           >
         </button>
       </li>
-      <li class="nav-item dropdown" style="text-align: left;">
-        <a
-          class="nav-link dropdown-toggle"
-          href="#"
-          id="navbarDropdown"
-          role="button"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-        >
-          Profile
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <button class="dropdown-item" type="button" (click)="showSettings()">Settings</button>
-          <div class="dropdown-divider"></div>
-          <button class="dropdown-item" type="button" (click)="logout()">Logout</button>
-        </div>
+      <li class="nav-item">
+        <button class="btn btn-link nav-link" type="button" (click)="showSettings()">
+          Settings
+        </button>
+      </li>
+      <li class="nav-item">
+        <button class="btn btn-link nav-link" type="button" (click)="logout()">
+          Logout
+        </button>
       </li>
     </ul>
   </div>
