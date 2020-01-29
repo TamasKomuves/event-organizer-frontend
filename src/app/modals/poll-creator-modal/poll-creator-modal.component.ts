@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import { NgxSmartModalService } from 'ngx-smart-modal';
 import { IPollAnswer } from 'src/app/interface/IPollAnswer';
 import { PollQuestionService } from 'src/app/services/rest/poll-question.service';
@@ -8,7 +8,7 @@ import { PollQuestionService } from 'src/app/services/rest/poll-question.service
   templateUrl: './poll-creator-modal.component.html',
   styleUrls: ['./poll-creator-modal.component.css']
 })
-export class PollCreatorModalComponent {
+export class PollCreatorModalComponent implements AfterViewInit {
   @Input() eventId: number;
 
   questionText: string;
@@ -18,8 +18,18 @@ export class PollCreatorModalComponent {
     private ngxSmartModalService: NgxSmartModalService,
     private pollQuestionService: PollQuestionService
   ) {
-    this.answers = new Array<IPollAnswer>();
-    this.answers.push({ text: '' });
+    this.initModal();
+  }
+
+  ngAfterViewInit() {
+    const pollCreatorModal = this.ngxSmartModalService.getModal('pollCreatorModal');
+    pollCreatorModal.onClose.subscribe(() => this.initModal());
+  }
+
+  initModal(): void {
+    this.questionText = '';
+    this.answers = new Array();
+    this.addAnswer();
   }
 
   addAnswer(): void {
@@ -33,8 +43,7 @@ export class PollCreatorModalComponent {
   createPoll(): void {
     this.pollQuestionService.createPoll(this.eventId, this.questionText, this.answers).subscribe(
       result => {
-        this.questionText = '';
-        this.answers = new Array();
+        this.initModal();
         const pollCreatorModal = this.ngxSmartModalService.getModal('pollCreatorModal');
         pollCreatorModal.close();
       },
