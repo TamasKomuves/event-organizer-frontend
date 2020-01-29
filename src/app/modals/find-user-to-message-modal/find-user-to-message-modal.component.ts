@@ -48,7 +48,7 @@ export class FindUserToMessageModalComponent implements OnInit, AfterViewInit {
       return;
     }
 
-    const unifiedSearchedName = this.getUnifiedUsername(this.searchedName);
+    const unifiedSearchedName = this.getUnifiedString(this.searchedName);
     this.allUsers.forEach(user => {
       if (this.isUserRelevantForSearch(user, unifiedSearchedName)) {
         this.suggestedUsers.push(user);
@@ -57,20 +57,22 @@ export class FindUserToMessageModalComponent implements OnInit, AfterViewInit {
   }
 
   isUserRelevantForSearch(user: IUser, unifiedSearchedName: string): boolean {
-    const unifiedFirstname = this.getUnifiedUsername(user.firstName);
-    const unifiedLastname = this.getUnifiedUsername(user.lastName);
+    const unifiedFirstname = this.getUnifiedString(user.firstName);
+    const unifiedLastname = this.getUnifiedString(user.lastName);
     const unifiedFullname1 = unifiedFirstname + unifiedLastname;
     const unifiedFullname2 = unifiedLastname + unifiedFirstname;
+    const unifiedEmail = this.getUnifiedString(user.email);
 
     return (
       unifiedFirstname.includes(unifiedSearchedName) ||
       unifiedLastname.includes(unifiedSearchedName) ||
       unifiedFullname1.includes(unifiedSearchedName) ||
-      unifiedFullname2.includes(unifiedSearchedName)
+      unifiedFullname2.includes(unifiedSearchedName) ||
+      unifiedEmail.includes(unifiedSearchedName)
     );
   }
 
-  getUnifiedUsername(username: string) {
+  getUnifiedString(username: string) {
     return username.toLowerCase().replace(/\s/g, '');
   }
 }
