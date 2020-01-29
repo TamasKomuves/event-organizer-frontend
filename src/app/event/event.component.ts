@@ -18,7 +18,7 @@ import { PostService } from '../services/rest/post.service';
   styleUrls: ['./event.component.css']
 })
 export class EventComponent implements OnInit, AfterViewInit {
-  eventId: any;
+  eventId: number;
   participants: Array<IUser>;
   name: string;
   type: string;

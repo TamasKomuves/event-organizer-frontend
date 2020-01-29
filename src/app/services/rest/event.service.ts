@@ -5,7 +5,6 @@ import { HttpClient } from '@angular/common/http';
 import { IUser } from 'src/app/interface/IUser';
 import { IEventCreator } from 'src/app/interface/IEventCreator';
 import { IInvitation } from 'src/app/interface/IInvitation';
-import { IPollQuestion } from 'src/app/interface/IPollQuestion';
 import { INews } from 'src/app/interface/INews';
 
 @Injectable({
@@ -21,14 +20,14 @@ export class EventService extends BaseRestService {
     return this.getMethod<IEvent>(url);
   }
 
-  getEventParticipants(eventId: number) {
-    const url = 'events/' + eventId + '/users';
-    return this.getMethod<Array<IUser>>(url);
-  }
-
   createEvent(event: IEventCreator) {
     const url = 'events/create';
     return this.postMethod(url, event);
+  }
+
+  getEventParticipants(eventId: number) {
+    const url = 'events/' + eventId + '/users';
+    return this.getMethod<Array<IUser>>(url);
   }
 
   getAllEvents() {
