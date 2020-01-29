@@ -17,17 +17,20 @@
         <br />
         <br />
         <div *ngIf="visibility === 'restricted' || visibility === 'private'">
-          <div style="margin-bottom: 8%; font-weight: bold;">Invitations</div>
-          <input
-            type="text"
-            class="form-control"
-            [(ngModel)]="invitedUserEmail"
-            placeholder="Invitee's email"
-            style="margin-bottom: 7%;"
-          />
-          <button type="button" class="btn btn-outline-light btn-sm" (click)="inviteUser()">
-            Invite user
-          </button>
+          <form>
+            <div style="margin-bottom: 8%; font-weight: bold;">Invitations</div>
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="invitedUserEmail"
+              name="invitedUserEmail"
+              placeholder="Invitee's email"
+              style="margin-bottom: 7%;"
+            />
+            <button type="submit" class="btn btn-outline-light btn-sm" (click)="inviteUser()">
+              Invite user
+            </button>
+          </form>
           <br />
           <br />
           <button

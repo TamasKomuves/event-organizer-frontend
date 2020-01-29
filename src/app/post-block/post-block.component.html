@@ -33,18 +33,21 @@
         </div>
       </div>
     </div>
-    <input
-      type="text"
-      class="form-control"
-      style="border: 1px gray solid;"
-      [(ngModel)]="commentText"
-      placeholder="Write a comment..."
-      style="margin-top: 3%;"
-    />
-    <div style="text-align: left; margin-top: 2%;">
-      <button type="button" class="btn btn-outline-light btn-sm" (click)="sendComment()">
-        Send comment
-      </button>
-    </div>
+    <form>
+      <input
+        type="text"
+        class="form-control"
+        style="border: 1px gray solid;"
+        [(ngModel)]="commentText"
+        name="commentText"
+        placeholder="Write a comment..."
+        style="margin-top: 3%;"
+      />
+      <div style="text-align: left; margin-top: 2%;">
+        <button type="submit" class="btn btn-outline-light btn-sm" (click)="sendComment()">
+          Send comment
+        </button>
+      </div>
+    </form>
   </div>
 </div>

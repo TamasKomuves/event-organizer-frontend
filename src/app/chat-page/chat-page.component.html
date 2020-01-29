@@ -16,13 +16,17 @@
         </div>
       </div>
       <div>
-        <input
-          class="message-input"
-          type="text"
-          [(ngModel)]="newMessageText"
-          placeholder="Write a message..."
-        />
-        <input type="button" value="Send" (click)="sendMessage()" />
+        <form>
+          <input
+            class="message-input"
+            type="text"
+            autofocus
+            name="newMessageText"
+            [(ngModel)]="newMessageText"
+            placeholder="Write a message..."
+          />
+          <button type="submit" (click)="sendMessage()">Send</button>
+        </form>
       </div>
     </div>
   </div>
