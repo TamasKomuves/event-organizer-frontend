@@ -3,6 +3,7 @@ import { UserService } from '../services/rest/user.service';
 import { MessageService } from '../services/message.service';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,8 @@ export class LoginComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     private messageService: MessageService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private translate: TranslateService
   ) {}
 
   ngOnInit() {}
@@ -37,8 +39,8 @@ export class LoginComponent implements OnInit {
         this.spinner.hide();
       },
       error => {
-        alert('Invalid data');
         console.log(error);
+        this.translate.get('login.invalid_data').subscribe(res => alert(res));
         this.isLoading = false;
         this.spinner.hide();
       }
