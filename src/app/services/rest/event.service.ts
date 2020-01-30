@@ -79,4 +79,9 @@ export class EventService extends BaseRestService {
     const url = 'events/delete/' + eventId;
     return this.deleteMethod(url);
   }
+
+  deleteParticipant(eventId: number, email: string) {
+    const url = 'events/' + eventId + '/participants/' + email + '/delete';
+    return this.deleteMethod(url);
+  }
 }

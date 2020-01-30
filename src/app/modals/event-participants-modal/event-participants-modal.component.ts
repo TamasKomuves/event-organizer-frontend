@@ -10,8 +10,10 @@ import { EventService } from 'src/app/services/rest/event.service';
 })
 export class EventParticipantsModalComponent implements AfterViewInit {
   @Input() eventId;
+  @Input() organizerEmail;
 
   participants: Array<IUser>;
+  isCurrentUserOrganizer = false;
 
   constructor(
     private ngxSmartModalService: NgxSmartModalService,
@@ -23,6 +25,7 @@ export class EventParticipantsModalComponent implements AfterViewInit {
     eventParticipantsModal.dismissable = false;
 
     eventParticipantsModal.onOpen.subscribe((modal: NgxSmartModalComponent) => {
+      this.isCurrentUserOrganizer = sessionStorage.getItem('userEmail') === this.organizerEmail;
       this.eventService.getEventParticipants(this.eventId).subscribe(participants => {
         this.participants = participants;
       });
@@ -30,6 +33,15 @@ export class EventParticipantsModalComponent implements AfterViewInit {
 
     eventParticipantsModal.onClose.subscribe((modal: NgxSmartModalComponent) => {
       this.participants = [];
+    });
+  }
+
+  removeParticipant(email: string): void {
+    this.eventService.deleteParticipant(this.eventId, email).subscribe(() => {
+      this.participants = [];
+      this.eventService.getEventParticipants(this.eventId).subscribe(participants => {
+        this.participants = participants;
+      });
     });
   }
 }

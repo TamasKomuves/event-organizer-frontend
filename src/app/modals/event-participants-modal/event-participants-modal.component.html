@@ -1,8 +1,16 @@
 <ngx-smart-modal #eventParticipantsModal identifier="eventParticipantsModal" style="color: black;">
   <h3 style="margin-bottom: 10%;">All participants</h3>
   <ul style="text-align: left">
-    <li *ngFor="let participant of participants">
+    <div *ngFor="let participant of participants">
+      <button
+        class="btn btn-outline-danger btn-sm"
+        (click)="removeParticipant(participant.email)"
+        [disabled]="participant.email === organizerEmail"
+        *ngIf="isCurrentUserOrganizer"
+      >
+        X
+      </button>
       {{ participant.firstName }} {{ participant.lastName }} ({{ participant.email }})
-    </li>
+    </div>
   </ul>
 </ngx-smart-modal>

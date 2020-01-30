@@ -111,12 +111,23 @@
         >
           Delete event
         </button>
+        <button
+          type="button"
+          class="btn btn-danger btn-sm"
+          *ngIf="!isOrganizer"
+          (click)="leaveEvent()"
+        >
+          Leave event
+        </button>
       </div>
     </div>
   </div>
 </div>
 <app-view-request-modal [eventId]="eventId"></app-view-request-modal>
 <app-invitation-offers-modal [eventId]="eventId"></app-invitation-offers-modal>
-<app-event-participants-modal [eventId]="eventId"></app-event-participants-modal>
+<app-event-participants-modal
+  [eventId]="eventId"
+  [organizerEmail]="organizerEmail"
+></app-event-participants-modal>
 <app-modify-event-info-modal [eventId]="eventId"></app-modify-event-info-modal>
 <app-poll-creator-modal [eventId]="eventId"></app-poll-creator-modal>

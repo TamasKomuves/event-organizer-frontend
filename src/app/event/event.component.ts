@@ -20,6 +20,7 @@ import { PostService } from '../services/rest/post.service';
 export class EventComponent implements OnInit, AfterViewInit {
   eventId: number;
   participants: Array<IUser>;
+  organizerEmail: string;
   name: string;
   type: string;
   date: Date;
@@ -69,6 +70,13 @@ export class EventComponent implements OnInit, AfterViewInit {
     pollCreatorModal.onClose.subscribe((modal: NgxSmartModalComponent) => {
       this.updateNewsFeed();
     });
+
+    const eventParticipantsModal = this.ngxSmartModalService.getModal('eventParticipantsModal');
+    eventParticipantsModal.onClose.subscribe(() => {
+      this.eventService.getEventParticipants(this.eventId).subscribe(participants => {
+        this.participants = participants;
+      });
+    });
   }
 
   loadEventInfo(): void {
@@ -78,6 +86,7 @@ export class EventComponent implements OnInit, AfterViewInit {
       this.date = event.eventDate;
       this.description = event.description;
       this.visibility = event.visibility;
+      this.organizerEmail = event.organizerEmail;
       this.userService.getCurrentUser().subscribe(user => {
         this.isOrganizer = event.organizerEmail === user.email;
       });
@@ -152,6 +161,15 @@ export class EventComponent implements OnInit, AfterViewInit {
   deleteEvent(): void {
     if (confirm('Are you sure you want to delete this event?\nThis action cannot be undone!')) {
       this.eventService.deleteEvent(this.eventId).subscribe(() => {
+        this.router.navigateByUrl('/show-events');
+      });
+    }
+  }
+
+  leaveEvent(): void {
+    if (confirm('Are you sure you want leave this event?\nThis action cannot be undone!')) {
+      const userEmail = sessionStorage.getItem('userEmail');
+      this.eventService.deleteParticipant(this.eventId, userEmail).subscribe(() => {
         this.router.navigateByUrl('/show-events');
       });
     }
