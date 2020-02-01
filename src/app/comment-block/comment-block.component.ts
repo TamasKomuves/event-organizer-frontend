@@ -14,7 +14,8 @@ export class CommentBlockComponent implements OnInit {
   commenterName: string;
   commentDate: string;
   numberOfLikes: number;
-  isCurrentUserLiked = true;
+  isCurrentUserLiked = false;
+  isLikeButtonLoaded = false;
 
   constructor(private userService: UserService, private commentService: CommentService) {}
 
@@ -40,18 +41,28 @@ export class CommentBlockComponent implements OnInit {
       });
     });
 
-    this.userService.getCurrentUser().subscribe(user => {
-      const email = user.email;
-      this.commentService.isLikedComment(this.commentId, email).subscribe(result => {
-        this.isCurrentUserLiked = result['result'] === 'true';
-      });
+    const email = sessionStorage.getItem('userEmail');
+    this.commentService.isLikedComment(this.commentId, email).subscribe(result => {
+      this.isCurrentUserLiked = result['result'] === 'true';
+      this.isLikeButtonLoaded = true;
     });
   }
 
   likeComment(): void {
-    this.isCurrentUserLiked = true;
+    this.isLikeButtonLoaded = false;
     this.commentService.addLiker(this.commentId).subscribe(result => {
       this.numberOfLikes++;
+      this.isLikeButtonLoaded = true;
+      this.isCurrentUserLiked = true;
+    });
+  }
+
+  removeLikeFromComment(): void {
+    this.isLikeButtonLoaded = false;
+    this.commentService.removeLikesComment(this.commentId).subscribe(result => {
+      this.numberOfLikes--;
+      this.isLikeButtonLoaded = true;
+      this.isCurrentUserLiked = false;
     });
   }
 }

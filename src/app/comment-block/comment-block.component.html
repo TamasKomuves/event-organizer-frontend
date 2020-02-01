@@ -11,7 +11,22 @@
   <span class="small font-weight-bold" style="text-align: right;">
     {{ numberOfLikes }} people liked this
   </span>
-  <button type="button" class="btn btn-info btn-sm" [disabled]="isCurrentUserLiked" (click)="likeComment()">
+  <button
+    type="button"
+    class="btn btn-info btn-sm"
+    [disabled]="!isLikeButtonLoaded"
+    (click)="likeComment()"
+    *ngIf="!isCurrentUserLiked"
+  >
     Like
+  </button>
+  <button
+    type="button"
+    class="btn btn-info btn-sm"
+    [disabled]="!isLikeButtonLoaded"
+    (click)="removeLikeFromComment()"
+    *ngIf="isCurrentUserLiked"
+  >
+    Remove like
   </button>
 </div>
