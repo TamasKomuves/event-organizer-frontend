@@ -58,9 +58,13 @@ export class EventBlockComponent implements OnInit {
           address.country;
       });
 
-      this.userService.getUserByEmail(event.organizerEmail).subscribe(user => {
-        this.organizerName = user.firstName + ' ' + user.lastName;
-      });
+      if (event.organizerEmail === null) {
+        this.organizerName = 'deleted profile';
+      } else {
+        this.userService.getUserByEmail(event.organizerEmail).subscribe(user => {
+          this.organizerName = user.firstName + ' ' + user.lastName;
+        });
+      }
 
       this.userService.getCurrentUser().subscribe(currentUser => {
         this.invitationService

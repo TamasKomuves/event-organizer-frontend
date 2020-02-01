@@ -25,9 +25,14 @@ export class CommentBlockComponent implements OnInit {
       this.text = comment.text;
       this.commentDate = comment.commentDate;
 
-      this.userService.getUserByEmail(comment.commenterEmail).subscribe(user => {
-        this.commenterName = user.firstName + ' ' + user.lastName;
-      });
+      if (comment.commenterEmail === null) {
+        this.commenterName = 'deleted profile';
+      } else {
+        this.userService.getUserByEmail(comment.commenterEmail).subscribe(user => {
+          this.commenterName = user.firstName + ' ' + user.lastName;
+        });
+      }
+
       this.commentService.getCommentLikes(this.commentId).subscribe(commentLikers => {
         let likers: any;
         likers = commentLikers;

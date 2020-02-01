@@ -42,9 +42,15 @@ export class PostBlockComponent implements OnInit {
     this.postService.getPostById(this.postId).subscribe(post => {
       this.text = post.text;
       this.date = post.date;
-      this.userService.getUserByEmail(post.posterEmail).subscribe(user => {
-        this.posterName = user.firstName + ' ' + user.lastName;
-      });
+
+      if (post.posterEmail === null) {
+        this.posterName = 'deleted profile';
+      } else {
+        this.userService.getUserByEmail(post.posterEmail).subscribe(user => {
+          this.posterName = user.firstName + ' ' + user.lastName;
+        });
+      }
+
       this.postService.getPostComments(this.postId).subscribe(comments => {
         this.comments = comments;
         this.isAnyComment = this.comments !== undefined && this.comments.length > 0;
