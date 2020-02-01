@@ -19,6 +19,8 @@ declare const $: any;
 export class ModifyEventInfoModalComponent implements AfterViewInit {
   @Input() eventId;
 
+  MAX_PARTICIPANT_ERROR_MESSAGE = 'The new max participant is not high enough!';
+
   event: IEvent;
   address: IAddress;
   visibilities = ['public', 'restricted', 'private'];
@@ -86,11 +88,19 @@ export class ModifyEventInfoModalComponent implements AfterViewInit {
         modifyEventInfoModal.close();
         alert('Event info updated');
         this.spinner.hide();
+        this.isLoaded = true;
       },
       error => {
         console.log(error);
-        alert('Modification failed!');
+        if (error.error.message === this.MAX_PARTICIPANT_ERROR_MESSAGE) {
+          alert(
+            'The max participants field has to be at least as much as the actual participants + invitees!'
+          );
+        } else {
+          alert('Modification failed!');
+        }
         this.spinner.hide();
+        this.isLoaded = true;
       }
     );
   }
