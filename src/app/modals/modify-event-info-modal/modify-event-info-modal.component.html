@@ -39,15 +39,18 @@
           />
         </div>
         <div class="col-sm-6">
-          <label for="totalCost">Total cost</label>
-          <input
-            type="text"
+          <label for="visibility">Visibility</label>
+          <select
             class="form-control"
-            [(ngModel)]="event.totalCost"
-            id="totalCost"
-            name="totalCost"
-            placeholder="Total cost"
-          />
+            [(ngModel)]="event.visibility"
+            name="visibility"
+            id="visibility"
+          >
+            <option [value]="" disabled>Visibility</option>
+            <option [value]="visibility" *ngFor="let visibility of visibilities">{{
+              visibility
+            }}</option>
+          </select>
         </div>
       </div>
       <div class="form-group row">
@@ -100,6 +103,20 @@
       </div>
       <div class="form-group row">
         <div class="col-sm-6">
+          <div class="md-form">
+            <label for="description">Description</label>
+            <textarea
+              type="text"
+              class="md-textarea form-control"
+              rows="3"
+              [(ngModel)]="event.description"
+              name="description"
+              id="description"
+              placeholder="Description"
+            ></textarea>
+          </div>
+        </div>
+        <div class="col-sm-6">
           <label for="eventDate">Event date</label>
           <div class="form-control">
             {{ event.eventDate | date: 'yyyy-MM-dd HH:mm:ss' }}
@@ -122,36 +139,6 @@
                 name="eventDate"
               ></dl-date-time-picker>
             </div>
-          </div>
-        </div>
-        <div class="col-sm-6">
-          <label for="visibility">Visibility</label>
-          <select
-            class="form-control"
-            [(ngModel)]="event.visibility"
-            name="visibility"
-            id="visibility"
-          >
-            <option [value]="" disabled>Visibility</option>
-            <option [value]="visibility" *ngFor="let visibility of visibilities">{{
-              visibility
-            }}</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-group row">
-        <div class="col-sm-6">
-          <div class="md-form">
-            <label for="description">Description</label>
-            <textarea
-              type="text"
-              class="md-textarea form-control"
-              rows="3"
-              [(ngModel)]="event.description"
-              name="description"
-              id="description"
-              placeholder="Description"
-            ></textarea>
           </div>
         </div>
       </div>

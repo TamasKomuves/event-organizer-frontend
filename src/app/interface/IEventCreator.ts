@@ -9,6 +9,5 @@ export interface IEventCreator {
   maxParticipant: number;
   visibility: string;
   eventDate: Date;
-  totalCost: number;
   address?: IAddress;
 }

@@ -8,5 +8,4 @@ export interface IEvent {
   maxParticipant: number;
   visibility: string;
   eventDate: Date;
-  totalCost: number;
 }

@@ -16,7 +16,6 @@ export class CreateEventComponent implements AfterViewInit {
   name: string;
   type: string;
   maxParticipants: any;
-  estimatedCost: any;
   country: string;
   city: string;
   street: string;
@@ -57,7 +56,6 @@ export class CreateEventComponent implements AfterViewInit {
       description: this.description,
       maxParticipant: this.maxParticipants,
       visibility: this.visibility,
-      totalCost: this.estimatedCost,
       eventDate: this.eventDate,
       eventType: this.type,
       address: address
@@ -88,8 +86,7 @@ export class CreateEventComponent implements AfterViewInit {
       this.isNonEmptyString(this.street) &&
       this.isNonEmptyString(this.streetNumber) &&
       this.isNonEmptyString(this.description) &&
-      this.isValidInteger(this.maxParticipants) &&
-      this.isValidInteger(this.estimatedCost)
+      this.isValidInteger(this.maxParticipants)
     );
   }
 
@@ -105,7 +102,6 @@ export class CreateEventComponent implements AfterViewInit {
     this.name = '';
     this.type = '';
     this.maxParticipants = null;
-    this.estimatedCost = null;
     this.country = '';
     this.city = '';
     this.street = '';

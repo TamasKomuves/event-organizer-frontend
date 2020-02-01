@@ -73,7 +73,6 @@ export class ModifyEventInfoModalComponent implements AfterViewInit {
       name: this.event.name,
       description: this.event.description,
       maxParticipant: this.event.maxParticipant,
-      totalCost: this.event.totalCost,
       eventDate: this.event.eventDate,
       visibility: this.event.visibility,
       eventType: this.event.eventType,
@@ -105,8 +104,7 @@ export class ModifyEventInfoModalComponent implements AfterViewInit {
       this.isNonEmptyString(this.address.street) &&
       this.isNonEmptyString(this.address.streetNumber) &&
       this.isNonEmptyString(this.event.description) &&
-      this.isValidInteger(this.event.maxParticipant) &&
-      this.isValidInteger(this.event.totalCost)
+      this.isValidInteger(this.event.maxParticipant)
     );
   }
 
@@ -122,7 +120,6 @@ export class ModifyEventInfoModalComponent implements AfterViewInit {
     this.event.name = '';
     this.event.eventType = '';
     this.event.maxParticipant = null;
-    this.event.totalCost = null;
     this.address.country = '';
     this.address.city = '';
     this.address.street = '';
