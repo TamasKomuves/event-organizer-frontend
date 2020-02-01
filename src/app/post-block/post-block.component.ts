@@ -16,15 +16,16 @@ export class PostBlockComponent implements OnInit {
   readonly hideCommentsConst = 'Hide comments';
 
   text: string;
-  numberOfLikes: number;
+  numberOfLikes = 0;
   posterName: string;
   date: string;
   comments: Array<IComment>;
-  isShowComments: boolean;
-  isAnyComment: boolean;
-  isCurrentUserLiked: boolean;
-  showCommentsText: string;
+  isShowComments = false;
+  isAnyComment = false;
+  isCurrentUserLiked = false;
+  showCommentsText = 'Show comments';
   commentText: string;
+  isLikeButtonLoaded = false;
 
   constructor(
     private userService: UserService,
@@ -33,12 +34,6 @@ export class PostBlockComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.showCommentsText = 'Show comments';
-    this.isShowComments = false;
-    this.isAnyComment = false;
-    this.numberOfLikes = 0;
-    this.isCurrentUserLiked = true;
-
     this.postService.getPostById(this.postId).subscribe(post => {
       this.text = post.text;
       this.date = post.date;
@@ -62,11 +57,10 @@ export class PostBlockComponent implements OnInit {
         this.numberOfLikes = likers.length;
       });
 
-      this.userService.getCurrentUser().subscribe(user => {
-        const email = user.email;
-        this.postService.isLikedPost(this.postId, email).subscribe(result => {
-          this.isCurrentUserLiked = result['result'] === 'true';
-        });
+      const email = sessionStorage.getItem('userEmail');
+      this.postService.isLikedPost(this.postId, email).subscribe(result => {
+        this.isCurrentUserLiked = result['result'] === 'true';
+        this.isLikeButtonLoaded = true;
       });
     });
   }
@@ -80,9 +74,20 @@ export class PostBlockComponent implements OnInit {
   }
 
   likePost(): void {
-    this.isCurrentUserLiked = true;
-    this.postService.createLikesPost(this.postId).subscribe(result => {
+    this.isLikeButtonLoaded = false;
+    this.postService.createLikesPost(this.postId).subscribe(() => {
       this.numberOfLikes++;
+      this.isCurrentUserLiked = true;
+      this.isLikeButtonLoaded = true;
+    });
+  }
+
+  removeLikeFromPost(): void {
+    this.isLikeButtonLoaded = false;
+    this.postService.removeLikesPost(this.postId).subscribe(() => {
+      this.numberOfLikes--;
+      this.isCurrentUserLiked = false;
+      this.isLikeButtonLoaded = true;
     });
   }
 

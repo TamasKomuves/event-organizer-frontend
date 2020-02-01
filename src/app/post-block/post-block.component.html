@@ -10,10 +10,20 @@
     <button
       type="button"
       class="btn btn-info btn-sm"
-      [disabled]="isCurrentUserLiked"
+      [disabled]="!isLikeButtonLoaded"
       (click)="likePost()"
+      *ngIf="!isCurrentUserLiked"
     >
       Like
+    </button>
+    <button
+      type="button"
+      class="btn btn-info btn-sm"
+      [disabled]="!isLikeButtonLoaded"
+      (click)="removeLikeFromPost()"
+      *ngIf="isCurrentUserLiked"
+    >
+      Remove like
     </button>
     <div style="text-align: left;">
       <button

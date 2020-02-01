@@ -41,4 +41,9 @@ export class PostService extends BaseRestService {
     const url = 'posts/' + postId + '/likers/' + email;
     return this.getMethod(url);
   }
+
+  removeLikesPost(postId: number) {
+    const url = 'posts/' + postId + '/remove-liker';
+    return this.deleteMethod(url);
+  }
 }
