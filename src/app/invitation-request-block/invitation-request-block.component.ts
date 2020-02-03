@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { UserService } from '../services/rest/user.service';
 import { InvitationService } from '../services/rest/invitation.service';
+import { WebsocketService } from '../services/websocket.service';
+import { IInvitation } from '../interface/IInvitation';
 
 @Component({
   selector: 'app-invitation-request-block',
@@ -13,7 +15,11 @@ export class InvitationRequestBlockComponent implements OnInit {
   nameAndEmail: string;
   isLoaded = false;
 
-  constructor(private userService: UserService, private invitationService: InvitationService) {}
+  constructor(
+    private userService: UserService,
+    private invitationService: InvitationService,
+    private websocketService: WebsocketService
+  ) {}
 
   ngOnInit() {
     this.invitationService.getInvitationById(this.invitationId).subscribe(invitation => {
@@ -26,11 +32,25 @@ export class InvitationRequestBlockComponent implements OnInit {
 
   declineRequest(): void {
     this.isLoaded = false;
-    this.invitationService.answerToInvitation(this.invitationId, 0).subscribe(result => {});
+    this.invitationService
+      .answerToInvitation(this.invitationId, 0)
+      .subscribe((savedInvitation: IInvitation) => {
+        this.websocketService.send(
+          '/socket-subscriber/send/invitation',
+          JSON.stringify(savedInvitation)
+        );
+      });
   }
 
   acceptRequest(): void {
     this.isLoaded = false;
-    this.invitationService.answerToInvitation(this.invitationId, 1).subscribe(result => {});
+    this.invitationService
+      .answerToInvitation(this.invitationId, 1)
+      .subscribe((savedInvitation: IInvitation) => {
+        this.websocketService.send(
+          '/socket-subscriber/send/invitation',
+          JSON.stringify(savedInvitation)
+        );
+      });
   }
 }

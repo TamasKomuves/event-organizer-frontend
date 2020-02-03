@@ -1,5 +1,4 @@
 import { Component, Input, AfterViewInit } from '@angular/core';
-import { UserService } from 'src/app/services/rest/user.service';
 import { NgxSmartModalComponent, NgxSmartModalService } from 'ngx-smart-modal';
 import { IInvitation } from 'src/app/interface/IInvitation';
 import { EventService } from 'src/app/services/rest/event.service';
