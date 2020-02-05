@@ -8,4 +8,6 @@ export interface IEvent {
   maxParticipant: number;
   visibility: string;
   eventDate: Date;
+  country?: string;
+  city?: string;
 }

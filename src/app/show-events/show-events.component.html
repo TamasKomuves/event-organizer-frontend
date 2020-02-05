@@ -3,13 +3,7 @@
   <div class="row">
     <div class="col-sm-3">
       <div class="left-panel border">
-        Search events by type <br />
-        <select class="custom-select" [(ngModel)]="selectedEventType" style="margin: 6% auto;">
-          <option selected>all</option>
-          <option [value]="eventType.type" *ngFor="let eventType of eventTypes">{{ eventType.type }}</option>
-        </select>
-        <br />
-        Events filter
+        Event filters
         <div style="margin-top: 5%;">
           <div class="custom-control custom-checkbox">
             <input
@@ -38,9 +32,76 @@
             />
             <label class="custom-control-label" for="customCheck3">Only own events</label>
           </div>
-          <button type="button" class="btn btn-outline-light" id="search-button" (click)="searchEvents()">
-            Search
-          </button>
+        </div>
+        Search events by:
+        <ul class="nav nav-tabs" style="margin-top: 2%;">
+          <li class="nav-item">
+            <a
+              class="nav-link btn-outline-light btn-sm active show"
+              data-toggle="tab"
+              href="#typePane"
+              >Type</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link btn-outline-light btn-sm" data-toggle="tab" href="#namePane">Name</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link btn-outline-light btn-sm" data-toggle="tab" href="#nearbyPane"
+              >Nearby</a
+            >
+          </li>
+        </ul>
+
+        <div class="tab-content">
+          <div id="typePane" class="tab-pane fade active show">
+            <div style="margin: 6% auto;">
+              <select class="custom-select" [(ngModel)]="selectedEventType">
+                <option selected>all</option>
+                <option [value]="eventType.type" *ngFor="let eventType of eventTypes">{{
+                  eventType.type
+                }}</option>
+              </select>
+            </div>
+            <button
+              type="button"
+              class="btn btn-outline-light"
+              id="search-button"
+              (click)="searchEventsByType()"
+            >
+              Search
+            </button>
+          </div>
+          <div id="namePane" class="tab-pane fade">
+            <div style="margin: 6% auto;">
+              <input
+                type="text"
+                name="eventNameInput"
+                id="eventNameInput"
+                placeholder="Event name"
+                [(ngModel)]="eventNameToSearch"
+              />
+            </div>
+            <button
+              type="button"
+              class="btn btn-outline-light"
+              id="search-button"
+              (click)="searchEventsByName()"
+            >
+              Search
+            </button>
+          </div>
+          <div id="nearbyPane" class="tab-pane fade">
+            <button
+              type="button"
+              class="btn btn-outline-light"
+              id="search-button"
+              (click)="searchEventsByAddress()"
+              style="margin: 6% auto;"
+            >
+              Search
+            </button>
+          </div>
         </div>
       </div>
     </div>

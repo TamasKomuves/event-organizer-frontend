@@ -1,6 +1,9 @@
-#search-button,
+#search-button {
+  margin-bottom: 5%;
+}
+
 .custom-checkbox {
-  margin-bottom: 15%;
+  margin-bottom: 10%;
 }
 
 .left-panel {
