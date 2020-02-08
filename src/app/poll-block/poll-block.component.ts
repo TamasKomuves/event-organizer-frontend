@@ -9,6 +9,7 @@ import { PollQuestionService } from '../services/rest/poll-question.service';
 })
 export class PollBlockComponent implements OnInit {
   @Input() pollId: number;
+  @Input() eventId: number;
 
   answerIds: Array<Number>;
   text: string;

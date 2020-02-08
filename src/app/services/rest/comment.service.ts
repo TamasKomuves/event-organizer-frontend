@@ -40,4 +40,9 @@ export class CommentService extends BaseRestService {
     const url = 'comments/' + commentId + '/remove-liker';
     return this.deleteMethod(url);
   }
+
+  deleteComment(commentId: number) {
+    const url = 'comments/' + commentId + '/delete';
+    return this.deleteMethod(url);
+  }
 }

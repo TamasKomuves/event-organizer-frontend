@@ -39,7 +39,7 @@
     <div *ngIf="isShowComments || !isAnyComment">
       <div style="margin-bottom: 4%;">
         <div *ngFor="let comment of comments">
-          <app-comment-block [commentId]="comment.id"></app-comment-block>
+          <app-comment-block [commentId]="comment.id" [eventId]="eventId"></app-comment-block>
         </div>
       </div>
     </div>

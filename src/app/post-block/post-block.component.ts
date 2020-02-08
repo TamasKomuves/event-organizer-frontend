@@ -3,6 +3,7 @@ import { UserService } from '../services/rest/user.service';
 import { IComment } from '../interface/IComment';
 import { CommentService } from '../services/rest/comment.service';
 import { PostService } from '../services/rest/post.service';
+import { MessageService } from '../services/message.service';
 
 @Component({
   selector: 'app-post-block',
@@ -11,6 +12,7 @@ import { PostService } from '../services/rest/post.service';
 })
 export class PostBlockComponent implements OnInit {
   @Input() postId: number;
+  @Input() eventId: number;
 
   readonly showCommentsConst = 'Show comments';
   readonly hideCommentsConst = 'Hide comments';
@@ -30,7 +32,8 @@ export class PostBlockComponent implements OnInit {
   constructor(
     private userService: UserService,
     private commentService: CommentService,
-    private postService: PostService
+    private postService: PostService,
+    private messageService: MessageService
   ) {}
 
   ngOnInit() {
@@ -62,6 +65,10 @@ export class PostBlockComponent implements OnInit {
         this.isCurrentUserLiked = result['result'] === 'true';
         this.isLikeButtonLoaded = true;
       });
+    });
+    this.messageService.getCommentDeletedMessage().subscribe(result => {
+      const deletedCommentId = result['commentId'];
+      this.comments = this.comments.filter((comment: IComment) => comment.id !== deletedCommentId);
     });
   }
 

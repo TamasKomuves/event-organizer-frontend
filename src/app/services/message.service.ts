@@ -6,6 +6,7 @@ import { Subject, Observable } from 'rxjs';
 })
 export class MessageService {
   private loggedInSubject = new Subject<any>();
+  private deletedCommentSubject = new Subject<any>();
 
   constructor() {}
 
@@ -15,5 +16,13 @@ export class MessageService {
 
   sendLoggedInMessage(isLoggedIn: boolean) {
     this.loggedInSubject.next({ isLoggedIn: isLoggedIn });
+  }
+
+  getCommentDeletedMessage(): Observable<any> {
+    return this.deletedCommentSubject.asObservable();
+  }
+
+  sendCommentDeletedMessage(commentId: number) {
+    this.deletedCommentSubject.next({ commentId: commentId });
   }
 }
