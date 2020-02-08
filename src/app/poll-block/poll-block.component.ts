@@ -51,7 +51,6 @@ export class PollBlockComponent implements OnInit {
       this.newAnswerText === undefined ||
       this.newAnswerText === ''
     ) {
-      alert("Answer can't be blank");
       return;
     }
     this.pollAnswerService.createPollAnswer(this.pollId, this.newAnswerText).subscribe(result => {

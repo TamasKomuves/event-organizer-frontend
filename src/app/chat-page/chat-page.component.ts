@@ -23,7 +23,7 @@ export class ChatPageComponent implements OnInit, AfterViewChecked, OnDestroy {
   @ViewChild('scrollbarDiv', { static: true }) private myScrollContainer: ElementRef;
   messages: Array<IChatMessage> = new Array();
   chatPartnerEmail: string;
-  newMessageText: string;
+  newMessageText = '';
   partnerName: string;
   userEmail: string;
 
@@ -92,7 +92,6 @@ export class ChatPageComponent implements OnInit, AfterViewChecked, OnDestroy {
       this.newMessageText === '' ||
       this.newMessageText === undefined
     ) {
-      alert('Empty message!');
       return;
     }
 

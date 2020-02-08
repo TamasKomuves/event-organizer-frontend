@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { IPasswordChange } from '../interface/IPasswordChange';
 import { MessageService } from '../services/message.service';
 import { AddressService } from '../services/rest/address.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-profile-settings',
@@ -26,7 +27,8 @@ export class ProfileSettingsComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     private messageService: MessageService,
-    private addressService: AddressService
+    private addressService: AddressService,
+    private translate: TranslateService
   ) {}
 
   ngOnInit() {
@@ -45,18 +47,19 @@ export class ProfileSettingsComponent implements OnInit {
 
   saveGeneral(): void {
     if (!this.isNonEmptyString(this.firstname) || !this.isNonEmptyString(this.lastname)) {
-      alert('Please fill in all fields!');
+      this.translate.get('popup.settings.fill_in_all_fields').subscribe(text => {
+        alert(text);
+      });
       return;
     }
 
-    this.userService.getCurrentUser().subscribe(currentUser => {
-      this.userService
-        .updateUserName(currentUser.email, this.firstname, this.lastname)
-        .subscribe(result => {
-          if (result['result'] === 'success') {
-            alert('Updated');
-          }
+    const userEmail = sessionStorage.getItem('userEmail');
+    this.userService.updateUserName(userEmail, this.firstname, this.lastname).subscribe(result => {
+      if (result['result'] === 'success') {
+        this.translate.get('popup.settings.general_updated').subscribe(text => {
+          alert(text);
         });
+      }
     });
   }
 
@@ -67,7 +70,9 @@ export class ProfileSettingsComponent implements OnInit {
       !this.isNonEmptyString(this.street) ||
       !this.isNonEmptyString(this.streetNumber)
     ) {
-      alert('Please fill in all fields!');
+      this.translate.get('popup.settings.fill_in_all_fields').subscribe(text => {
+        alert(text);
+      });
       return;
     }
 
@@ -82,7 +87,9 @@ export class ProfileSettingsComponent implements OnInit {
         )
         .subscribe(result => {
           if (result['result'] === 'success') {
-            alert('Updated');
+            this.translate.get('popup.settings.address_updated').subscribe(text => {
+              alert(text);
+            });
           }
         });
     });
@@ -94,11 +101,15 @@ export class ProfileSettingsComponent implements OnInit {
       !this.isNonEmptyString(this.newPassword) ||
       !this.isNonEmptyString(this.newPasswordAgain)
     ) {
-      alert('Empty field');
+      this.translate.get('popup.settings.fill_in_all_fields').subscribe(text => {
+        alert(text);
+      });
       return;
     }
     if (this.newPassword !== this.newPasswordAgain) {
-      alert('Passwords are mismatching');
+      this.translate.get('popup.settings.mismatching_passwords').subscribe(text => {
+        alert(text);
+      });
       return;
     }
 
@@ -109,30 +120,31 @@ export class ProfileSettingsComponent implements OnInit {
     };
     this.userService.changePassword(passwordChange).subscribe(
       result => {
-        alert('Password changed');
+        this.translate.get('popup.settings.password_updated').subscribe(text => {
+          alert(text);
+        });
         this.clearPasswordFields();
       },
       error => {
-        alert('Cannot change the password');
+        this.translate.get('popup.settings.password_change_error').subscribe(text => {
+          alert(text);
+        });
         this.clearPasswordFields();
       }
     );
   }
 
   deleteProfile(): void {
-    if (
-      confirm(
-        'Are you sure you want to delete your profile?\nThis cannot be undone!\n' +
-          'Your events will be deleted as well!'
-      )
-    ) {
-      this.userService.deleteUser().subscribe(result => {
-        sessionStorage.setItem('token', '');
-        sessionStorage.setItem('userEmail', '');
-        this.router.navigateByUrl(`/login`);
-        this.messageService.sendLoggedInMessage(false);
-      });
-    }
+    this.translate.get('popup.settings.confirm_profile_deletion').subscribe(text => {
+      if (confirm(text)) {
+        this.userService.deleteUser().subscribe(result => {
+          sessionStorage.setItem('token', '');
+          sessionStorage.setItem('userEmail', '');
+          this.router.navigateByUrl(`/login`);
+          this.messageService.sendLoggedInMessage(false);
+        });
+      }
+    });
   }
 
   isNonEmptyString(text: string): boolean {

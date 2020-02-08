@@ -2,6 +2,7 @@ import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import { NgxSmartModalService } from 'ngx-smart-modal';
 import { IPollAnswer } from 'src/app/interface/IPollAnswer';
 import { PollQuestionService } from 'src/app/services/rest/poll-question.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-poll-creator-modal',
@@ -16,7 +17,8 @@ export class PollCreatorModalComponent implements AfterViewInit {
 
   constructor(
     private ngxSmartModalService: NgxSmartModalService,
-    private pollQuestionService: PollQuestionService
+    private pollQuestionService: PollQuestionService,
+    private translate: TranslateService
   ) {
     this.initModal();
   }
@@ -48,7 +50,9 @@ export class PollCreatorModalComponent implements AfterViewInit {
         pollCreatorModal.close();
       },
       error => {
-        alert('Error occured during poll creation!');
+        this.translate.get('popup.poll_creator.creation_error').subscribe(text => {
+          alert(text);
+        });
         console.log(error);
       }
     );

@@ -6,6 +6,7 @@ import { IInvitation } from '../interface/IInvitation';
 import { AddressService } from '../services/rest/address.service';
 import { EventService } from '../services/rest/event.service';
 import { InvitationService } from '../services/rest/invitation.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-event-block',
@@ -35,7 +36,8 @@ export class EventBlockComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private addressService: AddressService,
     private eventService: EventService,
-    private invitationService: InvitationService
+    private invitationService: InvitationService,
+    private translate: TranslateService
   ) {}
 
   ngOnInit() {
@@ -59,7 +61,9 @@ export class EventBlockComponent implements OnInit {
       });
 
       if (event.organizerEmail === null) {
-        this.organizerName = 'deleted profile';
+        this.translate.get('deleted_profile').subscribe(text => {
+          this.organizerName = text;
+        });
       } else {
         this.userService.getUserByEmail(event.organizerEmail).subscribe(user => {
           this.organizerName = user.firstName + ' ' + user.lastName;
@@ -96,22 +100,25 @@ export class EventBlockComponent implements OnInit {
 
   joinEvent(): void {
     this.isParticipate = true;
-    this.userService.getCurrentUser().subscribe(currentUser => {
-      this.eventService.addUserToEvent(this.eventId, currentUser.email).subscribe(
-        data2 => {
-          if (data2['result'] === 'success') {
-            this.router.navigate(['/event'], { queryParams: { eventId: this.eventId } });
-          } else if (data2['result'] === 'no more place') {
-            alert('The event is full!');
-          } else if (data2['result'] === 'already added') {
-            alert('Already participate!');
-          }
-        },
-        error => {
-          console.log(error);
+    const userEmail = sessionStorage.getItem('userEmail');
+    this.eventService.addUserToEvent(this.eventId, userEmail).subscribe(
+      result => {
+        if (result['result'] === 'success') {
+          this.router.navigate(['/event'], { queryParams: { eventId: this.eventId } });
+        } else if (result['result'] === 'no more place') {
+          this.translate.get('popup.event_block.event_full').subscribe(text => {
+            alert(text);
+          });
+        } else if (result['result'] === 'already added') {
+          this.translate.get('popup.event_block.already_participate').subscribe(text => {
+            alert(text);
+          });
         }
-      );
-    });
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   requestInvitation(): void {
@@ -123,11 +130,15 @@ export class EventBlockComponent implements OnInit {
         isUserRequested: 1
       };
       this.invitationService.createInvitation(invitation).subscribe(
-        result => {
-          alert('Request sent');
+        () => {
+          this.translate.get('popup.event_block.request_sent').subscribe(text => {
+            alert(text);
+          });
         },
-        error => {
-          alert('Request sending failed');
+        () => {
+          this.translate.get('popup.event_block.request_sending_failed').subscribe(text => {
+            alert(text);
+          });
         }
       );
     });

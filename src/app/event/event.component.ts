@@ -12,6 +12,7 @@ import { EventService } from '../services/rest/event.service';
 import { InvitationService } from '../services/rest/invitation.service';
 import { PostService } from '../services/rest/post.service';
 import { MessageService } from '../services/message.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-event',
@@ -46,7 +47,8 @@ export class EventComponent implements OnInit, AfterViewInit {
     private eventService: EventService,
     private invitationService: InvitationService,
     private postService: PostService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private translate: TranslateService
   ) {}
 
   ngOnInit() {
@@ -112,7 +114,6 @@ export class EventComponent implements OnInit, AfterViewInit {
 
   sendPost(): void {
     if (this.newPostText === '' || this.newPostText === null || this.newPostText === undefined) {
-      alert('Empty post');
       return;
     }
 
@@ -139,7 +140,9 @@ export class EventComponent implements OnInit, AfterViewInit {
       this.invitedUserEmail === null ||
       this.invitedUserEmail === undefined
     ) {
-      alert('Please fill the email field!');
+      this.translate.get('popup.event.empty_email').subscribe(text => {
+        alert(text);
+      });
       return;
     }
 
@@ -155,31 +158,41 @@ export class EventComponent implements OnInit, AfterViewInit {
           '/socket-subscriber/send/invitation',
           JSON.stringify(savedInvitation)
         );
-        alert('Invitation sent');
+        this.translate.get('popup.event.invitation_sent').subscribe(text => {
+          alert(text);
+        });
         this.invitedUserEmail = '';
+        return;
       },
       error => {
         console.log(error);
-        alert('Cannot invite');
+        this.translate.get('popup.event.cannot_invite').subscribe(text => {
+          alert(text);
+        });
+        return;
       }
     );
   }
 
   deleteEvent(): void {
-    if (confirm('Are you sure you want to delete this event?\nThis action cannot be undone!')) {
-      this.eventService.deleteEvent(this.eventId).subscribe(() => {
-        this.router.navigateByUrl('/show-events');
-      });
-    }
+    this.translate.get('popup.event.confirm_delete_event').subscribe(text => {
+      if (confirm(text)) {
+        this.eventService.deleteEvent(this.eventId).subscribe(() => {
+          this.router.navigateByUrl('/show-events');
+        });
+      }
+    });
   }
 
   leaveEvent(): void {
-    if (confirm('Are you sure you want leave this event?\nThis action cannot be undone!')) {
-      const userEmail = sessionStorage.getItem('userEmail');
-      this.eventService.deleteParticipant(this.eventId, userEmail).subscribe(() => {
-        this.router.navigateByUrl('/show-events');
-      });
-    }
+    this.translate.get('popup.event.confirm_leave_event').subscribe(text => {
+      if (confirm(text)) {
+        const userEmail = sessionStorage.getItem('userEmail');
+        this.eventService.deleteParticipant(this.eventId, userEmail).subscribe(() => {
+          this.router.navigateByUrl('/show-events');
+        });
+      }
+    });
   }
 
   openViewRequestsModal(): void {

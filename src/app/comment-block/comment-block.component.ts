@@ -4,6 +4,7 @@ import { CommentService } from '../services/rest/comment.service';
 import { MessageService } from '../services/message.service';
 import { EventService } from '../services/rest/event.service';
 import { IEvent } from '../interface/IEvent';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-comment-block',
@@ -26,7 +27,8 @@ export class CommentBlockComponent implements OnInit {
     private userService: UserService,
     private commentService: CommentService,
     private messageService: MessageService,
-    private eventService: EventService
+    private eventService: EventService,
+    private translate: TranslateService
   ) {}
 
   ngOnInit() {
@@ -37,7 +39,9 @@ export class CommentBlockComponent implements OnInit {
       this.commentDate = comment.commentDate;
 
       if (comment.commenterEmail === null) {
-        this.commenterName = 'deleted profile';
+        this.translate.get('deleted_profile').subscribe(text => {
+          this.commenterName = text;
+        });
       } else {
         this.userService.getUserByEmail(comment.commenterEmail).subscribe(user => {
           this.commenterName = user.firstName + ' ' + user.lastName;

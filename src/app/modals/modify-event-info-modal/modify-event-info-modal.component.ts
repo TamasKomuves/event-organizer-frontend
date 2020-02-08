@@ -8,6 +8,7 @@ import { IEventCreator } from 'src/app/interface/IEventCreator';
 import { IEvent } from 'src/app/interface/IEvent';
 import { AddressService } from 'src/app/services/rest/address.service';
 import { EventService } from 'src/app/services/rest/event.service';
+import { TranslateService } from '@ngx-translate/core';
 
 declare const $: any;
 
@@ -33,7 +34,8 @@ export class ModifyEventInfoModalComponent implements AfterViewInit {
     private spinner: NgxSpinnerService,
     private elementRef: ElementRef,
     private addressService: AddressService,
-    private eventService: EventService
+    private eventService: EventService,
+    private translate: TranslateService
   ) {}
 
   ngAfterViewInit() {
@@ -65,7 +67,9 @@ export class ModifyEventInfoModalComponent implements AfterViewInit {
     this.isLoaded = false;
     this.spinner.show();
     if (!this.isAllInputValid()) {
-      alert('Please fill in all fields!');
+      this.translate.get('popup.modify_event.fill_in_all_fields').subscribe(text => {
+        alert(text);
+      });
       this.isLoaded = true;
       this.spinner.hide();
       return;
@@ -86,18 +90,22 @@ export class ModifyEventInfoModalComponent implements AfterViewInit {
         this.resetInputFields();
         const modifyEventInfoModal = this.ngxSmartModalService.getModal('modifyEventInfoModal');
         modifyEventInfoModal.close();
-        alert('Event info updated');
+        this.translate.get('popup.modify_event.updated').subscribe(text => {
+          alert(text);
+        });
         this.spinner.hide();
         this.isLoaded = true;
       },
       error => {
         console.log(error);
         if (error.error.message === this.MAX_PARTICIPANT_ERROR_MESSAGE) {
-          alert(
-            'The max participants field has to be at least as much as the actual participants + invitees!'
-          );
+          this.translate.get('popup.modify_event.too_low_max_participants').subscribe(text => {
+            alert(text);
+          });
         } else {
-          alert('Modification failed!');
+          this.translate.get('popup.modify_event.modification_failed').subscribe(text => {
+            alert(text);
+          });
         }
         this.spinner.hide();
         this.isLoaded = true;

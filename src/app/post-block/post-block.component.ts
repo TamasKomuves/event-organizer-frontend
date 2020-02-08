@@ -6,6 +6,7 @@ import { PostService } from '../services/rest/post.service';
 import { MessageService } from '../services/message.service';
 import { EventService } from '../services/rest/event.service';
 import { IEvent } from '../interface/IEvent';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-post-block',
@@ -37,7 +38,8 @@ export class PostBlockComponent implements OnInit {
     private commentService: CommentService,
     private postService: PostService,
     private messageService: MessageService,
-    private eventService: EventService
+    private eventService: EventService,
+    private translateService: TranslateService
   ) {}
 
   ngOnInit() {
@@ -46,7 +48,9 @@ export class PostBlockComponent implements OnInit {
       this.date = post.date;
 
       if (post.posterEmail === null) {
-        this.posterName = 'deleted profile';
+        this.translateService.get('deleted_profile').subscribe(text => {
+          this.posterName = text;
+        });
       } else {
         this.userService.getUserByEmail(post.posterEmail).subscribe(user => {
           this.posterName = user.firstName + ' ' + user.lastName;
@@ -109,7 +113,6 @@ export class PostBlockComponent implements OnInit {
 
   sendComment(): void {
     if (this.commentText === undefined || this.commentText === null || this.commentText === '') {
-      alert('Missing comment text');
       return;
     }
 

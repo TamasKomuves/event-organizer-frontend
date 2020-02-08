@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/rest/user.service';
 import { Router } from '@angular/router';
 import { IUserRegistration } from '../interface/IUserRegistration';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-registration',
@@ -19,13 +20,19 @@ export class RegistrationComponent implements OnInit {
   street: string;
   streetNumber: string;
 
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private translate: TranslateService
+  ) {}
 
   ngOnInit() {}
 
   register(): void {
     if (this.password !== this.passwordAgain) {
-      alert('The passwords are not matching');
+      this.translate.get('popup.registration.mismatching_passwords').subscribe(text => {
+        alert(text);
+      });
       return;
     }
 
@@ -39,7 +46,9 @@ export class RegistrationComponent implements OnInit {
       this.street === undefined ||
       this.streetNumber === undefined
     ) {
-      alert('Please fill in all the fields!');
+      this.translate.get('popup.registration.fill_in_all_fields').subscribe(text => {
+        alert(text);
+      });
       return;
     }
 
@@ -57,14 +66,20 @@ export class RegistrationComponent implements OnInit {
     this.userService.register(user).subscribe(
       data => {
         if (data['result'] === 'success') {
-          alert('success');
+          this.translate.get('popup.registration.success').subscribe(text => {
+            alert(text);
+          });
           this.router.navigateByUrl('/login');
-        } else if (data['result'] === 'exists') {
-          alert('This email is already registered');
         }
       },
       error => {
-        console.log(error);
+        if (error.error.message === 'exists') {
+          this.translate.get('popup.registration.already_registered').subscribe(text => {
+            alert(text);
+          });
+        } else {
+          console.log(error);
+        }
       }
     );
   }

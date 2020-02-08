@@ -4,23 +4,11 @@
     <div class="form-group row">
       <div class="col-sm-6">
         {{ 'event_properties.event_name' | translate }}
-        <input
-          type="text"
-          class="form-control"
-          [(ngModel)]="name"
-          name="name"
-          placeholder="{{ 'event_properties.event_name' | translate }}"
-        />
+        <input type="text" class="form-control" [(ngModel)]="name" name="name" />
       </div>
       <div class="col-sm-6">
         {{ 'event_properties.event_type' | translate }}
-        <input
-          type="text"
-          class="form-control"
-          [(ngModel)]="type"
-          name="type"
-          placeholder="{{ 'event_properties.event_type' | translate }}"
-        />
+        <input type="text" class="form-control" [(ngModel)]="type" name="type" />
       </div>
     </div>
     <div class="form-group row">
@@ -31,7 +19,6 @@
           class="form-control"
           [(ngModel)]="maxParticipants"
           name="maxParticipants"
-          placeholder="{{ 'event_properties.max_participants' | translate }}"
         />
       </div>
       <div class="col-sm-6">
@@ -53,19 +40,11 @@
           id="inputCountry"
           [(ngModel)]="country"
           name="country"
-          placeholder="{{ 'event_properties.country' | translate }}"
         />
       </div>
       <div class="col-sm-6">
         {{ 'event_properties.city' | translate }}
-        <input
-          type="text"
-          class="form-control"
-          id="inputCity"
-          [(ngModel)]="city"
-          name="city"
-          placeholder="{{ 'event_properties.city' | translate }}"
-        />
+        <input type="text" class="form-control" id="inputCity" [(ngModel)]="city" name="city" />
       </div>
     </div>
     <div class="form-group row">
@@ -77,7 +56,6 @@
           id="inputStreet"
           [(ngModel)]="street"
           name="street"
-          placeholder="{{ 'event_properties.street' | translate }}"
         />
       </div>
       <div class="col-sm-6">
@@ -88,7 +66,6 @@
           id="inputStreetNumber"
           [(ngModel)]="streetNumber"
           name="streetNumber"
-          placeholder="{{ 'event_properties.street_number' | translate }}"
         />
       </div>
     </div>
@@ -102,7 +79,6 @@
             rows="3"
             [(ngModel)]="description"
             name="description"
-            placeholder="{{ 'event_properties.description' | translate }}"
           ></textarea>
         </div>
       </div>

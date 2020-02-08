@@ -4,6 +4,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { IEventCreator } from '../interface/IEventCreator';
 import { IAddress } from '../interface/IAddress';
 import { EventService } from '../services/rest/event.service';
+import { TranslateService } from '@ngx-translate/core';
 
 declare const $: any;
 
@@ -30,14 +31,17 @@ export class CreateEventComponent implements AfterViewInit {
   constructor(
     private spinner: NgxSpinnerService,
     private elementRef: ElementRef,
-    private eventService: EventService
+    private eventService: EventService,
+    private translate: TranslateService
   ) {
     this.eventDate.setSeconds(0, 0);
   }
 
   createEvent(): void {
     if (!this.isAllInputValid()) {
-      alert('Please fill in all fields!');
+      this.translate.get('popup.create_event.empty_field').subscribe(text => {
+        alert(text);
+      });
       return;
     }
 
@@ -62,15 +66,18 @@ export class CreateEventComponent implements AfterViewInit {
     };
 
     this.eventService.createEvent(event).subscribe(
-      result => {
-        alert('Event created!');
+      () => {
+        this.translate.get('popup.create_event.event_created').subscribe(text => {
+          alert(text);
+        });
         this.resetInputFields();
         this.isCreateButtonClickable = true;
         this.spinner.hide();
       },
-      error => {
-        console.log(error);
-        alert('Event creation failed!');
+      () => {
+        this.translate.get('popup.create_event.creation_failed').subscribe(text => {
+          alert(text);
+        });
         this.isCreateButtonClickable = true;
         this.spinner.hide();
       }

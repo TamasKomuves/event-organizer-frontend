@@ -35,12 +35,11 @@ export class LoginComponent implements OnInit {
         this.router.navigateByUrl('/home');
         this.messageService.sendLoggedInMessage(true);
         this.isLoading = false;
-        console.log(sessionStorage.getItem('token'));
         this.spinner.hide();
       },
       error => {
         console.log(error);
-        this.translate.get('login.invalid_data').subscribe(res => alert(res));
+        this.translate.get('login.invalid_data').subscribe(text => alert(text));
         this.isLoading = false;
         this.spinner.hide();
       }
