@@ -32,4 +32,9 @@ export class PollQuestionService extends BaseRestService {
 
     return this.postMethod(url, body);
   }
+
+  deletePoll(pollId: number) {
+    const url = 'poll-questions/' + pollId + '/delete';
+    return this.deleteMethod(url);
+  }
 }

@@ -1,6 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { PollAnswerService } from '../services/rest/poll-answer.service';
 import { PollQuestionService } from '../services/rest/poll-question.service';
+import { MessageService } from '../services/message.service';
+import { EventService } from '../services/rest/event.service';
+import { IEvent } from '../interface/IEvent';
 
 @Component({
   selector: 'app-poll-block',
@@ -15,10 +18,13 @@ export class PollBlockComponent implements OnInit {
   text: string;
   date: string;
   newAnswerText: string;
+  shouldShowDeleteButton = false;
 
   constructor(
     private pollAnswerService: PollAnswerService,
-    private pollQuestionService: PollQuestionService
+    private pollQuestionService: PollQuestionService,
+    private messageService: MessageService,
+    private eventService: EventService
   ) {}
 
   ngOnInit() {
@@ -27,6 +33,10 @@ export class PollBlockComponent implements OnInit {
       this.date = pollQuestion.date;
     });
     this.updateAnswers();
+    this.eventService.getEventById(this.eventId).subscribe((event: IEvent) => {
+      const userEmail = sessionStorage.getItem('userEmail');
+      this.shouldShowDeleteButton = event.organizerEmail === userEmail;
+    });
   }
 
   updateAnswers(): void {
@@ -47,6 +57,12 @@ export class PollBlockComponent implements OnInit {
     this.pollAnswerService.createPollAnswer(this.pollId, this.newAnswerText).subscribe(result => {
       this.updateAnswers();
       this.newAnswerText = '';
+    });
+  }
+
+  deletePoll(): void {
+    this.pollQuestionService.deletePoll(this.pollId).subscribe(() => {
+      this.messageService.sendNewsDeletedMessage(this.pollId, 'POLL');
     });
   }
 }

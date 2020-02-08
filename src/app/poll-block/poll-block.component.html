@@ -15,11 +15,25 @@
   </div>
   <div class="row" style="margin-top: 1%;">
     <div class="col-7">
-      <input type="text" class="form-control" [(ngModel)]="newAnswerText" placeholder="Enter a new option" />
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="newAnswerText"
+        placeholder="Enter a new option"
+      />
     </div>
     <div class="col">
       <button type="button" class="btn-sm btn-outline-light" (click)="createNewAnswer()">
         Add new option
+      </button>
+      <button
+        type="button"
+        class="btn btn-danger btn-sm"
+        (click)="deletePoll()"
+        style="margin-left: 1%;"
+        *ngIf="shouldShowDeleteButton"
+      >
+        Delete
       </button>
     </div>
   </div>
