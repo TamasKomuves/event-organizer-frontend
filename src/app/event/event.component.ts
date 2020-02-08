@@ -11,6 +11,7 @@ import { AddressService } from '../services/rest/address.service';
 import { EventService } from '../services/rest/event.service';
 import { InvitationService } from '../services/rest/invitation.service';
 import { PostService } from '../services/rest/post.service';
+import { MessageService } from '../services/message.service';
 
 @Component({
   selector: 'app-event',
@@ -44,7 +45,8 @@ export class EventComponent implements OnInit, AfterViewInit {
     private addressService: AddressService,
     private eventService: EventService,
     private invitationService: InvitationService,
-    private postService: PostService
+    private postService: PostService,
+    private messageService: MessageService
   ) {}
 
   ngOnInit() {
@@ -58,6 +60,11 @@ export class EventComponent implements OnInit, AfterViewInit {
     });
 
     this.updateNewsFeed();
+    this.messageService.getNewsDeletedMessage().subscribe(result => {
+      this.newsList = this.newsList.filter(
+        (news: INews) => news.type !== result['type'] || news.id !== result['newsId']
+      );
+    });
   }
 
   ngAfterViewInit() {

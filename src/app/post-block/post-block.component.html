@@ -25,6 +25,15 @@
     >
       Remove like
     </button>
+    <button
+      type="button"
+      class="btn btn-danger btn-sm"
+      (click)="deletePost()"
+      style="margin-left: 1%;"
+      *ngIf="shouldShowDeleteButton"
+    >
+      Delete
+    </button>
     <div style="text-align: left;">
       <button
         type="button"

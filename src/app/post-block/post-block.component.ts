@@ -4,6 +4,8 @@ import { IComment } from '../interface/IComment';
 import { CommentService } from '../services/rest/comment.service';
 import { PostService } from '../services/rest/post.service';
 import { MessageService } from '../services/message.service';
+import { EventService } from '../services/rest/event.service';
+import { IEvent } from '../interface/IEvent';
 
 @Component({
   selector: 'app-post-block',
@@ -28,12 +30,14 @@ export class PostBlockComponent implements OnInit {
   showCommentsText = 'Show comments';
   commentText: string;
   isLikeButtonLoaded = false;
+  shouldShowDeleteButton = false;
 
   constructor(
     private userService: UserService,
     private commentService: CommentService,
     private postService: PostService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private eventService: EventService
   ) {}
 
   ngOnInit() {
@@ -64,6 +68,11 @@ export class PostBlockComponent implements OnInit {
       this.postService.isLikedPost(this.postId, email).subscribe(result => {
         this.isCurrentUserLiked = result['result'] === 'true';
         this.isLikeButtonLoaded = true;
+      });
+      this.eventService.getEventById(this.eventId).subscribe((event: IEvent) => {
+        const userEmail = sessionStorage.getItem('userEmail');
+        this.shouldShowDeleteButton =
+          event.organizerEmail === userEmail || post.posterEmail === userEmail;
       });
     });
     this.messageService.getCommentDeletedMessage().subscribe(result => {
@@ -122,5 +131,11 @@ export class PostBlockComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  deletePost(): void {
+    this.postService.deletePost(this.postId).subscribe(() => {
+      this.messageService.sendNewsDeletedMessage(this.postId, 'POST');
+    });
   }
 }
