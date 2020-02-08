@@ -8,19 +8,21 @@
     [fullScreen]="false"
     [name]="spinnerName"
   >
-    <p style="color: white">Loading...</p>
+    <p style="color: white">{{ 'loading' | translate }}...</p>
   </ngx-spinner>
   <div class="small font-weight-bold" style="text-align: right;">
     {{ dateToShow | date: 'yyyy-MM-dd HH:mm:ss' }}
   </div>
-  <div class="form-control-static">
-    {{ text }}
-  </div>
+  <div class="form-control-static">{{ text | translate }} {{ eventName }}!</div>
   <div id="result" class="large">
-    {{ result }}
+    {{ result | translate }}
   </div>
   <div *ngIf="isShowButtons">
-    <button type="button" class="btn btn-outline-success" (click)="acceptInvitation()">Accept</button>
-    <button type="button" class="btn btn-outline-danger" (click)="declineInvitation()">Decline</button>
+    <button type="button" class="btn btn-outline-success" (click)="acceptInvitation()">
+      {{ 'notifications.accept' | translate }}
+    </button>
+    <button type="button" class="btn btn-outline-danger" (click)="declineInvitation()">
+      {{ 'notifications.decline' | translate }}
+    </button>
   </div>
 </div>

@@ -23,9 +23,11 @@
             autofocus
             name="newMessageText"
             [(ngModel)]="newMessageText"
-            placeholder="Write a message..."
+            placeholder="{{ 'chat_messages.write_message' | translate }}"
           />
-          <button type="submit" (click)="sendMessage()">Send</button>
+          <button type="submit" (click)="sendMessage()">
+            {{ 'chat_messages.send' | translate }}
+          </button>
         </form>
       </div>
     </div>

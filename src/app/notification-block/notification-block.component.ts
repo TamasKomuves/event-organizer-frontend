@@ -59,9 +59,7 @@ export class NotificationBlockComponent implements OnInit {
   }
 
   initText(): string {
-    return !this.isUserRequested
-      ? 'You have been invited to ' + this.eventName + '!'
-      : 'Your request to join ' + this.eventName;
+    return !this.isUserRequested ? 'notifications.invitation_text' : 'notifications.request_text';
   }
 
   calculateResult(): string {
@@ -69,16 +67,16 @@ export class NotificationBlockComponent implements OnInit {
 
     if (this.decisionDate !== null) {
       if (this.isUserRequested === 1 && this.isAccepted === 1) {
-        result = 'has been accepted';
+        result = 'notifications.request_accepted';
       } else if (this.isUserRequested === 1) {
-        result = 'has been declined';
+        result = 'notifications.request_declined';
       } else if (this.isAccepted === 1) {
-        result = 'You accepted the invitation';
+        result = 'notifications.invitation_accepted';
       } else {
-        result = 'You declined the invitation';
+        result = 'notifications.invitation_declined';
       }
     } else if (this.isUserRequested === 1) {
-      result = 'has been sent';
+      result = 'notifications.request_no_answer_yet';
     }
     return result;
   }

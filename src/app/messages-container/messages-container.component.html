@@ -1,10 +1,10 @@
-<h1 class="page-title">Messages</h1>
+<h1 class="page-title">{{ 'chat_messages.title' | translate }}</h1>
 <div class="container messages-container">
   <div class="row" style="background-color: rgba(255, 255, 255, 0.7);">
     <input
       type="button"
       class="btn btn-dark btn-lg"
-      value="Find user"
+      value="{{ 'chat_messages.find_user' | translate }}"
       (click)="openFindUserToMessageModal()"
       style="margin: 1% 0 2% 1%;"
     />

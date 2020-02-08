@@ -1,40 +1,62 @@
-<h1 class="page-title">Profile settings</h1>
+<h1 class="page-title">{{ 'settings.title' | translate }}</h1>
 
 <div class="container">
   <ul class="nav nav-tabs" style="margin-bottom: 3%;">
     <li class="nav-item">
-      <a class="nav-link btn-outline-light active show" data-toggle="tab" href="#general">General</a>
+      <a class="nav-link btn-outline-light active show" data-toggle="tab" href="#general">{{
+        'settings.tab_name_general' | translate
+      }}</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link btn-outline-light" data-toggle="tab" href="#address">Address</a>
+      <a class="nav-link btn-outline-light" data-toggle="tab" href="#address">{{
+        'settings.tab_name_address' | translate
+      }}</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link btn-outline-light" data-toggle="tab" href="#password">Change password</a>
+      <a class="nav-link btn-outline-light" data-toggle="tab" href="#password">{{
+        'settings.tab_name_change_password' | translate
+      }}</a>
     </li>
-    <li class="nav-item"><a class="nav-link btn-outline-light" data-toggle="tab" href="#other">Other</a></li>
+    <li class="nav-item">
+      <a class="nav-link btn-outline-light" data-toggle="tab" href="#other">{{
+        'settings.tab_name_others' | translate
+      }}</a>
+    </li>
   </ul>
 
   <div class="tab-content">
     <div id="general" class="tab-pane fade active show">
-      <h3 class="page-title">General</h3>
+      <h3 class="page-title">{{ 'settings.general.title' | translate }}</h3>
       <div class="container">
         <form>
           <div class="form-group row">
             <div class="col-sm-12">
-              First name
-              <input type="text" class="form-control" [(ngModel)]="firstname" name="firstname" placeholder="First name" />
+              {{ 'settings.general.firstname' | translate }}
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="firstname"
+                name="firstname"
+                placeholder="{{ 'settings.general.firstname' | translate }}"
+              />
             </div>
           </div>
           <div class="form-group row">
             <div class="col-sm-12">
-              Last name
-              <input type="text" class="form-control" [(ngModel)]="lastname" name="lastname" placeholder="Last name" />
+              {{ 'settings.general.lastname' | translate }}
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="lastname"
+                name="lastname"
+                placeholder="{{ 'settings.general.lastname' | translate }}"
+              />
             </div>
           </div>
           <div class="form-group row">
             <div class="col-sm-12">
               <button type="submit" class="btn btn-outline-light btn" (click)="saveGeneral()">
-                Save changes
+                {{ 'settings.save_changes' | translate }}
               </button>
             </div>
           </div>
@@ -43,37 +65,61 @@
     </div>
 
     <div id="address" class="tab-pane fade">
-      <h3 class="page-title">Change address</h3>
+      <h3 class="page-title">{{ 'settings.address.title' | translate }}</h3>
       <div class="container">
         <form>
           <div class="form-group row">
             <div class="col-sm-12">
-              Country
-              <input type="text" class="form-control" [(ngModel)]="country" name="country" placeholder="Country" />
+              {{ 'settings.address.country' | translate }}
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="country"
+                name="country"
+                placeholder="{{ 'settings.address.country' | translate }}"
+              />
             </div>
           </div>
           <div class="form-group row">
             <div class="col-sm-12">
-              City
-              <input type="text" class="form-control" [(ngModel)]="city" name="city" placeholder="City" />
+              {{ 'settings.address.city' | translate }}
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="city"
+                name="city"
+                placeholder="{{ 'settings.address.city' | translate }}"
+              />
             </div>
           </div>
           <div class="form-group row">
             <div class="col-sm-12">
-              Street
-              <input type="text" class="form-control" [(ngModel)]="street" name="street" placeholder="Street" />
+              {{ 'settings.address.street' | translate }}
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="street"
+                name="street"
+                placeholder="{{ 'settings.address.street' | translate }}"
+              />
             </div>
           </div>
           <div class="form-group row">
             <div class="col-sm-12">
-              Street number
-              <input type="text" class="form-control" [(ngModel)]="streetNumber" name="streetNumber" placeholder="Street number" />
+              {{ 'settings.address.street_number' | translate }}
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="streetNumber"
+                name="streetNumber"
+                placeholder="{{ 'settings.address.street_number' | translate }}"
+              />
             </div>
           </div>
           <div class="form-group row">
             <div class="col-sm-12">
               <button type="submit" class="btn btn-outline-light btn" (click)="saveAddress()">
-                Save changes
+                {{ 'settings.save_changes' | translate }}
               </button>
             </div>
           </div>
@@ -82,32 +128,49 @@
     </div>
 
     <div id="password" class="tab-pane fade">
-      <h3 class="page-title">Change password</h3>
+      <h3 class="page-title">{{ 'settings.change_password.title' | translate }}</h3>
       <div class="container">
         <form>
           <div class="form-group row">
             <div class="col-sm-12">
-              Old password
-              <input type="password" class="form-control" [(ngModel)]="oldPassword" name="oldPassword" placeholder="Old password" />
+              {{ 'settings.change_password.old_password' | translate }}
+              <input
+                type="password"
+                class="form-control"
+                [(ngModel)]="oldPassword"
+                name="oldPassword"
+                placeholder="{{ 'settings.change_password.old_password' | translate }}"
+              />
             </div>
           </div>
           <div class="form-group row">
             <div class="col-sm-12">
-              New password
-              <input type="password" class="form-control" [(ngModel)]="newPassword" name="newPassword" placeholder="New password" />
+              {{ 'settings.change_password.new_password' | translate }}
+              <input
+                type="password"
+                class="form-control"
+                [(ngModel)]="newPassword"
+                name="newPassword"
+                placeholder="{{ 'settings.change_password.new_password' | translate }}"
+              />
             </div>
           </div>
           <div class="form-group row">
             <div class="col-sm-12">
-              New password again
-              <input type="password" class="form-control" [(ngModel)]="newPasswordAgain" name="newPasswordAgain"
-                placeholder="New password again" />
+              {{ 'settings.change_password.new_password_again' | translate }}
+              <input
+                type="password"
+                class="form-control"
+                [(ngModel)]="newPasswordAgain"
+                name="newPasswordAgain"
+                placeholder="{{ 'settings.change_password.new_password_again' | translate }}"
+              />
             </div>
           </div>
           <div class="form-group row">
             <div class="col-sm-12">
               <button type="submit" class="btn btn-outline-light btn" (click)="changePassword()">
-                Save changes
+                {{ 'settings.save_changes' | translate }}
               </button>
             </div>
           </div>
@@ -121,7 +184,7 @@
           <div class="form-group row">
             <div class="col-sm" style="text-align: center;">
               <button type="submit" class="btn btn-danger btn-lg" (click)="deleteProfile()">
-                Delete profile
+                {{ 'settings.others.delete_profile_button' | translate }}
               </button>
             </div>
           </div>

@@ -1,110 +1,110 @@
 <ngx-smart-modal #modifyEventInfoModal identifier="modifyEventInfoModal" style="color: black;">
-  <h3 style="margin-bottom: 10%;">Modify event info</h3>
+  <h3 style="margin-bottom: 10%;">{{ 'event_properties.modify_page_title' | translate }}</h3>
   <div class="container" *ngIf="event && address" style="text-align: left;">
     <form class="main-container">
       <div class="form-group row">
         <div class="col-sm-6">
-          <label for="name">Name</label>
+          <label for="name">{{ 'event_properties.event_name' | translate }}</label>
           <input
             type="text"
             class="form-control"
             [(ngModel)]="event.name"
             name="name"
             id="name"
-            placeholder="Event name"
+            placeholder="{{ 'event_properties.event_name' | translate }}"
           />
         </div>
         <div class="col-sm-6">
-          <label for="eventType">Event type</label>
+          <label for="eventType">{{ 'event_properties.event_type' | translate }}</label>
           <input
             type="text"
             class="form-control"
             [(ngModel)]="event.eventType"
             name="eventType"
             id="eventType"
-            placeholder="Event type"
+            placeholder="{{ 'event_properties.event_type' | translate }}"
           />
         </div>
       </div>
       <div class="form-group row">
         <div class="col-sm-6">
-          <label for="maxParticipant">Max participant</label>
+          <label for="maxParticipant">{{ 'event_properties.max_participants' | translate }}</label>
           <input
             type="text"
             class="form-control"
             [(ngModel)]="event.maxParticipant"
             id="maxParticipant"
             name="maxParticipant"
-            placeholder="Max participants"
+            placeholder="{{ 'event_properties.max_participants' | translate }}"
           />
         </div>
         <div class="col-sm-6">
-          <label for="visibility">Visibility</label>
+          <label for="visibility">{{ 'event_properties.visibility' | translate }}</label>
           <select
             class="form-control"
             [(ngModel)]="event.visibility"
             name="visibility"
             id="visibility"
           >
-            <option [value]="" disabled>Visibility</option>
-            <option [value]="visibility" *ngFor="let visibility of visibilities">{{
-              visibility
-            }}</option>
+            <option [value]="" disabled>{{ 'event_properties.visibility' | translate }}</option>
+            <option [value]="visibility" *ngFor="let visibility of visibilities">
+              {{ visibility | translate }}
+            </option>
           </select>
         </div>
       </div>
       <div class="form-group row">
         <div class="col-sm-6">
-          <label for="country">Country</label>
+          <label for="country">{{ 'event_properties.country' | translate }}</label>
           <input
             type="text"
             class="form-control"
             [(ngModel)]="address.country"
             id="country"
             name="country"
-            placeholder="Country"
+            placeholder="{{ 'event_properties.country' | translate }}"
           />
         </div>
         <div class="col-sm-6">
-          <label for="city">City</label>
+          <label for="city">{{ 'event_properties.city' | translate }}</label>
           <input
             type="text"
             class="form-control"
             [(ngModel)]="address.city"
             name="city"
             id="city"
-            placeholder="City"
+            placeholder="{{ 'event_properties.city' | translate }}"
           />
         </div>
       </div>
       <div class="form-group row">
         <div class="col-sm-6">
-          <label for="street">Street</label>
+          <label for="street">{{ 'event_properties.street' | translate }}</label>
           <input
             type="text"
             class="form-control"
             name="street"
             id="street"
             [(ngModel)]="address.street"
-            placeholder="Street"
+            placeholder="{{ 'event_properties.street' | translate }}"
           />
         </div>
         <div class="col-sm-6">
-          <label for="streetNumber">Street number</label>
+          <label for="streetNumber">{{ 'event_properties.street_number' | translate }}</label>
           <input
             type="text"
             class="form-control"
             [(ngModel)]="address.streetNumber"
             id="streetNumber"
             name="streetNumber"
-            placeholder="Street number"
+            placeholder="{{ 'event_properties.street_number' | translate }}"
           />
         </div>
       </div>
       <div class="form-group row">
         <div class="col-sm-6">
           <div class="md-form">
-            <label for="description">Description</label>
+            <label for="description">{{ 'event_properties.description' | translate }}</label>
             <textarea
               type="text"
               class="md-textarea form-control"
@@ -112,12 +112,12 @@
               [(ngModel)]="event.description"
               name="description"
               id="description"
-              placeholder="Description"
+              placeholder="{{ 'event_properties.description' | translate }}"
             ></textarea>
           </div>
         </div>
         <div class="col-sm-6">
-          <label for="eventDate">Event date</label>
+          <label for="eventDate">{{ 'event_properties.event_date' | translate }}</label>
           <div class="form-control">
             {{ event.eventDate | date: 'yyyy-MM-dd HH:mm:ss' }}
           </div>
@@ -150,7 +150,7 @@
             class="btn btn-outline-dark btn-lg"
             (click)="modifyEventInfo()"
           >
-            Modify
+            {{ 'event_properties.modify_button' | translate }}
           </button>
         </div>
       </div>
@@ -165,5 +165,5 @@
   type="ball-scale-multiple"
   [fullScreen]="false"
 >
-  <p style="color: white">Loading...</p>
+  <p style="color: white">{{ 'loading' | translate }}...</p>
 </ngx-spinner>

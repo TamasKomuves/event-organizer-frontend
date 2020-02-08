@@ -3,19 +3,19 @@
   identifier="pollCreatorModal"
   style="color: black; text-align: left;"
 >
-  <h3 style="margin-bottom: 10%;">Create new poll</h3>
+  <h3 style="margin-bottom: 10%;">{{ 'poll_creator_modal.title' | translate }}</h3>
   <div class="container">
     <form class="main-container">
       <div class="form-group row">
         <div class="col-sm">
-          <label for="question">Question text</label>
+          <label for="question">{{ 'poll_creator_modal.question_text' | translate }}</label>
           <input
             type="text"
             class="form-control"
             [(ngModel)]="questionText"
             name="question"
             id="question"
-            placeholder="Question text"
+            placeholder="{{ 'poll_creator_modal.question_text' | translate }}"
           />
         </div>
       </div>
@@ -27,25 +27,33 @@
               type="text"
               class="form-control"
               [(ngModel)]="answer.text"
-              placeholder="Answer text"
+              placeholder="{{ 'poll_creator_modal.answer_text' | translate }}"
             />
           </div>
         </div>
       </div>
       <div class="form-group row">
         <div class="col-sm">
-          <input type="button" value="Add answer" (click)="addAnswer()" />
+          <input
+            type="button"
+            value="{{ 'poll_creator_modal.add_answer' | translate }}"
+            (click)="addAnswer()"
+          />
           <input
             type="button"
             *ngIf="answers.length > 0"
-            value="Remove answer"
+            value="{{ 'poll_creator_modal.remove_answer' | translate }}"
             (click)="removeAnswer()"
           />
         </div>
       </div>
       <div class="form-group row" style="text-align: center;">
         <div class="col-sm">
-          <input type="button" value="Create poll" (click)="createPoll()" />
+          <input
+            type="button"
+            value="{{ 'poll_creator_modal.create_poll' | translate }}"
+            (click)="createPoll()"
+          />
         </div>
       </div>
     </form>

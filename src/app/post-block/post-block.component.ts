@@ -16,8 +16,8 @@ export class PostBlockComponent implements OnInit {
   @Input() postId: number;
   @Input() eventId: number;
 
-  readonly showCommentsConst = 'Show comments';
-  readonly hideCommentsConst = 'Hide comments';
+  readonly showCommentsConst = 'post.show_comments';
+  readonly hideCommentsConst = 'post.hide_comments';
 
   text: string;
   numberOfLikes = 0;
@@ -27,7 +27,7 @@ export class PostBlockComponent implements OnInit {
   isShowComments = false;
   isAnyComment = false;
   isCurrentUserLiked = false;
-  showCommentsText = 'Show comments';
+  showCommentsText = 'post.show_comments';
   commentText: string;
   isLikeButtonLoaded = false;
   shouldShowDeleteButton = false;

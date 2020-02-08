@@ -1,107 +1,113 @@
-<h1 class="page-title">Create event</h1>
+<h1 class="page-title">{{ 'event_properties.create_event_page_title' | translate }}</h1>
 <div class="container">
   <form class="main-container">
     <div class="form-group row">
       <div class="col-sm-6">
-        Name
+        {{ 'event_properties.event_name' | translate }}
         <input
           type="text"
           class="form-control"
           [(ngModel)]="name"
           name="name"
-          placeholder="Event name"
+          placeholder="{{ 'event_properties.event_name' | translate }}"
         />
       </div>
       <div class="col-sm-6">
-        Type
-        <input type="text" class="form-control" [(ngModel)]="type" name="type" placeholder="Type" />
+        {{ 'event_properties.event_type' | translate }}
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="type"
+          name="type"
+          placeholder="{{ 'event_properties.event_type' | translate }}"
+        />
       </div>
     </div>
     <div class="form-group row">
       <div class="col-sm-6">
-        Max participants
+        {{ 'event_properties.max_participants' | translate }}
         <input
           type="text"
           class="form-control"
           [(ngModel)]="maxParticipants"
           name="maxParticipants"
-          placeholder="Max participants"
+          placeholder="{{ 'event_properties.max_participants' | translate }}"
         />
       </div>
       <div class="col-sm-6">
-        Visibility
+        {{ 'event_properties.visibility' | translate }}
         <select class="form-control" [(ngModel)]="visibility" name="visibility">
           <option [value]="" disabled>Visibility</option>
           <option [value]="visibility" *ngFor="let visibility of visibilities">{{
-            visibility
+            visibility | translate
           }}</option>
         </select>
       </div>
     </div>
     <div class="form-group row">
       <div class="col-sm-6">
-        Country
+        {{ 'event_properties.country' | translate }}
         <input
           type="text"
           class="form-control"
           id="inputCountry"
           [(ngModel)]="country"
           name="country"
-          placeholder="Country"
+          placeholder="{{ 'event_properties.country' | translate }}"
         />
       </div>
       <div class="col-sm-6">
-        City
+        {{ 'event_properties.city' | translate }}
         <input
           type="text"
           class="form-control"
           id="inputCity"
           [(ngModel)]="city"
           name="city"
-          placeholder="City"
+          placeholder="{{ 'event_properties.city' | translate }}"
         />
       </div>
     </div>
     <div class="form-group row">
       <div class="col-sm-6">
-        Street
+        {{ 'event_properties.street' | translate }}
         <input
           type="text"
           class="form-control"
           id="inputStreet"
           [(ngModel)]="street"
           name="street"
-          placeholder="Street"
+          placeholder="{{ 'event_properties.street' | translate }}"
         />
       </div>
       <div class="col-sm-6">
-        Street number
+        {{ 'event_properties.street_number' | translate }}
         <input
           type="text"
           class="form-control"
           id="inputStreetNumber"
           [(ngModel)]="streetNumber"
           name="streetNumber"
-          placeholder="Street number"
+          placeholder="{{ 'event_properties.street_number' | translate }}"
         />
       </div>
     </div>
     <div class="form-group row">
       <div class="col-sm-6">
         <div class="md-form">
-          Description
+          {{ 'event_properties.description' | translate }}
           <textarea
             type="text"
             class="md-textarea form-control"
             rows="3"
             [(ngModel)]="description"
             name="description"
-            placeholder="Description"
+            placeholder="{{ 'event_properties.description' | translate }}"
           ></textarea>
         </div>
       </div>
       <div class="col-sm-6">
-        Event date <br />
+        {{ 'event_properties.event_date' | translate }} <br />
         <div class="form-control">
           {{ eventDate | date: 'yyyy-MM-dd HH:mm:ss' }}
         </div>
@@ -135,7 +141,7 @@
           [disabled]="!isCreateButtonClickable"
           (click)="createEvent()"
         >
-          Create
+          {{ 'event_properties.create_button' | translate }} <br />
         </button>
       </div>
       <div class="col-sm"></div>
@@ -148,5 +154,5 @@
   size="medium"
   color="#010101"
   type="ball-scale-multiple"
-  ><p style="color: white">Loading...</p></ngx-spinner
+  ><p style="color: white">{{ 'loading' | translate }}...</p></ngx-spinner
 >

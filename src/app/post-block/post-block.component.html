@@ -6,7 +6,9 @@
     {{ text }}
   </div>
   <div>
-    <span class="small font-weight-bold"> {{ numberOfLikes }} people liked this </span>
+    <span class="small font-weight-bold">
+      {{ numberOfLikes }} {{ 'post.people_liked_this' | translate }}
+    </span>
     <button
       type="button"
       class="btn btn-info btn-sm"
@@ -14,7 +16,7 @@
       (click)="likePost()"
       *ngIf="!isCurrentUserLiked"
     >
-      Like
+      {{ 'like' | translate }}
     </button>
     <button
       type="button"
@@ -23,7 +25,7 @@
       (click)="removeLikeFromPost()"
       *ngIf="isCurrentUserLiked"
     >
-      Remove like
+      {{ 'remove_like' | translate }}
     </button>
     <button
       type="button"
@@ -32,7 +34,7 @@
       style="margin-left: 1%;"
       *ngIf="shouldShowDeleteButton"
     >
-      Delete
+      {{ 'delete' | translate }}
     </button>
     <div style="text-align: left;">
       <button
@@ -42,7 +44,7 @@
         (click)="toggleCommentVisibility()"
         style="margin-right: 2%;"
       >
-        {{ showCommentsText }}
+        {{ showCommentsText | translate }}
       </button>
     </div>
     <div *ngIf="isShowComments || !isAnyComment">
@@ -59,12 +61,12 @@
         style="border: 1px gray solid;"
         [(ngModel)]="commentText"
         name="commentText"
-        placeholder="Write a comment..."
+        placeholder="{{ 'post.write_comment' | translate }}"
         style="margin-top: 3%;"
       />
       <div style="text-align: left; margin-top: 2%;">
         <button type="submit" class="btn btn-outline-light btn-sm" (click)="sendComment()">
-          Send comment
+          {{ 'post.send_comment' | translate }}
         </button>
       </div>
     </form>

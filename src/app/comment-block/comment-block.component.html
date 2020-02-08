@@ -9,7 +9,7 @@
     {{ text }}
   </div>
   <span class="small font-weight-bold" style="text-align: right;">
-    {{ numberOfLikes }} people liked this
+    {{ numberOfLikes }} {{ 'comment.people_liked_this' | translate }}
   </span>
   <button
     type="button"
@@ -18,7 +18,7 @@
     (click)="likeComment()"
     *ngIf="!isCurrentUserLiked"
   >
-    Like
+    {{ 'like' | translate }}
   </button>
   <button
     type="button"
@@ -27,7 +27,7 @@
     (click)="removeLikeFromComment()"
     *ngIf="isCurrentUserLiked"
   >
-    Remove like
+    {{ 'remove_like' | translate }}
   </button>
   <button
     type="button"
@@ -36,6 +36,6 @@
     style="margin-left: 1%;"
     *ngIf="shouldShowDeleteButton"
   >
-    Delete
+    {{ 'delete' | translate }}
   </button>
 </div>

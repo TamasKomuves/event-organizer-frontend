@@ -19,21 +19,21 @@
         type="text"
         class="form-control"
         [(ngModel)]="newAnswerText"
-        placeholder="Enter a new option"
+        placeholder="{{ 'poll_block.add_new_option' | translate }}"
       />
     </div>
     <div class="col">
       <button type="button" class="btn-sm btn-outline-light" (click)="createNewAnswer()">
-        Add new option
+        {{ 'poll_block.enter_new_option' | translate }}
       </button>
       <button
         type="button"
         class="btn btn-danger btn-sm"
         (click)="deletePoll()"
-        style="margin-left: 1%;"
+        style="margin-left: 5%;"
         *ngIf="shouldShowDeleteButton"
       >
-        Delete
+        {{ 'poll_block.delete' | translate }}
       </button>
     </div>
   </div>

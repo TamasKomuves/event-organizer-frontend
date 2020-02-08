@@ -2,7 +2,7 @@
   <div class="container">
     <input
       type="text"
-      placeholder="Enter the user's name"
+      placeholder="{{ 'chat_messages.enter_user_name' | translate }}"
       style="margin-bottom: 3%;"
       [(ngModel)]="searchedName"
       (keyup)="searchedNameChanged()"
