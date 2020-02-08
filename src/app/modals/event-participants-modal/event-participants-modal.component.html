@@ -1,5 +1,5 @@
 <ngx-smart-modal #eventParticipantsModal identifier="eventParticipantsModal" style="color: black;">
-  <h3 style="margin-bottom: 10%;">All participants</h3>
+  <h3 style="margin-bottom: 10%;">{{ 'event_participants_modal.title' | translate }}</h3>
   <ul style="text-align: left">
     <div *ngFor="let participant of participants">
       <button

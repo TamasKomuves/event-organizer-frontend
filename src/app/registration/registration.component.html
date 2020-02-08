@@ -1,7 +1,7 @@
 <div class="container">
   <form class="main-container shadow p-3 mb-5 rounded">
     <div class="form-group row">
-      <h1 class="w-100">Register</h1>
+      <h1 class="w-100">{{ 'registration.title' | translate }}</h1>
     </div>
     <div class="form-group row">
       <div class="col-sm-6">
@@ -11,7 +11,7 @@
           id="inputEmail"
           [(ngModel)]="email"
           name="email"
-          placeholder="Email"
+          placeholder="{{ 'registration.email' | translate }}"
         />
       </div>
       <div class="col-sm-6">
@@ -21,7 +21,7 @@
           id="inputFirstName"
           [(ngModel)]="firstname"
           name="firstname"
-          placeholder="Firstname"
+          placeholder="{{ 'registration.firstname' | translate }}"
         />
       </div>
     </div>
@@ -33,7 +33,7 @@
           id="inputPassword"
           [(ngModel)]="password"
           name="password"
-          placeholder="Password"
+          placeholder="{{ 'registration.password' | translate }}"
         />
       </div>
       <div class="col-sm-6">
@@ -43,7 +43,7 @@
           id="inputLastName"
           [(ngModel)]="lastname"
           name="lastname"
-          placeholder="Lastname"
+          placeholder="{{ 'registration.lastname' | translate }}"
         />
       </div>
     </div>
@@ -55,7 +55,7 @@
           id="inputPassword2"
           [(ngModel)]="passwordAgain"
           name="passwordAgain"
-          placeholder="Password again"
+          placeholder="{{ 'registration.password_again' | translate }}"
         />
       </div>
       <div class="col-sm-6">
@@ -65,7 +65,7 @@
           id="inputCountry"
           [(ngModel)]="country"
           name="country"
-          placeholder="Country"
+          placeholder="{{ 'registration.country' | translate }}"
         />
       </div>
     </div>
@@ -77,7 +77,7 @@
           id="inputStrett"
           [(ngModel)]="street"
           name="street"
-          placeholder="Street"
+          placeholder="{{ 'registration.street' | translate }}"
         />
       </div>
       <div class="col-sm-6">
@@ -87,7 +87,7 @@
           id="inputCity"
           [(ngModel)]="city"
           name="city"
-          placeholder="City"
+          placeholder="{{ 'registration.city' | translate }}"
         />
       </div>
     </div>
@@ -99,15 +99,17 @@
           id="inputStreetNumber"
           [(ngModel)]="streetNumber"
           name="streetNumber"
-          placeholder="Street number"
+          placeholder="{{ 'registration.street_number' | translate }}"
         />
       </div>
     </div>
     <div class="form-group row">
       <div class="col-sm-12">
-        <button type="submit" class="btn btn-outline-light btn-lg" (click)="register()">Sign up</button>
+        <button type="submit" class="btn btn-outline-light btn-lg" (click)="register()">
+          {{ 'registration.sign_up' | translate }}
+        </button>
       </div>
     </div>
-    <a href="login">Back to login</a>
+    <a href="login">{{ 'registration.back_to_login' | translate }}</a>
   </form>
 </div>

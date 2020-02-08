@@ -1,5 +1,5 @@
 <ngx-smart-modal #invitationRequestModal identifier="invitationRequestModal" style="color: black;">
-  <h3 style="margin-bottom: 10%;">Join requests</h3>
+  <h3 style="margin-bottom: 10%;">{{ 'request_modal.title' | translate }}</h3>
   <div *ngFor="let invitation of invitations">
     <app-invitation-request-block
       [invitationId]="invitation.id"

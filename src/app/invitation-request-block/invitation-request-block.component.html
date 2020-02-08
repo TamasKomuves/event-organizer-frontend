@@ -4,8 +4,13 @@
     type="button"
     class="btn btn-outline-success btn-sm"
     style="margin: 0 2%;"
-    value="Accept"
+    value="{{ 'request_modal_block.accept' | translate }}"
     (click)="acceptRequest()"
   />
-  <input type="button" class="btn btn-outline-danger btn-sm" value="Decline" (click)="declineRequest()" />
+  <input
+    type="button"
+    class="btn btn-outline-danger btn-sm"
+    value="{{ 'request_modal_block.decline' | translate }}"
+    (click)="declineRequest()"
+  />
 </div>

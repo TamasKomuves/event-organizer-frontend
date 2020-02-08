@@ -25,8 +25,8 @@ export class EventBlockComponent implements OnInit {
   isPublic: boolean;
   spinnerName: string;
   isParticipate = false;
-  isHasMorePlace = false;
-  isHasRequest = true;
+  hasMorePlace = false;
+  hasRequest = true;
   isParticipateLoaded = false;
 
   constructor(
@@ -70,7 +70,7 @@ export class EventBlockComponent implements OnInit {
         this.invitationService
           .isUserHasRequest(this.eventId, currentUser.email)
           .subscribe(result => {
-            this.isHasRequest = result['result'] === 'true';
+            this.hasRequest = result['result'] === 'true';
           });
 
         this.eventService
@@ -86,7 +86,7 @@ export class EventBlockComponent implements OnInit {
     });
 
     this.eventService.isEventHasMorePlace(this.eventId).subscribe(result => {
-      this.isHasMorePlace = result['result'] === 'true';
+      this.hasMorePlace = result['result'] === 'true';
     });
 
     this.eventService.getEventParticipants(this.eventId).subscribe(participants => {
@@ -115,7 +115,7 @@ export class EventBlockComponent implements OnInit {
   }
 
   requestInvitation(): void {
-    this.isHasRequest = true;
+    this.hasRequest = true;
     this.userService.getCurrentUser().subscribe(user => {
       const invitation: IInvitation = {
         eventId: this.eventId,

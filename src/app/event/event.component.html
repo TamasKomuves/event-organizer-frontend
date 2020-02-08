@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col-sm-3">
       <div class="participant-div shadow p-3 mb-5 rounded border">
-        <span style="font-weight: bold;">Participants</span>
+        <span style="font-weight: bold;">{{ 'event_page.participants' | translate }}</span>
         <ul *ngFor="let participant of participants | slice: 0:5" style="margin-top: 3%;">
           <li>{{ participant.firstName }} {{ participant.lastName }}</li>
         </ul>
@@ -12,23 +12,25 @@
           class="btn btn-outline-light btn-sm"
           (click)="openEventParticipantsModal()"
         >
-          Show all participants
+          {{ 'event_page.show_all_participants' | translate }}
         </button>
         <br />
         <br />
         <div *ngIf="visibility === 'restricted' || visibility === 'private'">
           <form>
-            <div style="margin-bottom: 8%; font-weight: bold;">Invitations</div>
+            <div style="margin-bottom: 8%; font-weight: bold;">
+              {{ 'event_page.invitations' | translate }}
+            </div>
             <input
               type="text"
               class="form-control"
               [(ngModel)]="invitedUserEmail"
               name="invitedUserEmail"
-              placeholder="Invitee's email"
+              placeholder="{{ 'event_page.invitee_email' | translate }}"
               style="margin-bottom: 7%;"
             />
             <button type="submit" class="btn btn-outline-light btn-sm" (click)="inviteUser()">
-              Invite user
+              {{ 'event_page.invite_user' | translate }}
             </button>
           </form>
           <br />
@@ -38,7 +40,7 @@
             class="btn btn-outline-light btn-sm"
             (click)="openInvitationOffersModal()"
           >
-            Show invitees
+            {{ 'event_page.show_invitees' | translate }}
           </button>
           <br />
           <br />
@@ -48,7 +50,7 @@
             *ngIf="visibility === 'restricted'"
             (click)="openViewRequestsModal()"
           >
-            View requests
+            {{ 'event_page.view_requests' | translate }}
           </button>
         </div>
       </div>
@@ -62,14 +64,14 @@
             [(ngModel)]="newPostText"
             class="md-textarea form-control"
             rows="3"
-            placeholder="Write a post..."
+            placeholder="{{ 'event_page.write_a_post' | translate }}"
           ></textarea>
         </div>
         <button type="button" class="btn btn-outline-light btn-sm" (click)="sendPost()">
-          Send
+          {{ 'event_page.send' | translate }}
         </button>
         <button type="button" class="btn btn-outline-light btn-sm" (click)="openPollCreatorModal()">
-          Create a poll
+          {{ 'event_page.create_a_poll' | translate }}
         </button>
       </div>
       <div *ngFor="let news of newsList | slice: 0:numberOfNewsToShow">
@@ -90,26 +92,39 @@
           type="button"
           class="btn btn-outline-light btn-block"
           (click)="showMoreNews()"
-          value="Load more..."
+          value="{{ 'event_page.load_more' | translate }}"
         />
       </div>
     </div>
 
     <div class="col-sm-3">
       <div class="info-div shadow p-3 mb-5 rounded border">
-        <p class=""><span>Event info</span></p>
-        <p><span>Name:</span> {{ name }}</p>
-        <p><span>Type:</span> {{ type }}</p>
-        <p><span>Date:</span> {{ date | date: 'yyyy-MM-dd HH:mm' }}</p>
-        <p><span>Address:</span> {{ address }}</p>
-        <p><span>Description:</span> {{ description }}</p>
+        <p>
+          <span>{{ 'event_page.event_info.title' | translate }}</span>
+        </p>
+        <p>
+          <span>{{ 'event_page.event_info.name' | translate }}</span> {{ name }}
+        </p>
+        <p>
+          <span>{{ 'event_page.event_info.type' | translate }}</span> {{ type }}
+        </p>
+        <p>
+          <span>{{ 'event_page.event_info.date' | translate }}</span>
+          {{ date | date: 'yyyy-MM-dd HH:mm' }}
+        </p>
+        <p>
+          <span>{{ 'event_page.event_info.address' | translate }}</span> {{ address }}
+        </p>
+        <p>
+          <span>{{ 'event_page.event_info.description' | translate }}</span> {{ description }}
+        </p>
         <button
           type="button"
           class="btn btn-outline-light btn-sm"
           *ngIf="isOrganizer"
           (click)="openModifyEventInfoModal()"
         >
-          Modify
+          {{ 'event_page.modify' | translate }}
         </button>
         <button
           type="button"
@@ -117,7 +132,7 @@
           *ngIf="isOrganizer"
           (click)="deleteEvent()"
         >
-          Delete event
+          {{ 'event_page.delete_event' | translate }}
         </button>
         <button
           type="button"
@@ -125,7 +140,7 @@
           *ngIf="!isOrganizer"
           (click)="leaveEvent()"
         >
-          Leave event
+          {{ 'event_page.leave_event' | translate }}
         </button>
       </div>
     </div>

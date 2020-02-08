@@ -1,9 +1,9 @@
-<h1 class="page-title">Events</h1>
+<h1 class="page-title">{{ 'events.title' | translate }}</h1>
 <div class="container" style="text-align: left; margin-left: 5%;">
   <div class="row">
     <div class="col-sm-3">
       <div class="left-panel border">
-        Event filters
+        {{ 'events.event_filters' | translate }}
         <div style="margin-top: 5%;">
           <div class="custom-control custom-checkbox">
             <input
@@ -12,7 +12,9 @@
               [(ngModel)]="isShowOnlyEventsWhereParticipate"
               id="customCheck1"
             />
-            <label class="custom-control-label" for="customCheck1">Only where participate</label>
+            <label class="custom-control-label" for="customCheck1">{{
+              'events.only_where_participate' | translate
+            }}</label>
           </div>
           <div class="custom-control custom-checkbox">
             <input
@@ -21,7 +23,9 @@
               [(ngModel)]="isShowOnlyPublicEvents"
               id="customCheck2"
             />
-            <label class="custom-control-label" for="customCheck2">Only public events</label>
+            <label class="custom-control-label" for="customCheck2">{{
+              'events.only_public_events' | translate
+            }}</label>
           </div>
           <div class="custom-control custom-checkbox">
             <input
@@ -30,26 +34,30 @@
               [(ngModel)]="isShowOnlyOwnEvents"
               id="customCheck3"
             />
-            <label class="custom-control-label" for="customCheck3">Only own events</label>
+            <label class="custom-control-label" for="customCheck3">{{
+              'events.only_own_events' | translate
+            }}</label>
           </div>
         </div>
-        Search events by:
+        {{ 'events.search_events_by' | translate }}
         <ul class="nav nav-tabs" style="margin-top: 2%;">
           <li class="nav-item">
             <a
               class="nav-link btn-outline-light btn-sm active show"
               data-toggle="tab"
               href="#typePane"
-              >Type</a
+              >{{ 'events.search_events_by_type' | translate }}</a
             >
           </li>
           <li class="nav-item">
-            <a class="nav-link btn-outline-light btn-sm" data-toggle="tab" href="#namePane">Name</a>
+            <a class="nav-link btn-outline-light btn-sm" data-toggle="tab" href="#namePane">{{
+              'events.search_events_by_name' | translate
+            }}</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link btn-outline-light btn-sm" data-toggle="tab" href="#nearbyPane"
-              >Nearby</a
-            >
+            <a class="nav-link btn-outline-light btn-sm" data-toggle="tab" href="#nearbyPane">{{
+              'events.search_events_by_nearby' | translate
+            }}</a>
           </li>
         </ul>
 
@@ -57,7 +65,7 @@
           <div id="typePane" class="tab-pane fade active show">
             <div style="margin: 6% auto;">
               <select class="custom-select" [(ngModel)]="selectedEventType">
-                <option selected>all</option>
+                <option selected value="all">{{ 'events.all' | translate }}</option>
                 <option [value]="eventType.type" *ngFor="let eventType of eventTypes">{{
                   eventType.type
                 }}</option>
@@ -69,7 +77,7 @@
               id="search-button"
               (click)="searchEventsByType()"
             >
-              Search
+              {{ 'events.search' | translate }}
             </button>
           </div>
           <div id="namePane" class="tab-pane fade">
@@ -78,7 +86,7 @@
                 type="text"
                 name="eventNameInput"
                 id="eventNameInput"
-                placeholder="Event name"
+                placeholder="{{ 'events.event_name' | translate }}"
                 [(ngModel)]="eventNameToSearch"
               />
             </div>
@@ -88,7 +96,7 @@
               id="search-button"
               (click)="searchEventsByName()"
             >
-              Search
+              {{ 'events.search' | translate }}
             </button>
           </div>
           <div id="nearbyPane" class="tab-pane fade">
@@ -99,7 +107,7 @@
               (click)="searchEventsByAddress()"
               style="margin: 6% auto;"
             >
-              Search
+              {{ 'events.search' | translate }}
             </button>
           </div>
         </div>
@@ -114,7 +122,7 @@
           *ngIf="eventsToShowLength > numberOfEventsToShow"
           type="button"
           class="btn btn-outline-light btn-block"
-          value="Show more..."
+          value="{{ 'events.show_more' | translate }}"
           (click)="showMoreEvents()"
         />
       </div>

@@ -1,5 +1,5 @@
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark" *ngIf="isLoggedIn">
-  <a class="navbar-brand text-light">Event organizer</a>
+  <a class="navbar-brand text-light">{{ 'navbar.app_title' | translate }}</a>
   <button
     class="navbar-toggler"
     type="button"
@@ -15,14 +15,18 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav w-100">
       <li class="nav-item">
-        <button class="btn btn-link nav-link" type="button" (click)="showHome()">Home</button>
+        <button class="btn btn-link nav-link" type="button" (click)="showHome()">
+          {{ 'navbar.home' | translate }}
+        </button>
       </li>
       <li class="nav-item">
-        <button class="btn btn-link nav-link" type="button" (click)="showEvents()">Events</button>
+        <button class="btn btn-link nav-link" type="button" (click)="showEvents()">
+          {{ 'navbar.events' | translate }}
+        </button>
       </li>
       <li class="nav-item">
         <button class="btn btn-link nav-link" type="button" (click)="showMessagesContainer()">
-          Messages
+          {{ 'navbar.messages' | translate }}
           <span
             class="badge badge-pill badge-light"
             *ngIf="messageCounter !== 0"
@@ -34,12 +38,12 @@
       </li>
       <li class="nav-item">
         <button class="btn btn-link nav-link" type="button" (click)="showCreateEvent()">
-          Create event
+          {{ 'navbar.create_event' | translate }}
         </button>
       </li>
       <li class="nav-item">
         <button class="btn btn-link nav-link" type="button" (click)="showNotifications()">
-          Notifications
+          {{ 'navbar.notifications' | translate }}
           <span
             class="badge badge-pill badge-light"
             *ngIf="notificationCounter !== 0"
@@ -51,12 +55,12 @@
       </li>
       <li class="nav-item">
         <button class="btn btn-link nav-link" type="button" (click)="showSettings()">
-          Settings
+          {{ 'navbar.settings' | translate }}
         </button>
       </li>
       <li class="nav-item">
         <button class="btn btn-link nav-link" type="button" (click)="logout()">
-          Logout
+          {{ 'navbar.logout' | translate }}
         </button>
       </li>
     </ul>

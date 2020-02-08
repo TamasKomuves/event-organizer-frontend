@@ -1,5 +1,5 @@
 <ngx-smart-modal #invitationOffersModal identifier="invitationOffersModal" style="color: black;">
-  <h3 style="margin-bottom: 10%;">Invited users</h3>
+  <h3 style="margin-bottom: 10%;">{{ 'invitation_offers_modal.title' | translate }}</h3>
   <div *ngFor="let invitation of invitations">
     <app-invitation-offer-block
       [invitationId]="invitation.id"

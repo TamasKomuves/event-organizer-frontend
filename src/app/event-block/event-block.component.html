@@ -8,22 +8,37 @@
     [fullScreen]="false"
     [name]="spinnerName"
   >
-    <p style="color: white">Loading...</p>
+    <p style="color: white">{{ 'loading' | translate }}...</p>
   </ngx-spinner>
   <div class="row">
-    <div class="col-sm"><strong>Event name:</strong> {{ name }}</div>
-    <div class="col-sm"><strong>Date:</strong> {{ date | date: 'yyyy-MM-dd HH:mm' }}</div>
+    <div class="col-sm">
+      <strong>{{ 'event_block.event_name' | translate }}:</strong> {{ name }}
+    </div>
+    <div class="col-sm">
+      <strong>{{ 'event_block.date' | translate }}:</strong> {{ date | date: 'yyyy-MM-dd HH:mm' }}
+    </div>
   </div>
   <div class="row">
-    <div class="col-sm"><strong>Organizer:</strong> {{ organizerName }}</div>
-    <div class="col-sm"><strong>Number of participants:</strong> {{ numberOfParticipants }}</div>
+    <div class="col-sm">
+      <strong>{{ 'event_block.organizer' | translate }}:</strong> {{ organizerName }}
+    </div>
+    <div class="col-sm">
+      <strong>{{ 'event_block.number_of_participants' | translate }}:</strong>
+      {{ numberOfParticipants }}
+    </div>
   </div>
   <div class="row">
-    <div class="col-sm"><strong>Type:</strong> {{ type }}</div>
-    <div class="col-sm"><strong>Location:</strong> {{ location }}</div>
+    <div class="col-sm">
+      <strong>{{ 'event_block.type' | translate }}:</strong> {{ type }}
+    </div>
+    <div class="col-sm">
+      <strong>{{ 'event_block.location' | translate }}:</strong> {{ location }}
+    </div>
   </div>
   <div class="row">
-    <div class="col-sm"><strong>Visibility:</strong> {{ visibility }}</div>
+    <div class="col-sm">
+      <strong>{{ 'event_block.visibility' | translate }}:</strong> {{ visibility }}
+    </div>
   </div>
   <div class="row">
     <div class="col-sm event-buttons">
@@ -33,25 +48,25 @@
         *ngIf="isParticipate"
         (click)="showEventDetails()"
       >
-        Show event details
+        {{ 'event_block.show_event_details' | translate }}
       </button>
       <button
         type="submit"
         class="btn btn-outline-light sign-in-button btn-sm"
-        [disabled]="!isHasMorePlace || isHasRequest"
+        [disabled]="!hasMorePlace || hasRequest"
         *ngIf="!isPublic && !isParticipate && isParticipateLoaded"
         (click)="requestInvitation()"
       >
-        Request invitation
+        {{ 'event_block.request_invitation' | translate }}
       </button>
       <button
         type="submit"
         class="btn btn-outline-light sign-in-button btn-sm"
-        [disabled]="!isHasMorePlace"
+        [disabled]="!hasMorePlace"
         *ngIf="isPublic && !isParticipate && isParticipateLoaded"
         (click)="joinEvent()"
       >
-        Join
+        {{ 'event_block.join' | translate }}
       </button>
     </div>
   </div>
