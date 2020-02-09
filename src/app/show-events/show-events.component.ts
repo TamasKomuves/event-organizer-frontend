@@ -18,7 +18,6 @@ export class ShowEventsComponent implements OnInit {
   eventsToShow: Array<IEvent>;
   eventTypes: any;
   selectedEventType = 'all';
-  lastSelectedEventType: string;
   isShowOnlyEventsWhereParticipate = false;
   isShowOnlyPublicEvents = false;
   isShowOnlyOwnEvents = false;
@@ -37,7 +36,6 @@ export class ShowEventsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.lastSelectedEventType = this.selectedEventType;
     this.eventService.getAllEvents().subscribe(events => {
       this.events = events;
       this.events.sort((a, b) => b.eventDate.toString().localeCompare(a.eventDate.toString()));
@@ -51,42 +49,37 @@ export class ShowEventsComponent implements OnInit {
   }
 
   searchEventsByType(): void {
-    if (this.lastSelectedEventType === this.selectedEventType) {
-      this.changeShowedEventsList();
-      return;
-    }
-
     this.numberOfEventsToShow = this.showEventsStep;
     if (this.selectedEventType === 'all') {
       this.eventService.getAllEvents().subscribe(events => {
         this.events = events;
-        this.changeShowedEventsList();
+        this.changeShowedEventsList((a, b) => b.eventDate.localeCompare(a.eventDate));
       });
     } else {
       this.eventService.getEventsByType(this.selectedEventType).subscribe(events => {
         this.events = events;
-        this.changeShowedEventsList();
+        this.changeShowedEventsList((a, b) => b.eventDate.localeCompare(a.eventDate));
       });
     }
-    this.lastSelectedEventType = this.selectedEventType;
   }
 
-  async changeShowedEventsList(): Promise<any> {
+  changeShowedEventsList(sortFunction: any): void {
     this.eventsToShow = new Array();
     const userEmail = sessionStorage.getItem('userEmail');
 
-    const eventsLength = this.events.length;
-    return new Promise(resolve => {
-      this.events.forEach((event, index) => {
-        this.eventService.isUserParticipateInEvent(event.id, userEmail).subscribe(result => {
-          if (this.isEventShowable(event, userEmail, result)) {
-            this.eventsToShow.push(event);
+    let i = 1;
+    this.events.forEach(event => {
+      this.eventService.isUserParticipateInEvent(event.id, userEmail).subscribe(result => {
+        if (this.isEventShowable(event, userEmail, result)) {
+          this.eventsToShow.push(event);
+        }
+        if (i === this.events.length) {
+          this.eventsToShowLength = this.eventsToShow.length;
+          if (sortFunction) {
+            this.eventsToShow.sort(sortFunction);
           }
-          if (index === eventsLength - 1) {
-            this.eventsToShowLength = this.eventsToShow.length;
-            resolve();
-          }
-        });
+        }
+        i++;
       });
     });
   }
@@ -110,7 +103,7 @@ export class ShowEventsComponent implements OnInit {
       this.events = events.filter(event =>
         this.includesCaseInsensitive(event.name, this.eventNameToSearch)
       );
-      this.changeShowedEventsList();
+      this.changeShowedEventsList((a, b) => b.eventDate.localeCompare(a.eventDate));
     });
   }
 
@@ -126,9 +119,7 @@ export class ShowEventsComponent implements OnInit {
           this.events = events.filter((event: IEvent) =>
             this.includesCaseInsensitive(event.country, address.country)
           );
-          this.changeShowedEventsList().then(() => {
-            this.eventsToShow.sort((a, b) => this.sortEventsByDistanceThenDate(a, b, address));
-          });
+          this.changeShowedEventsList((a, b) => this.sortEventsByDistanceThenDate(a, b, address));
         });
       });
     });
