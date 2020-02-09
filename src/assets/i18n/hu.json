@@ -9,7 +9,6 @@
   "delete": "Törlés",
   "deleted_profile": "törölt felhasználó",
 
-  "login.invalid_data": "Helytelen felhasználónév és/vagy jelszó!",
   "login.title": "Bejelentkezés",
   "login.email": "Email",
   "login.password": "Jelszó",
@@ -189,6 +188,8 @@
   "popup.settings.confirm_profile_deletion": "Biztosan törölni szeretné a felhasználói fiókját? Ez a művelet később nem vonható vissza!",
   "popup.registration.mismatching_passwords": "A jelszavak nem egyeznek!",
   "popup.registration.fill_in_all_fields": "Kérem töltse ki az összes mezőt!",
-  "popup.registration.success": "Sikeres regisztráció!",
-  "popup.registration.already_registered": "Már tartozik felhasználói fiók ehhez az emailhez!"
+  "popup.registration.success": "A regisztráció befejézéséhez kérjük kattintson az aktivációs linkre, melyet email címére küldtünk!",
+  "popup.registration.already_registered": "Már tartozik felhasználói fiók ehhez az emailhez!",
+  "popup.login.invalid_data": "Helytelen felhasználónév és/vagy jelszó!",
+  "popup.login.not_activated": "Nem aktiválta felhasználói fiókját!"
 }

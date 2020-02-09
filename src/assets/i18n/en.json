@@ -9,7 +9,6 @@
   "delete": "Delete",
   "deleted_profile": "deleted profile",
 
-  "login.invalid_data": "Invalid username and/or password!",
   "login.title": "Login",
   "login.email": "Email",
   "login.password": "Password",
@@ -189,6 +188,8 @@
   "popup.settings.confirm_profile_deletion": "Are you sure you want to delete your profile?\nThis cannot be undone!",
   "popup.registration.mismatching_passwords": "Mismatching passwords!",
   "popup.registration.fill_in_all_fields": "Please fill in all the fields!",
-  "popup.registration.success": "You successfully registered!",
-  "popup.registration.already_registered": "This email is already registered!"
+  "popup.registration.success": "To finish the registration please click on the activation link, which we sent to your email!",
+  "popup.registration.already_registered": "This email is already registered!",
+  "popup.login.invalid_data": "Invalid username and/or password!",
+  "popup.login.not_activated": "Your account is not activated!"
 }

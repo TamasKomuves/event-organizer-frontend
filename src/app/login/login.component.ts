@@ -38,8 +38,15 @@ export class LoginComponent implements OnInit {
         this.spinner.hide();
       },
       error => {
-        console.log(error);
-        this.translate.get('login.invalid_data').subscribe(text => alert(text));
+        if (error.error.message === 'invalid login and/or password') {
+          this.translate.get('popup.login.invalid_data').subscribe(text => alert(text));
+        } else if (error.error.message === 'not activated') {
+          this.translate.get('popup.login.not_activated').subscribe(text => {
+            alert(text);
+          });
+        } else {
+          console.log(error);
+        }
         this.isLoading = false;
         this.spinner.hide();
       }
