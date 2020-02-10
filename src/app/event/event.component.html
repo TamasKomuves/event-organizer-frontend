@@ -2,7 +2,7 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-3">
-      <div class="participant-div shadow p-3 mb-5 rounded border">
+      <div class="participant-div shadow p-3 mb-3 rounded border">
         <span style="font-weight: bold;">{{ 'event_page.participants' | translate }}</span>
         <ul *ngFor="let participant of participants | slice: 0:5" style="margin-top: 3%;">
           <li>{{ participant.firstName }} {{ participant.lastName }}</li>
@@ -53,6 +53,32 @@
             {{ 'event_page.view_requests' | translate }}
           </button>
         </div>
+      </div>
+      <div class="rate-div shadow p-3 mb-5 rounded border" *ngIf="isOrganizer === false">
+        <div style="margin-bottom: 8%; font-weight: bold;">
+          {{ 'event_page.rate_event_title' | translate }}
+        </div>
+        <form>
+          10 /<input
+            type="number"
+            style="margin-left: 5%; margin-bottom: 3%;"
+            min="1"
+            max="10"
+            step="0.5"
+            [(ngModel)]="eventRating"
+            name="eventRating"
+          />
+          <button
+            type="submit"
+            class="btn btn-outline-light btn-sm"
+            (click)="rateEvent()"
+            style="margin-top: 5%; margin-bottom: 3%;"
+          >
+            {{ 'event_page.rate_event_button' | translate }}
+          </button>
+          <div *ngIf="isAlreadyRated === true">({{ 'event.already_rated' | translate }})</div>
+          <div *ngIf="isAlreadyRated === false">({{ 'event.not_rated_yet' | translate }})</div>
+        </form>
       </div>
     </div>
 
@@ -137,7 +163,7 @@
         <button
           type="button"
           class="btn btn-danger btn-sm"
-          *ngIf="!isOrganizer"
+          *ngIf="isOrganizer === false"
           (click)="leaveEvent()"
         >
           {{ 'event_page.leave_event' | translate }}

@@ -191,5 +191,16 @@
   "popup.registration.success": "A regisztráció befejézéséhez kérjük kattintson az aktivációs linkre, melyet email címére küldtünk!",
   "popup.registration.already_registered": "Már tartozik felhasználói fiók ehhez az emailhez!",
   "popup.login.invalid_data": "Helytelen felhasználónév és/vagy jelszó!",
-  "popup.login.not_activated": "Nem aktiválta felhasználói fiókját!"
+  "popup.login.not_activated": "Nem aktiválta felhasználói fiókját!",
+
+  "event_block.organizer_rating": "Szervező értékelése",
+  "event_block_rating": "értékelés",
+  "event_block.no_ratings": "nincsenek értékelések",
+  "event_page.rate_event_title": "Esemény értékelése",
+  "event_page.rate_event_button": "Értékelés",
+  "event.already_rated": "Értékelte már",
+  "event.not_rated_yet": "Nem értékelte még",
+  "popup.event.invalid_number": "A megadott szám érvénytelen!",
+  "popup.event.rating_sent": "Értékelés sikeresen elküldve!",
+  "popup.event.error_during_rating": "Hiba történt az értékelés elküldése közben! Kérjük próbálja újra később!"
 }

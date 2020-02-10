@@ -39,6 +39,14 @@
     <div class="col-sm">
       <strong>{{ 'event_block.visibility' | translate }}:</strong> {{ visibility | translate }}
     </div>
+    <div class="col-sm">
+      <strong>{{ 'event_block.organizer_rating' | translate }}:</strong>
+      <span *ngIf="rating">
+        10 / {{ rating.averageRating }} ({{ rating.numberOfRatings }}
+        {{ 'event_block_rating' | translate }})
+      </span>
+      <span *ngIf="!rating"> {{ 'event_block.no_ratings' | translate }}</span>
+    </div>
   </div>
   <div class="row">
     <div class="col-sm event-buttons">

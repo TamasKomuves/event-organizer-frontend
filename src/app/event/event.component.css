@@ -2,11 +2,7 @@
   text-align: left;
 }
 
-.participant-div {
-  background-color: rgba(0, 0, 0, 0.8);
-}
-
-.info-div {
+.participant-div, .info-div, .rate-div {
   background-color: rgba(0, 0, 0, 0.8);
 }
 

@@ -7,6 +7,7 @@ import { AddressService } from '../services/rest/address.service';
 import { EventService } from '../services/rest/event.service';
 import { InvitationService } from '../services/rest/invitation.service';
 import { TranslateService } from '@ngx-translate/core';
+import { IOrganizerRating } from '../interface/IOrganizerRating';
 
 @Component({
   selector: 'app-event-block',
@@ -29,6 +30,7 @@ export class EventBlockComponent implements OnInit {
   hasMorePlace = false;
   hasRequest = true;
   isParticipateLoaded = false;
+  rating: IOrganizerRating;
 
   constructor(
     private userService: UserService,
@@ -70,20 +72,15 @@ export class EventBlockComponent implements OnInit {
         });
       }
 
-      this.userService.getCurrentUser().subscribe(currentUser => {
-        this.invitationService
-          .isUserHasRequest(this.eventId, currentUser.email)
-          .subscribe(result => {
-            this.hasRequest = result['result'] === 'true';
-          });
+      const userEmail = sessionStorage.getItem('userEmail');
+      this.invitationService.isUserHasRequest(this.eventId, userEmail).subscribe(result => {
+        this.hasRequest = result['result'] === 'true';
+      });
 
-        this.eventService
-          .isUserParticipateInEvent(this.eventId, currentUser.email)
-          .subscribe(result => {
-            this.isParticipate = result['result'] === 'true';
-            this.isParticipateLoaded = true;
-            this.spinner.hide(this.spinnerName);
-          });
+      this.eventService.isUserParticipateInEvent(this.eventId, userEmail).subscribe(result => {
+        this.isParticipate = result['result'] === 'true';
+        this.isParticipateLoaded = true;
+        this.spinner.hide(this.spinnerName);
       });
 
       this.isPublic = this.visibility === 'public';
@@ -95,6 +92,12 @@ export class EventBlockComponent implements OnInit {
 
     this.eventService.getEventParticipants(this.eventId).subscribe(participants => {
       this.numberOfParticipants = participants.length;
+    });
+    this.eventService.getOrganizerReputation(this.eventId).subscribe((rating: IOrganizerRating) => {
+      this.rating = rating;
+      if (rating) {
+        rating.averageRating = Math.round(rating.averageRating * 2) / 2;
+      }
     });
   }
 

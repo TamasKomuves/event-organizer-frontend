@@ -6,6 +6,7 @@ import { IUser } from 'src/app/interface/IUser';
 import { IEventCreator } from 'src/app/interface/IEventCreator';
 import { IInvitation } from 'src/app/interface/IInvitation';
 import { INews } from 'src/app/interface/INews';
+import { IOrganizerRating } from 'src/app/interface/IOrganizerRating';
 
 @Injectable({
   providedIn: 'root'
@@ -83,5 +84,20 @@ export class EventService extends BaseRestService {
   deleteParticipant(eventId: number, email: string) {
     const url = 'events/' + eventId + '/participants/' + email + '/delete';
     return this.deleteMethod(url);
+  }
+
+  getUserEventRating(eventId: number) {
+    const url = 'events/' + eventId + '/rating-of-user';
+    return this.getMethod(url);
+  }
+
+  rateEvent(eventId: number, rating: number) {
+    const url = 'events/' + eventId + '/rate-event/' + rating;
+    return this.postMethod(url, null);
+  }
+
+  getOrganizerReputation(eventId: number) {
+    const url = 'events/' + eventId + '/organizer-reputation';
+    return this.getMethod<IOrganizerRating>(url);
   }
 }

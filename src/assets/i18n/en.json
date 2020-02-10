@@ -191,5 +191,16 @@
   "popup.registration.success": "To finish the registration please click on the activation link, which we sent to your email!",
   "popup.registration.already_registered": "This email is already registered!",
   "popup.login.invalid_data": "Invalid username and/or password!",
-  "popup.login.not_activated": "Your account is not activated!"
+  "popup.login.not_activated": "Your account is not activated!",
+
+  "event_block.organizer_rating": "Organizer ratings",
+  "event_block_rating": "rating",
+  "event_block.no_ratings": "no ratings",
+  "event_page.rate_event_title": "Event rating",
+  "event_page.rate_event_button": "Rate",
+  "event.already_rated": "Already rated",
+  "event.not_rated_yet": "Not rated yet",
+  "popup.event.invalid_number": "Invalid number!",
+  "popup.event.rating_sent": "Rating successfully sent!",
+  "popup.event.error_during_rating": "An error occured during the sending of the rating! Please try again later!"
 }

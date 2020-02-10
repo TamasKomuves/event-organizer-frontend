@@ -30,12 +30,14 @@ export class EventComponent implements OnInit, AfterViewInit {
   newsList: Array<INews>;
   newPostText: string;
   invitedUserEmail: string;
-  isOrganizer = false;
+  isOrganizer: boolean;
   address: string;
   visibility: string;
   showNewsStep = 6;
   numberOfNewsToShow = this.showNewsStep;
   newsLength = 0;
+  eventRating: number;
+  isAlreadyRated: boolean;
 
   constructor(
     private userService: UserService,
@@ -67,6 +69,15 @@ export class EventComponent implements OnInit, AfterViewInit {
         (news: INews) => news.type !== result['type'] || news.id !== result['newsId']
       );
     });
+    this.eventService.getUserEventRating(this.eventId).subscribe(
+      (rating: number) => {
+        this.eventRating = rating;
+        this.isAlreadyRated = true;
+      },
+      () => {
+        this.isAlreadyRated = false;
+      }
+    );
   }
 
   ngAfterViewInit() {
@@ -193,6 +204,28 @@ export class EventComponent implements OnInit, AfterViewInit {
         });
       }
     });
+  }
+
+  rateEvent(): void {
+    if (this.eventRating < 1 || this.eventRating > 10 || this.eventRating % 0.5 !== 0) {
+      this.translate.get('popup.event.invalid_number').subscribe(text => {
+        alert(text);
+      });
+      return;
+    }
+    this.eventService.rateEvent(this.eventId, this.eventRating).subscribe(
+      () => {
+        this.isAlreadyRated = true;
+        this.translate.get('popup.event.rating_sent').subscribe(text => {
+          alert(text);
+        });
+      },
+      () => {
+        this.translate.get('popup.event.error_during_rating').subscribe(text => {
+          alert(text);
+        });
+      }
+    );
   }
 
   openViewRequestsModal(): void {
