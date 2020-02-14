@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="name">
+    <h1>{{ 'chat_messages.bot_name' | translate }}</h1>
+  </div>
+  <div class="scrollbar-div" #scrollbarDiv>
+    <div style="padding: 3% 3% 1% 3%;">
+      <div
+        [ngClass]="isUserSent(message) ? 'row own-message' : 'row other-message'"
+        *ngFor="let message of messages"
+      >
+        <div class="message-box">
+          {{ message.text }}
+        </div>
+        <div class="date">
+          {{ message.date | date: 'yyyy-MM-dd HH:mm:ss' }}
+        </div>
+      </div>
+      <div>
+        <form>
+          <input
+            class="message-input"
+            type="text"
+            autofocus
+            name="newMessageText"
+            [(ngModel)]="newMessageText"
+            placeholder="{{ 'chat_messages.write_message' | translate }}"
+          />
+          <button type="submit" (click)="sendMessage()">
+            {{ 'chat_messages.send' | translate }}
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

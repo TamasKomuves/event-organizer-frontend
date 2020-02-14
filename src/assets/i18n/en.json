@@ -202,5 +202,9 @@
   "event.not_rated_yet": "Not rated yet",
   "popup.event.invalid_number": "Invalid number!",
   "popup.event.rating_sent": "Rating successfully sent!",
-  "popup.event.error_during_rating": "An error occured during the sending of the rating! Please try again later!"
+  "popup.event.error_during_rating": "An error occured during the sending of the rating! Please try again later!",
+
+  "chat_messages.chat_with_bot": "Chat with bot",
+  "chat_messages.chatbot_only_available_in_english": "(Only available in english)",
+  "chat_messages.bot_name": "Event organizer bot"
 }

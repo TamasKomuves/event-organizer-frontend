@@ -202,5 +202,9 @@
   "event.not_rated_yet": "Nem értékelte még",
   "popup.event.invalid_number": "A megadott szám érvénytelen!",
   "popup.event.rating_sent": "Értékelés sikeresen elküldve!",
-  "popup.event.error_during_rating": "Hiba történt az értékelés elküldése közben! Kérjük próbálja újra később!"
+  "popup.event.error_during_rating": "Hiba történt az értékelés elküldése közben! Kérjük próbálja újra később!",
+
+  "chat_messages.chat_with_bot": "Üzenet a bot-nak",
+  "chat_messages.chatbot_only_available_in_english": "(Csak angolul érhető el)",
+  "chat_messages.bot_name": "Event organizer bot"
 }

@@ -42,6 +42,7 @@ import { WebsocketService } from './services/websocket.service';
 import { DlDateTimeDateModule, DlDateTimePickerModule } from 'angular-bootstrap-datetimepicker';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { ChatBotPageComponent } from './chat-bot-page/chat-bot-page.component';
 
 export const createTranslateLoader = (httpClient: HttpClient) => {
   return new TranslateHttpLoader(httpClient, 'assets/i18n/', '.json');
@@ -75,7 +76,8 @@ export const createTranslateLoader = (httpClient: HttpClient) => {
     MessagesContainerComponent,
     FindUserToMessageModalComponent,
     ChatPageComponent,
-    MessagesContainerBlockComponent
+    MessagesContainerBlockComponent,
+    ChatBotPageComponent
   ],
   imports: [
     BrowserModule,

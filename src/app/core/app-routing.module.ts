@@ -11,6 +11,7 @@ import { NotificationsComponent } from '../notifications/notifications.component
 import { HomeComponent } from '../home/home.component';
 import { MessagesContainerComponent } from '../messages-container/messages-container.component';
 import { ChatPageComponent } from '../chat-page/chat-page.component';
+import { ChatBotPageComponent } from '../chat-bot-page/chat-bot-page.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -23,7 +24,8 @@ const routes: Routes = [
   { path: 'notifications', component: NotificationsComponent },
   { path: 'home', component: HomeComponent },
   { path: 'messages-container', component: MessagesContainerComponent },
-  { path: 'chat-page', component: ChatPageComponent }
+  { path: 'chat-page', component: ChatPageComponent },
+  { path: 'chat-bot-page', component: ChatBotPageComponent }
 ];
 
 @NgModule({

@@ -4,6 +4,7 @@ import { IChatMessage } from '../interface/IChatMessage';
 import { WebsocketService } from '../services/websocket.service';
 import { ISubscription } from '../interface/ISubscription';
 import { ChatMessageService } from '../services/rest/chat-message.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-messages-container',
@@ -16,7 +17,8 @@ export class MessagesContainerComponent implements OnInit, OnDestroy {
   constructor(
     private ngxSmartModalService: NgxSmartModalService,
     private websocketService: WebsocketService,
-    private chatMessageService: ChatMessageService
+    private chatMessageService: ChatMessageService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -60,5 +62,9 @@ export class MessagesContainerComponent implements OnInit, OnDestroy {
     return chatMessage.senderEmail !== userEmail
       ? chatMessage.senderEmail
       : chatMessage.receiverEmail;
+  }
+
+  openChatBotPage(): void {
+    this.router.navigate(['/chat-bot-page']);
   }
 }

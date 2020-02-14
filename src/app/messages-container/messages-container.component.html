@@ -8,6 +8,16 @@
       (click)="openFindUserToMessageModal()"
       style="margin: 1% 0 2% 1%;"
     />
+    <input
+      type="button"
+      class="btn btn-dark btn-lg"
+      value="{{ 'chat_messages.chat_with_bot' | translate }}"
+      (click)="openChatBotPage()"
+      style="margin: 1% 0 2% 1%;"
+    />
+    <span style="margin-top: 2%; margin-left: 1%;">{{
+      'chat_messages.chatbot_only_available_in_english' | translate
+    }}</span>
   </div>
   <div class="message-block" *ngFor="let chatMessage of chatMessages">
     <app-messages-container-block [chatMessage]="chatMessage"></app-messages-container-block>
