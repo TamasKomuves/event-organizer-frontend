@@ -1,27 +1,26 @@
 .main-container {
-  margin-left: 35%;
-  margin-right: 35%;
-  padding-left: 1%;
   background-color: rgba(0, 0, 0, 0.8);
-}
-
-.form-group {
-  margin-bottom: 6%;
+  padding: 7% 7% 2% 7%;
 }
 
 .sign-in-button {
-  margin-top: 6%;
-  margin-bottom: 3%;
+  margin-top: 5%;
+  margin-bottom: 2%;
 }
 
 .btn-mini {
   height: auto;
   line-height: 20px;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.7);
+  margin-top: 15%;
 }
 
 select.btn {
   -webkit-appearance: button;
   -moz-appearance: button;
   appearance: button;
+}
+
+.or-div {
+  margin-bottom: 2%;
 }
