@@ -14,6 +14,8 @@ export class LoginComponent implements OnInit {
   email: string;
   password: string;
   isLoading = false;
+  languages = ['hu', 'en'];
+  selectedLanguage = this.languages[0];
 
   constructor(
     private userService: UserService,
@@ -23,7 +25,9 @@ export class LoginComponent implements OnInit {
     private translate: TranslateService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.selectedLanguage = this.translate.currentLang;
+  }
 
   login(): void {
     this.spinner.show();
@@ -51,5 +55,9 @@ export class LoginComponent implements OnInit {
         this.spinner.hide();
       }
     );
+  }
+
+  changeLanguage(): void {
+    this.translate.use(this.selectedLanguage);
   }
 }

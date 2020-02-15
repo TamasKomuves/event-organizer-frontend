@@ -206,5 +206,6 @@
 
   "chat_messages.chat_with_bot": "Üzenet a bot-nak",
   "chat_messages.chatbot_only_available_in_english": "(Csak angolul érhető el)",
-  "chat_messages.bot_name": "Event organizer bot"
+  "chat_messages.bot_name": "Event organizer bot",
+  "login.language_selector": "Válasszon nyelvet"
 }

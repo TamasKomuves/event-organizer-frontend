@@ -24,7 +24,7 @@
       <div class="col-sm-6">
         {{ 'event_properties.visibility' | translate }}
         <select class="form-control" [(ngModel)]="visibility" name="visibility">
-          <option [value]="" disabled>Visibility</option>
+          <option [value]="" disabled>{{ 'event_properties.visibility' | translate }}</option>
           <option [value]="visibility" *ngFor="let visibility of visibilities">{{
             visibility | translate
           }}</option>

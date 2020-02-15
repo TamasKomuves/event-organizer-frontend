@@ -36,12 +36,24 @@
         >
           {{ 'login.sign_in' | translate }}
         </button>
-        <br />
-        {{ 'or' | translate }} <br />
+        <div style="margin-bottom: 3%;">{{ 'or' | translate }}</div>
         <a href="/registration">{{ 'login.create_account' | translate }}</a>
       </div>
     </div>
   </form>
+  <div style="text-align: right; margin-top: 10%;">
+    <select
+      class="btn btn-mini btn-dark"
+      [(ngModel)]="selectedLanguage"
+      name="selectedLanguage"
+      (change)="changeLanguage()"
+    >
+      <option [value]="" disabled>{{ 'login.language_selector' | translate }}</option>
+      <option [value]="language" *ngFor="let language of languages">{{
+        language | translate
+      }}</option>
+    </select>
+  </div>
 </div>
 <ngx-spinner
   bdOpacity="0.2"

@@ -206,5 +206,6 @@
 
   "chat_messages.chat_with_bot": "Chat with bot",
   "chat_messages.chatbot_only_available_in_english": "(Only available in english)",
-  "chat_messages.bot_name": "Event organizer bot"
+  "chat_messages.bot_name": "Event organizer bot",
+  "login.language_selector": "Select language"
 }
