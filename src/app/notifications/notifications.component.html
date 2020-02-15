@@ -1,6 +1,10 @@
 <h1 class="page-title">{{ 'notifications.title' | translate }}</h1>
 <div class="container" style="text-align: left;">
-  <div *ngFor="let invitation of invitations">
-    <app-notification-block [invitationId]="invitation.id"></app-notification-block>
+  <div class="row" *ngFor="let invitation of invitations">
+    <div class="col-sm col-md col-lg"></div>
+    <div class="col-sm-12 col-md-8 col-lg-7">
+      <app-notification-block [invitationId]="invitation.id"></app-notification-block>
+    </div>
+    <div class="col-sm col-md col-lg"></div>
   </div>
 </div>
