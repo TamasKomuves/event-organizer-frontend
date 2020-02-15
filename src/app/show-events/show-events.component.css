@@ -9,4 +9,14 @@
 .left-panel {
   padding: 5%;
   background-color: rgba(0, 0, 0, 0.8);
+  margin-bottom: 10%;
+}
+
+#show-more-button {
+  background-color: rgba(0, 0, 0, 0.9);
+  margin-bottom: 3%;
+}
+
+.event-block {
+  margin-bottom: 3%;
 }
