@@ -1,11 +1,14 @@
 .main-container {
-  margin-left: 20%;
-  margin-right: 20%;
   padding-left: 1%;
   padding-right: 1%;
   background-color: rgba(0, 0, 0, 0.8);
 }
 
-.form-group {
-  margin-bottom: 3%;
+.col-sm-6 {
+  margin-bottom: 2%;
+}
+
+.register-button {
+  margin-top: 1%;
+  margin-bottom: 1%;
 }
