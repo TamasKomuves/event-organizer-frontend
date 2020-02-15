@@ -10,12 +10,11 @@
         <button
           type="button"
           class="btn btn-outline-light btn-sm"
+          style="margin-bottom: 10%;"
           (click)="openEventParticipantsModal()"
         >
           {{ 'event_page.show_all_participants' | translate }}
         </button>
-        <br />
-        <br />
         <div *ngIf="visibility === 'restricted' || visibility === 'private'">
           <form>
             <div style="margin-bottom: 8%; font-weight: bold;">
@@ -27,23 +26,25 @@
               [(ngModel)]="invitedUserEmail"
               name="invitedUserEmail"
               placeholder="{{ 'event_page.invitee_email' | translate }}"
-              style="margin-bottom: 7%;"
+              style="margin-bottom: 8%;"
             />
-            <button type="submit" class="btn btn-outline-light btn-sm" (click)="inviteUser()">
+            <button
+              type="submit"
+              class="btn btn-outline-light btn-sm"
+              (click)="inviteUser()"
+              style="margin-bottom: 8%;"
+            >
               {{ 'event_page.invite_user' | translate }}
             </button>
           </form>
-          <br />
-          <br />
           <button
             type="button"
             class="btn btn-outline-light btn-sm"
             (click)="openInvitationOffersModal()"
+            style="margin-bottom: 8%;"
           >
             {{ 'event_page.show_invitees' | translate }}
           </button>
-          <br />
-          <br />
           <button
             type="button"
             class="btn btn-outline-light btn-sm"
@@ -82,7 +83,7 @@
       </div>
     </div>
 
-    <div class="col-sm-6" style="background-color: rgba(0,0,0,0.8); padding-top: 2%;">
+    <div class="col-sm-6 border main-content">
       <div style="margin-bottom: 12%;">
         <div class="md-form" style="margin-bottom: 3%;">
           <textarea
@@ -125,7 +126,7 @@
 
     <div class="col-sm-3">
       <div class="info-div shadow p-3 mb-5 rounded border">
-        <p>
+        <p style="text-align: center;">
           <span>{{ 'event_page.event_info.title' | translate }}</span>
         </p>
         <p>
