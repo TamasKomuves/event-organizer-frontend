@@ -1,4 +1,4 @@
-.container {
+.main-content {
   background-color: rgba(0, 0, 0, 0.9);
   padding: 1% 2% 2% 3%;
   text-align: left;
@@ -10,8 +10,9 @@
 }
 
 .message-box {
-  padding: 0.5%;
+  padding: 1%;
   border-radius: 20px;
+  display: inline-block;
 }
 
 .own-message > .message-box {
@@ -19,17 +20,13 @@
   background-color: blue;
 }
 
-.own-message > .date {
-  margin-right: 55%;
-}
-
 .other-message > .message-box {
-  margin-left: 55%;
+  margin-left: 50%;
   background-color: gray;
 }
 
 .other-message > .date {
-  margin-left: 55%;
+  margin-left: 50%;
 }
 
 .name {

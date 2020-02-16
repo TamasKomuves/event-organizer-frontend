@@ -21,12 +21,12 @@
 }
 
 .other-message > .message-box {
-  margin-left: 55%;
+  margin-left: 50%;
   background-color: gray;
 }
 
 .other-message > .date {
-  margin-left: 55%;
+  margin-left: 50%;
 }
 
 .name {
