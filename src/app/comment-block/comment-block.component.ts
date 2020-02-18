@@ -38,7 +38,7 @@ export class CommentBlockComponent implements OnInit {
       this.text = comment.text;
       this.commentDate = comment.commentDate;
 
-      if (comment.commenterEmail === null) {
+      if (comment.commenterEmail === undefined || comment.commenterEmail === null) {
         this.translate.get('deleted_profile').subscribe(text => {
           this.commenterName = text;
         });
