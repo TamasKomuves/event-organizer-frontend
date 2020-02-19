@@ -47,7 +47,7 @@ export class PostBlockComponent implements OnInit {
       this.text = post.text;
       this.date = post.date;
 
-      if (post.posterEmail === null) {
+      if (post.posterEmail === null || post.posterEmail === undefined) {
         this.translateService.get('deleted_profile').subscribe(text => {
           this.posterName = text;
         });
@@ -123,6 +123,7 @@ export class PostBlockComponent implements OnInit {
         this.commentText = '';
         this.postService.getPostComments(this.postId).subscribe(comments => {
           this.comments = comments;
+          this.comments.sort((a, b) => a.commentDate.localeCompare(b.commentDate));
           this.isAnyComment = this.comments !== undefined && this.comments.length > 0;
           if (!this.isShowComments) {
             this.toggleCommentVisibility();

@@ -130,7 +130,7 @@ export class EventComponent implements OnInit, AfterViewInit {
 
     const post: IPost = { eventId: this.eventId, text: this.newPostText };
 
-    this.postService.createPost(post).subscribe(result => {
+    this.postService.createPost(post).subscribe(() => {
       this.newPostText = '';
       this.updateNewsFeed();
     });
