@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { UserService } from '../services/rest/user.service';
 import { PollAnswerService } from '../services/rest/poll-answer.service';
 
 @Component({
@@ -18,7 +17,7 @@ export class PollAnswerComponent implements OnInit {
   numberOfVotes = 0;
   isLoaded = false;
 
-  constructor(private userService: UserService, private pollAnswerService: PollAnswerService) {}
+  constructor(private pollAnswerService: PollAnswerService) {}
 
   ngOnInit() {
     this.checkboxId = 'checkbox' + this.answerId;
