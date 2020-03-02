@@ -48,8 +48,6 @@ export class LoginComponent implements OnInit {
           this.translate.get('popup.login.not_activated').subscribe(text => {
             alert(text);
           });
-        } else {
-          console.log(error);
         }
         this.isLoading = false;
         this.spinner.hide();
