@@ -13,7 +13,7 @@ export class ChatBotPageComponent implements OnInit, AfterViewChecked {
   messages: Array<IBotMessage> = new Array<IBotMessage>();
   newMessageText: string;
 
-  constructor(private botChatService: TensorflowChatServiceService) {}
+  constructor(public botChatService: TensorflowChatServiceService) {}
 
   ngOnInit() {}
 
