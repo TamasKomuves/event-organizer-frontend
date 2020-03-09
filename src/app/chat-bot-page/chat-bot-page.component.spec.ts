@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { IBotMessage } from '../interface/IBotMessage';
 
-fdescribe('ChatBotPageComponent', () => {
+describe('ChatBotPageComponent', () => {
   let component: ChatBotPageComponent;
   let fixture: ComponentFixture<ChatBotPageComponent>;
 
