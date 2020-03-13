@@ -1,7 +1,9 @@
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
 import { ISubscription } from '../interface/ISubscription';
+import { Injectable } from "@angular/core";
 
+@Injectable()
 export class WebsocketService {
   stompClient: any;
   subscriptionMap: Map<string, ISubscription> = new Map();
