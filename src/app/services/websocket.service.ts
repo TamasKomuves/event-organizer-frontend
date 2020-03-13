@@ -1,7 +1,8 @@
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
 import { ISubscription } from '../interface/ISubscription';
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class WebsocketService {
@@ -27,7 +28,7 @@ export class WebsocketService {
   connect(): void {
     if (this.stompClient === undefined && !this.isConnecting) {
       this.isConnecting = true;
-      const ws = new SockJS('http://localhost:8080/socket/?t=' + sessionStorage.getItem('token'));
+      const ws = new SockJS(environment.apiUrl + 'socket/?t=' + sessionStorage.getItem('token'));
       this.stompClient = Stomp.over(ws);
       this.stompClient.debug = () => {};
     }
