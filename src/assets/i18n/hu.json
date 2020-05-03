@@ -190,6 +190,8 @@
   "popup.registration.fill_in_all_fields": "Kérem töltse ki az összes mezőt!",
   "popup.registration.success": "A regisztráció befejézéséhez kérjük kattintson az aktivációs linkre, melyet email címére küldtünk!",
   "popup.registration.already_registered": "Már tartozik felhasználói fiók ehhez az emailhez!",
+  "popup.registration.unknown_error": "Ismeretlen hiba lépett fel a regisztráció közben! Kérjük próbálja később!",
+  "popup.registration.email_error": "Hiba a regisztrációs email küldésekor! Fiókját automatikusan aktiváltuk!",
   "popup.login.invalid_data": "Helytelen felhasználónév és/vagy jelszó!",
   "popup.login.not_activated": "Nem aktiválta felhasználói fiókját!",
 

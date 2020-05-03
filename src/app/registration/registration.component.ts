@@ -30,7 +30,7 @@ export class RegistrationComponent implements OnInit {
 
   register(): void {
     if (this.password !== this.passwordAgain) {
-      this.translate.get('popup.registration.mismatching_passwords').subscribe(text => {
+      this.translate.get('popup.registration.mismatching_passwords').subscribe((text) => {
         alert(text);
       });
       return;
@@ -46,7 +46,7 @@ export class RegistrationComponent implements OnInit {
       this.street === undefined ||
       this.streetNumber === undefined
     ) {
-      this.translate.get('popup.registration.fill_in_all_fields').subscribe(text => {
+      this.translate.get('popup.registration.fill_in_all_fields').subscribe((text) => {
         alert(text);
       });
       return;
@@ -60,25 +60,32 @@ export class RegistrationComponent implements OnInit {
       country: this.country,
       city: this.city,
       street: this.street,
-      streetNumber: this.streetNumber
+      streetNumber: this.streetNumber,
     };
 
     this.userService.register(user).subscribe(
-      data => {
+      (data) => {
         if (data['result'] === 'success') {
-          this.translate.get('popup.registration.success').subscribe(text => {
+          this.translate.get('popup.registration.success').subscribe((text) => {
             alert(text);
           });
           this.router.navigateByUrl('/login');
+        } else if (data['result'] === 'email error') {
+          this.translate.get('popup.registration.email_error').subscribe((text) => {
+            alert(text);
+          });
         }
       },
-      error => {
+      (error) => {
         if (error.error.message === 'exists') {
-          this.translate.get('popup.registration.already_registered').subscribe(text => {
+          this.translate.get('popup.registration.already_registered').subscribe((text) => {
             alert(text);
           });
         } else {
           console.log(error);
+          this.translate.get('popup.registration.unknown_error').subscribe((text) => {
+            alert(text);
+          });
         }
       }
     );

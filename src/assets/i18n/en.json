@@ -190,6 +190,8 @@
   "popup.registration.fill_in_all_fields": "Please fill in all the fields!",
   "popup.registration.success": "To finish the registration please click on the activation link, which we sent to your email!",
   "popup.registration.already_registered": "This email is already registered!",
+  "popup.registration.unknown_error": "An unknown error occured during the process! Please try again later!",
+  "popup.registration.email_error": "Error during sending the activation link! Your profile is automatically activated!",
   "popup.login.invalid_data": "Invalid username and/or password!",
   "popup.login.not_activated": "Your account is not activated!",
 
